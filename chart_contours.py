@@ -30,6 +30,7 @@ def adjust_gamma(image, gamma=1.0):
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-ext", "--extension", required=False, default='png', help="extension name. default is 'png'.")
+ap.add_argument("-p", "--path", required=False, default='.', help="path to video frame files default is ./")
 ap.add_argument("-t", "--time", required=False, type = float, default=0.033333333, help="Time between frames. Default is 1/30 s")
 ap.add_argument("-g", "--gamma", required=True, type=float,
 	help="value of gamma")
@@ -41,11 +42,12 @@ args = vars(ap.parse_args())
 gamma = args["gamma"]
 black = args["black"]
 white = args["white"]
+path = args["path"]
 
 args = vars(ap.parse_args())
 
 # Arguments
-dir_path = '.'
+dir_path = path
 ext = args['extension']
 timedelay = args['time']
 
