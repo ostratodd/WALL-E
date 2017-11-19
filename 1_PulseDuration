@@ -13,6 +13,18 @@
 #mv data/mgl/005955.png data/mgl/original/005955.png
 #mv data/mgl/005956.png data/mgl/original/005956.png 
 
+	#14153-14156
+#./adjust_gamma.py -g 1 -i data/mgl/original/014153.png -o data/mgl/014153.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/014154.png -o data/mgl/014154.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/014155.png -o data/mgl/014155.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/014156.png -o data/mgl/014156.png -b 145 -w 255
+
+	#17165-8
+#./adjust_gamma.py -g 1 -i data/mgl/original/017165.png -o data/mgl/017165.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/017166.png -o data/mgl/017166.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/017167.png -o data/mgl/017167.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/017168.png -o data/mgl/017168.png -b 145 -w 255
+
 
 #Now analyze
 ./chart_contours.py -p ./data/mgl/ -g .8 -t 0 -b 110 -w 255 > contours_MGL.csv
