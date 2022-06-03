@@ -1,0 +1,20 @@
+#Play videos side-by-side
+#Manually hit the letter 'c' to capture video with checkerboards
+#Want to target times when the board is not moving because if videos are not
+#perfectly in sync and board is moving, they boards will be at "different places" leading
+#to very poor stereo rectification, or inability to rectify at all
+
+#python collect_stereo_pairs.py -v1 /Users/oakley/Documents/GitHub/WALL-E/video_data/aquarium_pan/checkerboards/163134-2.mkv -v2 /Users/oakley/Documents/GitHub/WALL-E/video_data/aquarium_pan/checkerboards/163134-1.mkv
+
+
+
+##Next use captured images to calibrate each camera separately to account for fisheye
+
+#had to move images from stills into separate L and R directories
+#python ../../2_stereo_rectification_scripts/single_camera_calibration.py --image_dir stills --image_format png --prefix CHECKER_L --square_size 1.5 --width 9 --height 7 --save_file left_calibrate
+#python ../../2_stereo_rectification_scripts/single_camera_calibration.py --image_dir stills --image_format png --prefix CHECKER_R --square_size 1.5 --width 9 --height 7 --save_file right_calibrate
+
+
+#Now do stereo rectification using the same pictures
+python ../../2_stereo_rectification_scripts/stereo_camera_calibration.py --left_file left_calibrate --right_file right_calibrate --left_dir stills --right_dir stills --left_prefix CHECKER_L --right_prefix CHECKER_R --image_format png --square_size 1.5 --width 9 --height 7 --save_file aquarium.yml
+

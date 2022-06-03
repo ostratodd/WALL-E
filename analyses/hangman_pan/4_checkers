@@ -1,0 +1,3 @@
+python ../../2_stereo_rectification_scripts/collect_stereo_pairs.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13800 -b 0 -w 255 -d .1 -o 13
+
+

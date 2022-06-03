@@ -1,0 +1,18 @@
+#Convert original videos from asf to mkv format 
+#those are container formats
+#use constant frame rate codec
+#original files are too large to keep on GitHub
+
+
+
+#Begin with checkerboard videos
+#links to ASF files
+
+
+cd ../../video_data/aquarium_pan/checkerboards
+
+#checkerboard videos
+#These work in conda base -- install of ffmpeg in conda doesn't seem to have H.265
+ffmpeg -i 163134-1.ASF -f matroska -vcodec libx265 -an -framerate 30 163134-1.mkv
+ffmpeg -i 163134-2.ASF -f matroska -vcodec libx265 -an -framerate 30 163134-2.mkv
+

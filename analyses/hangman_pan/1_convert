@@ -1,0 +1,26 @@
+#Convert original videos from asf to mkv format 
+#those are container formats
+#use constant frame rate codec
+#original files are too large to keep on GitHub
+
+#Need to use ffmpeg in base conda on laptop
+
+
+#Begin with checkerboard videos
+#links to ASF files
+#https://drive.google.com/file/d/1kGIRJOB2PoSA2_UQF0Vl7v7FkYzBlcm0/view?usp=sharing
+#https://drive.google.com/file/d/1DvkhoebXzOrJLv8ZfeKdwzJi0IyRy_nZ/view?usp=sharing
+
+
+cd ../../video_data/hangman_pan/checkerboards
+
+#checkerboard videos
+ffmpeg -i 174157-1.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 174157-1.mkv
+ffmpeg -i 174159-2.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 174159-2.mkv
+
+
+cd ../displays/
+#Video with displays
+ffmpeg -i 181200-1.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 181200-1.mkv
+ffmpeg -i 181200-2.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 181200-2.mkv
+

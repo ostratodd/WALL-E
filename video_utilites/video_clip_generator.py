@@ -28,9 +28,12 @@ def generate_clip(left_video_filename, right_video_filename, start_frame, end_fr
         # right_img = cv2.flip(right_img, -1)
         cp_right_video.write(right_img)
 
+        
         left_succ, left_img = vfl.get_next_left_frame()
         right_succ, right_img = vfl.get_next_right_frame()
         frame += 1
+        cv2.imshow('clipping window',left_succ)
+
 
     print("Done! Your videos have been placed in the paths \"" +
           new_filename_l + "\" and \"" + new_filename_r + "\"")
@@ -63,3 +66,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

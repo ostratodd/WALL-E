@@ -1,0 +1,43 @@
+echo "The best way to synchronize videos seems to be manually, using tools like play2vids.py"
+echo "the offset seems best at -9. There are 2 flashes in the video for alignment"
+echo "checkerboards start at 13700-14250"
+
+
+#
+##Arguments are as follows:
+#-v1 and -v2 are the names of the videos to compare
+#-o is the number of frames to OFFSET
+#This is the values that needs to be adjusted to get the 2 videos in sync as much as possible
+#
+#-s is where to start the video, so you don't have to watch the whole thing every time
+#-d is the delay between frames, to allow you to watch in slo-mo to really compare appearance of pulses
+#
+#-g -b -w are parameters that clean up noise for viewing the videos
+#
+#
+#optional arguments:
+#  -h, --help            show this help message and exit
+#  -p PATH, --path PATH  path to video frame files default is ./
+#  -v1 VIDEO1, --video1 VIDEO1
+#                        file name for first video
+#  -v2 VIDEO2, --video2 VIDEO2
+#                        filename for second video
+#  -g GAMMA, --gamma GAMMA
+#                        value of gamma
+#  -b BLACK, --black BLACK
+#                        threshold below which is black
+#  -w WHITE, --white WHITE
+#                        threshold above which is white
+#  -s START, --start START
+#                        frame to start at default = 1
+#  -o OFFSET, --offset OFFSET
+#                        number of frames to offset two videos, positive or
+#                        negative
+#  -d DELAY, --delay DELAY
+#                        delay time between frames for slo-mo
+#
+
+
+python ../../video_utilites/play2vids.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13015 -b 0 -w 255 -d 0.03 -o 13
+
+

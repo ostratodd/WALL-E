@@ -1,0 +1,10 @@
+#*****Clipping not working not sure why
+
+#Clip checkerboards from video
+python ../../video_utilites/video_clip_generator.py -s 13700 -e 14250 ../../video_data/hangman_pan/checkerboards/174159-2.mkv ../../video_data/hangman_pan/checkerboards/174157-1.mkv
+
+echo "Playing clips with offset at regular speec"
+
+python ../../video_utilites/play2vids.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2_clip_13700_14250.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1_clip_13700_14250.mkv  -b 0 -w 255 -d 0.3 -o -9
+
+
