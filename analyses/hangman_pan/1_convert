@@ -1,7 +1,7 @@
 #Convert original videos from asf to mkv format 
 #those are container formats
-#use constant frame rate codec
-#original files are too large to keep on GitHub
+#use constant frame rate codec so that videos can by synced frame by frame
+#original files are too large to keep on GitHub so links are present to 
 
 #Need to use ffmpeg in base conda on laptop
 

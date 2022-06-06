@@ -1,7 +1,0 @@
-#had to move images from stills into separate L and R directories
-python ../../2_stereo_rectification_scripts/single_camera_calibration.py --image_dir stills --image_format png --prefix CHECKER_L --square_size 2.0 --width 8 --height 6 --save_file left_calibrate
-python ../../2_stereo_rectification_scripts/single_camera_calibration.py --image_dir stills --image_format png --prefix CHECKER_R --square_size 2.0 --width 8 --height 6 --save_file right_calibrate
-
-#Now do stereo rectification using the same pictures
-python ../../2_stereo_rectification_scripts/stereo_camera_calibration.py --left_file left_calibrate --right_file right_calibrate --left_dir stills --right_dir stills --left_prefix CHECKER_L --right_prefix CHECKER_R --image_format png --square_size 1.5 --width 8 --height 6 --save_file new_hangman.yml
-

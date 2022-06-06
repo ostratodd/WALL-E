@@ -1,0 +1,4 @@
+#*****Clip all the checkerboard footage just to check rectification
+#python ../../video_utilites/clip2vids.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13700 -e 14250 -o 13
+
+python ../../2_stereo_rectification_scripts/rectify_videos.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2_clip_13700_14250.mkv -v2 ../../video_data/hangman_pan/checkerboards/174159-2_clip_13700_14250.mkv -l 1 -d .3

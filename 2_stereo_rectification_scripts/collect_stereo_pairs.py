@@ -5,8 +5,8 @@ import time
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--path", required=False, default='.', 
-        help="path to video frame files default is ./")
+ap.add_argument("-p", "--path", required=True, 
+        help="You must specify a directory to write captured checkerboard images ")
 ap.add_argument("-v1", "--video1", required=True, type=str,
 	help="file name for first video")
 ap.add_argument("-v2", "--video2", required=True, type=str,
@@ -107,8 +107,8 @@ while(cap.isOpened()):
     if key == ord('q'):
         break
     elif key == ord('c'):
-        cv2.imwrite("CHECKER_L_" + str(i) + ".png", adjusted)
-        cv2.imwrite("CHECKER_R_" + str(i) + ".png", adjusted2)
+        cv2.imwrite(dir_path + "CHECKER_L_" + str(i) + ".png", adjusted)
+        cv2.imwrite(dir_path + "CHECKER_R_" + str(i) + ".png", adjusted2)
 #        cv2.imwrite(sys.argv[1] + "/" + sys.argv[3] + str(i) + ".png", frame)
         i += 1
 

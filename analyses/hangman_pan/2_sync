@@ -1,5 +1,5 @@
 echo "The best way to synchronize videos seems to be manually, using tools like play2vids.py"
-echo "the offset seems best at -9. There are 2 flashes in the video for alignment"
+echo "the offset for this one seems best at 13. There are 3 flashes in the video for alignment"
 echo "checkerboards start at 13700-14250"
 
 
