@@ -1,0 +1,6 @@
+#*****Clip all the checkerboard footage just to check rectification
+python ../../video_utilites/clip2vids.py -v1 ../../video_data/southwater_pan/checkerboards/161303-1.mkv -v2 ../../video_data/southwater_pan/checkerboards/161303-2.mkv -s 1000 -e 6000 -o -15
+
+
+python ../../2_stereo_rectification_scripts/rectify_videos.py  -v1 ../../video_data/southwater_pan/checkerboards/161303-1_clip_1000_6000.mkv -v2 ../../video_data/southwater_pan/checkerboards/161303-2_clip_1000_6000.mkv -w 1
+

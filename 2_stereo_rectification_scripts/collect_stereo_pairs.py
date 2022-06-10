@@ -146,6 +146,11 @@ while(cap.isOpened()):
 
           if movementL and movementR < moveThresh: #means board in camera view did not move much from previous capture
             print("*** Meets movement threshold. LEFT:" + str(movementL) + " RIGHT:" + str(movementR) + " writing images")
+
+            #Add frame to printed video -- could add a toggle option here
+            cv2.putText(adjusted,str(frametext+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
+            cv2.putText(adjusted2,str(frametext+roffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
+
             cv2.imwrite(dir_path + "CHECKER_L_" + str(frametext) + ".png", adjusted)
             cv2.imwrite(dir_path + "CHECKER_R_" + str(frametext) + ".png", adjusted2)
           else :
@@ -156,9 +161,6 @@ while(cap.isOpened()):
         old_cornersR = flatcornR
 
 #***********
-
-
-
     cv2.putText(adjusted,str(frametext+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
     cv2.putText(adjusted2,str(frametext+roffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
 
@@ -176,11 +178,6 @@ while(cap.isOpened()):
     key = cv2.waitKey(1)
     if key == ord('q'):
         break
-    elif key == ord('c'):
-        i += 1
-
-
-
 
 cap.release()
 cap2.release()

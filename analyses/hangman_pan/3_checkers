@@ -1,4 +1,4 @@
 echo "Collect stereo pairs by hitting C when frames are visible in both cameras"
-python ../../2_stereo_rectification_scripts/collect_stereo_pairs.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13900 -b 0 -w 255 -d 0 -o 13 -p ./checker_cals/ -m 4
+python ../../2_stereo_rectification_scripts/collect_stereo_pairs.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13900 -g .8 -b 110 -w 255 -d 0 -o 13 -p ./checker_cals/ -m 4
 
 
