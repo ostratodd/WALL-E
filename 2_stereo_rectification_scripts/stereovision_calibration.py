@@ -24,7 +24,7 @@ ext = args["extension"]
 
 chessboardSize = (8,6)
 frameSize = (640,480)
-size_of_chessboard_squares_mm = 20
+size_of_chessboard_squares_mm = 30
 
 
 

@@ -19,8 +19,8 @@ ffmpeg -i 174157-1.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 1741
 ffmpeg -i 174159-2.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 174159-2.mkv
 
 
-cd ../displays/
-#Video with displays
-ffmpeg -i 181200-1.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 181200-1.mkv
-ffmpeg -i 181200-2.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 181200-2.mkv
+#cd ../displays/
+##Video with displays
+#ffmpeg -i 181200-1.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 181200-1.mkv
+#ffmpeg -i 181200-2.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 181200-2.mkv
 
