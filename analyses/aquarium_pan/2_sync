@@ -1,6 +1,5 @@
 echo "The best way to synchronize videos seems to be manually, using tools like play2vids.py"
-echo "the offset for this one seems best at 13. There are 3 flashes in the video for alignment"
-echo "checkerboards start at 13700-14250"
+echo "the offset for this one seems best at about 35 but not fully optimized yet"
 
 
 #
@@ -38,6 +37,4 @@ echo "checkerboards start at 13700-14250"
 #
 
 
-python ../../video_utilites/play2vids.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13015 -b 0 -w 255 -d 0 -o 13
-
-
+python ../../video_utilites/play2vids.py -v1 ../../video_data/aquarium_pan/checkerboards/163134-1.mkv -v2 ../../video_data/aquarium_pan/checkerboards/163134-2.mkv -s 500 -b 0 -w 255 -d 0.2 -o -35

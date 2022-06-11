@@ -17,12 +17,9 @@ ap.add_argument("-w", "--watch", required=False, default=1, type=int,
         help="whether (1) or not (0) to watch video while writing. Default = 1")
 ap.add_argument("-l", "--lines", required=False, default=0, type=int,
         help="whether (1) or not (0) to add horizontal lines to check SR. Default = 0")
-ap.add_argument("-o", "--offset", required=False, default=0, type=int,
-        help="number of frames to offset two videos, positive or negative")
 ap.add_argument("-d", "--delay", required=False, default=0, type=float,
         help="delay time between frames for slo-mo")
 args = vars(ap.parse_args())
-offset = args["offset"]
 delay = args["delay"]
 start = args["start"]
 dir_path = args["path"]
@@ -56,6 +53,13 @@ while(cap_right.isOpened() and cap_left.isOpened()):
 
     succes_right, frame_right = cap_right.read()
     succes_left, frame_left = cap_left.read()
+
+
+    cv2.imshow("orig frame right", frame_right) 
+    cv2.moveWindow("orig frame right",642, 600)
+    cv2.imshow("orig frame left", frame_left)
+    cv2.moveWindow("orig frame left",1, 600)
+
 
     # Undistort and rectify images
     frame_right = cv2.remap(frame_right, stereoMapR_x, stereoMapR_y, cv2.INTER_LANCZOS4, cv2.BORDER_CONSTANT, 0)
