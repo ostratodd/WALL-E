@@ -126,8 +126,8 @@ while(cap.isOpened()):
     if retL and retR == True:
 
         # Draw and display the corners
-        cv2.drawChessboardCorners(adjusted, chessboardSize, cornersL, retL)
-        cv2.drawChessboardCorners(adjusted2, chessboardSize, cornersR, retR)
+#        cv2.drawChessboardCorners(adjusted, chessboardSize, cornersL, retL)
+#        cv2.drawChessboardCorners(adjusted2, chessboardSize, cornersR, retR)
 
         cornersL = cv2.cornerSubPix(adjusted, cornersL, (11,11), (-1,-1), criteria)
         flatcornL = cornersL.reshape([1, 96]) #Need to calculate array size based on checkerboard size
