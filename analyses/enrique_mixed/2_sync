@@ -1,0 +1,17 @@
+#Original Videos located on Google Drive
+
+##Calibration video done at dock at Isla Magueyes
+#June 
+
+
+#Did checkerboard calibration video called. Offset is good at -12
+#python ../../video_utilites/play2vids.py -v1 ../../video_data/enrique_mixed/checkerboards/161134-1.mkv -v2 ../../video_data/enrique_mixed/checkerboards/161135-2.mkv -s 675 -o -12 -d 0 -b 0 -w 255
+#
+
+#dock test 2
+#boat came through about 4600 causing surge
+#python ../../video_utilites/play2vids.py -v1 ../../video_data/enrique_mixed/checkerboards/161949-1.mkv -v2 ../../video_data/enrique_mixed/checkerboards/161949-2.mkv -b 0 -w 255 -s 12000 -d 0 -o -33
+
+
+#dock test 3 June 20
+python ../../video_utilites/play2vids.py -v1 ../../video_data/enrique_mixed/checkerboards/150716-1.mkv -v2 ../../video_data/enrique_mixed/checkerboards/150717-2.mkv -b 0 -w 255 -s 16200 -d 0 -o -14

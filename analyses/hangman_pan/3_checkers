@@ -1,5 +1,10 @@
-#Automated selection of frames
-python ../../2_stereo_rectification_scripts/collect_stereo_pairs.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13900 -g 1 -b 0 -w 255 -d 0 -o 13 -p ./checker_cals/ -m 4
+##Manual selection of frames
+#Echo hit 'c' to collect a frame
+#python ../../2_stereo_rectification_scripts/manual_collect_stereo_pairs.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13900 -g 1 -b 0 -w 255 -d 0 -o 13 -d 0.05 -p ./manual_checker_cals/ 
+
+
+##Automated selection of frames
+python ../../2_stereo_rectification_scripts/collect_stereo_pairs.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13900 -g 1 -b 0 -w 255 -d 0 -o 12 -p ./checker_cals/ -m 3 -c "(8,6)"
 
 #Programmed array of frames to select
 #python ../../2_stereo_rectification_scripts/array_stereo_pairs.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13900 -g .8 -b 10 -w 255 -d 0 -o 13 -i frame_array.csv -p ./checker_array/

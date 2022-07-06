@@ -20,6 +20,8 @@ ap.add_argument("-w", "--white", required=False, default=255, type=int,
 	help="threshold above which is white")
 ap.add_argument("-s", "--start", required=False, default=1, type=int,
 	help="frame to start at default = 1")
+ap.add_argument("-c", "--cb_size", required=False, default="(8,6)", type=str,
+	help="size of checkerboard x,y Default = (8,6)")
 ap.add_argument("-o", "--offset", required=False, default=0, type=int,
 	help="number of frames to offset two videos, positive or negative")
 ap.add_argument("-d", "--delay", required=False, default=0, type=float,
@@ -37,7 +39,7 @@ start = args["start"]
 dir_path = args["path"]
 video1 = args["video1"]
 video2 = args["video2"]
-
+cb_size = args["cb_size"]
 
 # termination criteria
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -64,7 +66,7 @@ def adjust_gamma(image, gamma=1.0):
 	# apply gamma correction using the lookup table
 	return cv2.LUT(image, table)
 
-#Function to flatten array, used for array of corners from chessboard
+#Function to flatten array, used for array of corners from chessboard in order to compare all points to gauge movement
 def flatten(something):
     if isinstance(something, (list, tuple, set, range)):
         for sub in something:
@@ -89,6 +91,7 @@ i = 1
 #********************* Define board
 #Chessboard size must match expectation
 chessboardSize = (8,6)
+#chessboardSize = cb_size
 
 ## Arrays to store object points and image points from all the images.
 difcornL = [] #will be difference of corners from last reading

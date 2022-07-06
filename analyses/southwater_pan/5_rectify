@@ -1,0 +1,5 @@
+
+python ../../2_stereo_rectification_scripts/rectify_videos.py  -v1 ../../video_data/southwater_pan/checkerboards/undistort_161303-1_clip_1000_6000.mkv -v2 ../../video_data/southwater_pan/checkerboards/undistort_161303-2_clip_1000_6000.mkv -w 1 -l 1
+
+rectifiedL_.avi rectified_checker_L.avi
+rectifiedR_.avi rectified_checker_R.avi

@@ -14,18 +14,21 @@ ap.add_argument("-v1", "--video1", required=True, type=str,
 	help="prefix of file name for left stills")
 ap.add_argument("-v2", "--video2", required=True, type=str,
 	help="prefix of file names for right stills")
+ap.add_argument("-c", "--cb_size", required=False, default="(8,6)", type=str,
+        help="size of checkerboard x,y Default = (8,6)")
 ap.add_argument("-e", "--extension", required=False, default="png", type=str,
 	help="extension of files. Default = png")
 args = vars(ap.parse_args())
 dir_path = args["path"]
 video1 = args["video1"]
 video2 = args["video2"]
+cb_size = args["cb_size"]
 ext = args["extension"]
 
+#chessboardSize = cb_size
 chessboardSize = (8,6)
 frameSize = (640,480)
-size_of_chessboard_squares_mm = 30
-
+size_of_chessboard_squares_mm = 25
 
 
 # termination criteria

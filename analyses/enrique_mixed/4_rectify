@@ -1,0 +1,5 @@
+#create calibration files
+#python ../../2_stereo_rectification_scripts/stereovision_calibration.py -v1 CHECKER_L -v2 CHECKER_R -p checker_cals
+python ../../2_stereo_rectification_scripts/stereovision_calibration.py -v1 CHECKER_L -v2 CHECKER_R -p checkers_manual -c '(9,6)'
+#python ../../2_stereo_rectification_scripts/stereovision_calibration.py -v1 CHECKER_L -v2 CHECKER_R -p checkers_array
+

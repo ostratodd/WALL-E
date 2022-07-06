@@ -1,0 +1,17 @@
+#*****Clip all the checkerboard footage just to check rectification
+#debug
+python ../../video_utilites/clip2vids.py -v1 ../../video_data/enrique_mixed/checkerboards/150716-1.mkv -v2 ../../video_data/enrique_mixed/checkerboards/150717-2.mkv -s 100 -e 300 -o -15
+python ../../2_stereo_rectification_scripts/rectify_videos.py  -v1 ../../video_data/enrique_mixed/checkerboards/150716-1_clip_100_300.mkv -v2 ../../video_data/enrique_mixed/checkerboards/150717-2_clip_100_300.mkv -w 1 -l 1
+
+#actual
+#python ../../video_utilites/clip2vids.py -v1 ../../video_data/enrique_mixed/checkerboards/150716-1.mkv -v2 ../../video_data/enrique_mixed/checkerboards/150717-2.mkv -s 21300 -e 22000 -o -15
+#python ../../2_stereo_rectification_scripts/rectify_videos.py  -v1 ../../video_data/enrique_mixed/checkerboards/150716-1_clip_21300_22000.mkv -v2 ../../video_data/enrique_mixed/checkerboards/150717-2_clip_21300_22000.mkv -w 1 -l 1
+
+
+
+
+
+
+
+
+

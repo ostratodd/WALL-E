@@ -1,0 +1,7 @@
+#python ../../2_stereo_rectification_scripts/array_stereo_pairs.py -v1 ../../video_data/enrique_mixed/checkerboards/161949-1.mkv -v2 ../../video_data/enrique_mixed/checkerboards/161949-2.mkv -b 0 -w 255 -i frame_array.csv -p checkers_array/ -o -33 -s 13900
+
+#python ../../2_stereo_rectification_scripts/collect_stereo_pairs.py -v1 ../../video_data/enrique_mixed/checkerboards/150716-1.mkv -v2 ../../video_data/enrique_mixed/checkerboards/150717-2.mkv -b 0 -w 255 -p checkers_auto/ -o -14 -s 21300 -m 1.0
+python ../../2_stereo_rectification_scripts/manual_collect_stereo_pairs.py -v1 ../../video_data/enrique_mixed/checkerboards/150716-1.mkv -v2 ../../video_data/enrique_mixed/checkerboards/150717-2.mkv -b 0 -w 255 -p checkers_manual/ -o -14 -s 21300
+
+
+

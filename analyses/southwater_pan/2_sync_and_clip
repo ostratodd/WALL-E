@@ -1,0 +1,51 @@
+#Videos located here
+#https://drive.google.com/drive/u/0/search?q=185538-1.ASF
+#https://drive.google.com/drive/u/0/search?q=185539-2.ASF
+
+##Field notes for those videos
+###Many signals in this video, including syllids. First syllid about 16900. There are lightening strikes in this video too
+##syllid about 25000 and 26300
+##EXCELLENT display except 2nd pulse too low
+#python ~/Documents/GitHub/WALL-E_2/wall-e/todds_scripts/play2vids.py -v1 185538-1.ASF -v2 185539-2.ASF -d 0 -b 100 -g .3 -s 24030 -d 0.03 -o -11
+#
+##good ostracod displays near 27000 and 29000
+##lightening at 37932 based on that offset is -10
+##python ~/Documents/GitHub/WALL-E_2/wall-e/todds_scripts/play2vids.py -v1 185538-1.ASF -v2 185539-2.ASF -d 0 -b 85 -g .5 -s 37925 -d 0.5 -o -10
+#
+##python ~/Documents/GitHub/WALL-E_2/wall-e/todds_scripts/play2vids.py -v1 185538-1.ASF -v2 185539-2.ASF -d 0 -b 110 -g .5 -s 27000 -d 0.03 -o -10
+
+
+
+
+#More field notes on rectification
+#Did not change set up from 10-12 so can probably use rectification from that date
+#More stereo rectification around 15100 of this video
+#python ~/Documents/GitHub/WALL-E_2/wall-e/todds_scripts/play2vids.py -v1 182537-1.ASF -v2 182538-2.ASF -d 0 -b 0 -g .5 -s 15100
+#Location of these videos with checkerboards
+#https://drive.google.com/drive/u/0/search?q=182537-1.ASF
+#https://drive.google.com/drive/u/0/search?q=182538-2.ASF
+
+##Calibration video done at dock
+#10-14-2019
+#Set up cameras and took photo of distance between cameras
+#Named: Measurement Photo WALLE Belize 2019.JPG
+#Distance between cameras is 12.5 cm
+
+#Links to those videos
+#https://drive.google.com/file/d/1_vhH9mNFtHswIcBcIwN0XQ_7L6Q6eCq6
+#https://drive.google.com/file/d/1LzJHVtp41w8dDuvgFG6gpdZlSQHeeVac
+
+#Did checkerboard calibration video called:
+#off set of -15 seems good
+#python ../../video_utilites/play2vids.py -v1 ../../video_data/southwater_pan/checkerboards/161303-1.mkv -v2 ../../video_data/southwater_pan/checkerboards/161303-2.mkv -b 0 -d .5 -s 115 -w 255 -o -15
+
+
+#Clip out and sync just the relevant checkerboard video
+#python ../../video_utilites/clip2vids.py -v1 ../../video_data/southwater_pan/checkerboards/161303-1.mkv -v2 ../../video_data/southwater_pan/checkerboards/161303-2.mkv -s 1000 -e 6000 -o -15
+
+
+#remove fisheye distortion
+#python ../../2_stereo_rectification_scripts/remove_fisheye.py -p ../../video_data/southwater_pan/checkerboards/ -v 161303-1_clip_1000_6000.mkv
+python ../../2_stereo_rectification_scripts/remove_fisheye.py -p ../../video_data/southwater_pan/checkerboards/ -v 161303-2_clip_1000_6000.mkv -w 1
+
+

@@ -1,6 +1,10 @@
-##create calibration files
-#python ../../2_stereo_rectification_scripts/stereovision_calibration.py -v1 CHECKER_L -v2 CHECKER_R -p checker_cals
+##create calibration files from automated selection
+python ../../2_stereo_rectification_scripts/stereovision_calibration.py -v1 CHECKER_L -v2 CHECKER_R -p checker_cals
 
 
 #manual set of calibration points
-python ../../2_stereo_rectification_scripts/stereovision_calibration.py -v1 CHECKER_L -v2 CHECKER_R -p manual_checker_cals
+#python ../../2_stereo_rectification_scripts/stereovision_calibration.py -v1 CHECKER_L -v2 CHECKER_R -p manual_checker_cals
+
+
+#set of calibration points in frame array
+#python ../../2_stereo_rectification_scripts/stereovision_calibration.py -v1 CHECKER_L -v2 CHECKER_R -p checker_array

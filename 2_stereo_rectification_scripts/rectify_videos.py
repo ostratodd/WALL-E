@@ -46,8 +46,8 @@ cap_right = cv2.VideoCapture(video2)
 
 #open a file to write to
 frameSize = (640,480)
-out_l = cv2.VideoWriter('TESTLEFT.avi',cv2.VideoWriter_fourcc('F','F','V','1'), 30, frameSize)
-out_r = cv2.VideoWriter('TESTRIGHT.avi',cv2.VideoWriter_fourcc('F','F','V','1'), 30, frameSize)
+out_l = cv2.VideoWriter('rectifiedL_' + '.avi',cv2.VideoWriter_fourcc('F','F','V','1'), 30, frameSize)
+out_r = cv2.VideoWriter('rectifiedR_' + '.avi',cv2.VideoWriter_fourcc('F','F','V','1'), 30, frameSize)
 
 while(cap_right.isOpened() and cap_left.isOpened()):
 
@@ -69,9 +69,9 @@ while(cap_right.isOpened() and cap_left.isOpened()):
     # Show the frames
     if watch == 1:
       if lines == 1:
-        for line in range(0, int(frame_left.shape[0] / 15)):
-            frame_left[line * 15, :] = 255
-            frame_right[line * 15, :] = 255
+        for line in range(0, int(frame_left.shape[0] / 50)):
+            frame_left[line * 50, :] = 255
+            frame_right[line * 50, :] = 255
       cv2.imshow("frame right", frame_right) 
       cv2.moveWindow("frame right",642, 150)
       cv2.imshow("frame left", frame_left)

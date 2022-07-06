@@ -1,4 +1,10 @@
-python ../../2_stereo_rectification_scripts/collect_stereo_pairs.py -v1 ../../video_data/southwater_pan/checkerboards/161303-1.mkv -v2 ../../video_data/southwater_pan/checkerboards/161303-2.mkv -b 0 -s 1000 -w 255 -o -15 -p ./checker_cals/ -m 1.0
+#Prior to undistort fisheye
+#python ../../2_stereo_rectification_scripts/collect_stereo_pairs.py -v1 ../../video_data/southwater_pan/checkerboards/161303-1.mkv -v2 ../../video_data/southwater_pan/checkerboards/161303-2.mkv -b 0 -s 1000 -w 255 -o -15 -p ./checker_cals/ -m 1.0
+
+#use clipped and undistorted videos
+python ../../2_stereo_rectification_scripts/collect_stereo_pairs.py -v1 ../../video_data/southwater_pan/checkerboards/undistort_161303-1_clip_1000_6000.mkv -v2 ../../video_data/southwater_pan/checkerboards/undistort_161303-2_clip_1000_6000.mkv -b 0 -w 255 -p ./checker_cals/ -m 1.0
+
+
 
 
 
