@@ -1,0 +1,3 @@
+
+python ../../2_stereo_rectification_scripts/rectify_videos.py  -v1 ../../video_data/hangman_pan/checkerboards/undistort_174159-2_clip_13700_14250.mkv -v2 ../../video_data/hangman_pan/checkerboards/undistort_174157-1_clip_13700_14250.mkv -w 1 -l 1
+

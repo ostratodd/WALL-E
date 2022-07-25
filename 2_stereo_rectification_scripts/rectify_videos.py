@@ -1,4 +1,4 @@
-#Original script copied from Nico Nielsen Github
+#Much of original script copied from Nico Nielsen Github
 import numpy as np
 import cv2
 import argparse

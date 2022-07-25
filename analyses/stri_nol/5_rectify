@@ -1,0 +1,3 @@
+
+python ../../2_stereo_rectification_scripts/rectify_videos.py  -v1 ../../video_data/stri_nol/checkerboard/undistort_102338-1_clip_100_14600.mkv -v2 ../../video_data/stri_nol/checkerboard/undistort_102338-2_clip_100_14600.mkv -w 1 -l 1
+

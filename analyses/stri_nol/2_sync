@@ -1,0 +1,58 @@
+echo "The best way to synchronize videos seems to be manually, using tools like play2vids.py"
+
+#
+##Arguments are as follows:
+#-v1 and -v2 are the names of the videos to compare
+#-o is the number of frames to OFFSET
+#This is the values that needs to be adjusted to get the 2 videos in sync as much as possible
+#
+#-s is where to start the video, so you don't have to watch the whole thing every time
+#-d is the delay between frames, to allow you to watch in slo-mo to really compare appearance of pulses
+#
+#-g -b -w are parameters that clean up noise for viewing the videos
+#
+#
+#optional arguments:
+#  -h, --help            show this help message and exit
+#  -p PATH, --path PATH  path to video frame files default is ./
+#  -v1 VIDEO1, --video1 VIDEO1
+#                        file name for first video
+#  -v2 VIDEO2, --video2 VIDEO2
+#                        filename for second video
+#  -g GAMMA, --gamma GAMMA
+#                        value of gamma
+#  -b BLACK, --black BLACK
+#                        threshold below which is black
+#  -w WHITE, --white WHITE
+#                        threshold above which is white
+#  -s START, --start START
+#                        frame to start at default = 1
+#  -o OFFSET, --offset OFFSET
+#                        number of frames to offset two videos, positive or
+#                        negative
+#  -d DELAY, --delay DELAY
+#                        delay time between frames for slo-mo
+#
+
+
+
+##First clip video
+#-v1 102338-1_clip_200_14600.mkv -v2 102338-2_clip_200_14600.mkv
+
+
+###Now remove fisheye distortion prior to finding stereo parameters (both left and right separately)
+#python ../../2_stereo_rectification_scripts/remove_fisheye.py -p ../../video_data/stri_nol/checkerboard/ -v 102338-1.mkv
+#python ../../2_stereo_rectification_scripts/remove_fisheye.py -p ../../video_data/stri_nol/checkerboard/ -v 102338-2.mkv
+
+#Do clip only to synchronize video
+#Manually
+#python ../../video_utilites/play2vids.py -v1 ../../video_data/stri_nol/checkerboard/102338-1.mkv -v2 ../../video_data/stri_nol/checkerboard/102338-2.mkv -b 0 -w 255 -s 12000 -o -12 -d 0
+
+#Now clip video with offset
+#python ../../video_utilites/clip2vids.py -v1 ../../video_data/stri_nol/checkerboard/undistort_102338-1.mkv -v2 ../../video_data/stri_nol/checkerboard/undistort_102338-2.mkv -s 100 -e 14600 -o -17
+
+
+#******
+##To view the undistorted (fisheye) video execute this:
+python ../../video_utilites/play2vids.py -v1 ../../video_data/stri_nol/checkerboard/undistort_102338-1_clip_100_14600.mkv -v2 ../../video_data/stri_nol/checkerboard/undistort_102338-2_clip_100_14600.mkv -b 0 -w 255 -s 1500
+

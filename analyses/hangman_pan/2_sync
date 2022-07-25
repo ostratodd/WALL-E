@@ -38,6 +38,18 @@ echo "checkerboards start at 13700-14250"
 #
 
 
-python ../../video_utilites/play2vids.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13015 -b 0 -w 255 -d 0 -o 13
+#python ../../video_utilites/play2vids.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13015 -b 0 -w 255 -d 0 -o 13
 
+
+#now create clip of just checkerboards 13700-14250
+#python ../../video_utilites/clip2vids.py -v1 ../../video_data/hangman_pan/checkerboards/174159-2.mkv -v2 ../../video_data/hangman_pan/checkerboards/174157-1.mkv -s 13700 -e 14250  -d 0 -o 13
+
+
+#Now remove fisheye distortion prior to finding stereo parameters (both left and right separately)
+#python ../../2_stereo_rectification_scripts/remove_fisheye.py -p ../../video_data/hangman_pan/checkerboards/ -v 174157-1_clip_13700_14250.mkv -w 1
+python ../../2_stereo_rectification_scripts/remove_fisheye.py -p ../../video_data/hangman_pan/checkerboards/ -v 174159-2_clip_13700_14250.mkv -w 1
+
+#******
+##To view the undistorted (fisheye) video execute this:
+#python ../../video_utilites/play2vids.py -v1 ../../video_data/hangman_pan/checkerboards/undistort_174159-2_clip_13700_14250.mkv -v2 ../../video_data/hangman_pan/checkerboards/undistort_174157-1_clip_13700_14250.mkv -b 0 -w 255
 

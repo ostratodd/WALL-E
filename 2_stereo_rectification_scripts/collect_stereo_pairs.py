@@ -2,7 +2,8 @@ import numpy as np
 import cv2
 import argparse
 import time
-
+#Script to go through video to find chessboard photos in stereo videos. A movement threshold compares current to previous
+#location of board because if the board is moving quickly, unsynced l/r video causes much noise in calibration
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -20,13 +21,15 @@ ap.add_argument("-w", "--white", required=False, default=255, type=int,
 	help="threshold above which is white")
 ap.add_argument("-s", "--start", required=False, default=1, type=int,
 	help="frame to start at default = 1")
-ap.add_argument("-c", "--cb_size", required=False, default="(8,6)", type=str,
-	help="size of checkerboard x,y Default = (8,6)")
+ap.add_argument ('-c', '--cb_size', nargs=2, type=int, action = 'append', required=True,
+        help="need to specify checkerboard size e.g. -c 8 6")
 ap.add_argument("-o", "--offset", required=False, default=0, type=int,
 	help="number of frames to offset two videos, positive or negative")
 ap.add_argument("-d", "--delay", required=False, default=0, type=float,
 	help="delay time between frames for slo-mo")
 ap.add_argument("-m", "--moveThresh", required=False, default=3, type=float,
+	help="Movement threshold - average number of pixels moved for corners of chess board")
+ap.add_argument("--invert", required=False, default=0, type=int,
 	help="Movement threshold - average number of pixels moved for corners of chess board")
 args = vars(ap.parse_args())
 moveThresh = args["moveThresh"]
@@ -40,6 +43,8 @@ dir_path = args["path"]
 video1 = args["video1"]
 video2 = args["video2"]
 cb_size = args["cb_size"]
+chessboardSize = tuple(cb_size[0])
+invert = args["invert"]
 
 # termination criteria
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -89,9 +94,6 @@ global i
 i = 1
 
 #********************* Define board
-#Chessboard size must match expectation
-chessboardSize = (8,6)
-#chessboardSize = cb_size
 
 ## Arrays to store object points and image points from all the images.
 difcornL = [] #will be difference of corners from last reading
@@ -124,6 +126,9 @@ while(cap.isOpened()):
     clipped2 = adjust_clip(gray2, black=black, white=white)
     adjusted2 = adjust_gamma(clipped2, gamma=gamma)
 
+    if invert == 1:
+        adjusted = cv2.bitwise_not(adjusted)
+        adjusted2 = cv2.bitwise_not(adjusted2)
 
 #New code to add corners
     if retL and retR == True:
@@ -132,11 +137,13 @@ while(cap.isOpened()):
 #        cv2.drawChessboardCorners(adjusted, chessboardSize, cornersL, retL)
 #        cv2.drawChessboardCorners(adjusted2, chessboardSize, cornersR, retR)
 
+        totcorners = 2 * (chessboardSize[0] * chessboardSize[1])
+
         cornersL = cv2.cornerSubPix(adjusted, cornersL, (11,11), (-1,-1), criteria)
-        flatcornL = cornersL.reshape([1, 96]) #Need to calculate array size based on checkerboard size
+        flatcornL = cornersL.reshape([1, totcorners]) #Need to calculate array size based on checkerboard size
 
         cornersR = cv2.cornerSubPix(adjusted, cornersR, (11,11), (-1,-1), criteria)
-        flatcornR = cornersR.reshape([1, 96]) #Need to calculate array size based on checkerboard size
+        flatcornR = cornersR.reshape([1, totcorners]) #Need to calculate array size based on checkerboard size
 
         if boards > 0 :
           difcornL = np.subtract(flatcornL, old_cornersL)
@@ -151,8 +158,8 @@ while(cap.isOpened()):
             print("*** Meets movement threshold. LEFT:" + str(movementL) + " RIGHT:" + str(movementR) + " writing images")
 
             #Add frame to printed video -- could add a toggle option here
-            cv2.putText(adjusted,str(frametext+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
-            cv2.putText(adjusted2,str(frametext+roffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
+            #cv2.putText(adjusted,str(frametext+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
+            #cv2.putText(adjusted2,str(frametext+roffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
 
             cv2.imwrite(dir_path + "CHECKER_L_" + str(frametext) + ".png", adjusted)
             cv2.imwrite(dir_path + "CHECKER_R_" + str(frametext) + ".png", adjusted2)
