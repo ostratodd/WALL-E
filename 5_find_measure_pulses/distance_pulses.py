@@ -37,7 +37,7 @@ with open(file) as file_obj:
                     framearray.append(row)
             else :
                 if framearray:
-                    print(framearray)
+                    print(frame len(framearray))
                 framearray = []
             #Is current contour close enough to form a pulse?
 
