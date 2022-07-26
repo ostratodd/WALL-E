@@ -1,0 +1,14 @@
+camera	frame	cX	cY
+left	1	100	150
+left	2	102	150
+left	3	104	150
+left	4	106	150
+left	5	108	150
+left	6	110	150
+right	7	203	250
+right	8	205	250
+right	9	207	250
+right	10	209	250
+right	11	210	250
+right	12	212	250
+

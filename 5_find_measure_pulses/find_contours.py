@@ -121,9 +121,9 @@ while(cap.isOpened() and cap2.isOpened() ):
              min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(imgray,mask = mask)
              print("left\t" + str(frametext) + "\t" + str(cX) + "\t" + str(500-cY) + "\t" + str(cv2.contourArea(c) ) + "\t" + 
 	         str(min_val) + "\t" + str(max_val) + "\t" + str(mean_val[0]) )
-#             writefile.write("0\t" + str(frametext) + "\t" + str(cX) + "\t" + str(500-cY) + "\t" + str(cv2.contourArea(c) ) + "\t" + 
+#             writefile.write("left\t" + str(frametext) + "\t" + str(cX) + "\t" + str(500-cY) + "\t" + str(cv2.contourArea(c) ) + "\t" + 
 #	         str(min_val) + "\t" + str(max_val) + "\t" + str(mean_val[0]) + "\n" )
-             writefile.write("100\t" + str(frametext) + "\t" + str(cX) + "\t" + str(500-cY) + "\n")
+             writefile.write("left\t" + str(frametext) + "\t" + str(cX) + "\t" + str(500-cY) + "\n")
 
 
              cv2.drawContours(adjusted,contours,-1,(255,180,10),-1)
@@ -152,9 +152,9 @@ while(cap.isOpened() and cap2.isOpened() ):
              min_val2, max_val2, min_loc2, max_loc2 = cv2.minMaxLoc(imgray2,mask = mask)
              print("right\t" + str(frametext) + "\t" + str(cX2) + "\t" + str(500-cY2) + "\t" + str(cv2.contourArea(d) ) + "\t" + 
 	         str(min_val2) + "\t" + str(max_val2) + "\t" + str(mean_val2[0]) )
-#             writefile.write("1\t" + str(frametext) + "\t" + str(cX2) + "\t" + str(500-cY2) + "\t" + str(cv2.contourArea(d) ) + "\t" + 
+#             writefile.write("right\t" + str(frametext) + "\t" + str(cX2) + "\t" + str(500-cY2) + "\t" + str(cv2.contourArea(d) ) + "\t" + 
 #	         str(min_val2) + "\t" + str(max_val2) + "\t" + str(mean_val2[0]) + "\n" )
-             writefile.write("200\t" + str(frametext) + "\t" + str(cX2) + "\t" + str(500-cY2) + "\n")
+             writefile.write("right\t" + str(frametext) + "\t" + str(cX2) + "\t" + str(500-cY2) + "\n")
 
              cv2.drawContours(adjusted2,contours2,-1,(100,180,10),-1)
         else:

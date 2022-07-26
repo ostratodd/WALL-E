@@ -1,6 +1,6 @@
-#python ../../5_find_measure_pulses/find_contours.py -v1 /Users/oakley/Documents/GitHub/WALL-E/analyses/southwater_pan/rectified_signal_23900_L.avi -v2 /Users/oakley/Documents/GitHub/WALL-E/analyses/southwater_pan/rectified_signal_23900_R.avi -b 120 -d 0.03 -m 3 -f contours_23900.tab
-#python ../../5_find_measure_pulses/cluster_contours.py -f contours_23900.tab
+python ../../5_find_measure_pulses/find_contours.py -v1 rectified_signal_23900_L.avi -v2 rectified_signal_23900_R.avi -b 120 -d 0.03 -m 3 -f contours_23900.tab
+python ../../5_find_measure_pulses/visualize_contours.py -f contours_23900.tab
 
 
 python ../../5_find_measure_pulses/find_contours.py -v1 rectified_signal_30130_L.avi -v2 rectified_signal_30130_R.avi  -b 120 -d 0.03 -m 3 -f contours_30130.tab
-python ../../5_find_measure_pulses/cluster_contours.py -f contours_30130.tab
+python ../../5_find_measure_pulses/visualize_contours.py -f contours_30130.tab
