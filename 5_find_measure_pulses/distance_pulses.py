@@ -17,8 +17,8 @@ file = args["file"]
 
 
 #Parameters for segmenting into pulses
-XMAX = 5	#max distance in X to be still considered the same pulse
-YMAX = 5
+XMAX = 10	#max distance in X to be still considered the same pulse
+YMAX = 10
 
 SRMAX = 5	#max difference for correspondence of Y axis, assuming stereo rectification aligns Y
 HPP = 0.15 	#hot pixel proportion = percentage of frames that contain a contour at the same X-axis value to be considered noise
@@ -26,6 +26,10 @@ HPD = 2		#hot pixel distance (number of pixels +/- ) from defined hot pixels
 
 PDMIN = 3 	#minimum number of frames for pulse duration
 
+#Stereo parameters
+PSD = 4 	#Pulse-start difference (minimum to diff in frame start to be considered stereo pair)
+PFD = 4
+YD = 20
 
 table = pd.read_csv(file, delimiter = '\t')
 sorted = table.sort_values(['camera', 'frame', 'cX', 'cY'])
@@ -153,42 +157,78 @@ denoised = denoised.loc[finalpulses['pulse'] != 'too_short']
 #Finally, find most probable stereo pairs based on correspondence of frame start/stop, correspondence of Y-axis point, and possibly X-axis disparity
 #Working with only denoised data at this point
 #create a new df with information about entire pulses instead of frame-by frame
-#df_pulse_sums = pd.DataFrame(columns=['camera','pulse','start', 'finish', 'minx', 'maxx', 'miny', 'maxy'])
-df_pulse_sums = pd.DataFrame(columns=['camera','pulse'], index = ['0', '1'])
-pulse_frames = denoised['pulse'].unique()
-dfrows = 0
-for rezy in pulse_frames:
+
+#create new df for pulses
+pulse_names = denoised['pulse'].unique()
+pulserows = []
+for rezy in pulse_names :
     df_frames = denoised[denoised['pulse']==rezy]
-    print("rezy: " + rezy)
-    #df_pulse_sums[i] = [df_frames['camera'].mode(), rezy,  df_frames['frame'].min(), df_frames['frame'].max(), df_frames['cX'].min(), df_frames['cX'].max(), df_frames['cY'].min(), df_frames['cY'].max() ]
-    df_pulse_sums[dfrows] = ['left', 'p8']
-    dfrows = dfrows + 1
-print(df_pulse_sums)
-        #print(rezy + " is too short to be a pulse based on PDMIN = " + str(PDMIN))
-        #finalpulses.loc[finalpulses.pulse == rezy, 'pulse'] = "too_short"
+    pulserows.append([df_frames['camera'].mode()[0], rezy, df_frames['frame'].min(), df_frames['frame'].max(), df_frames['cX'].min(), df_frames['cX'].max(), df_frames['cY'].min(), df_frames['cY'].max(), df_frames['cY'].mode()[0]])
+df_pulse_sums = pd.DataFrame(pulserows, columns=['camera','pulse','start', 'finish', 'minx', 'maxx', 'miny', 'maxy', 'modey'])
+
+#Add empty column for spulse (stereo pulse)
+df_pulse_sums['spulse'] = 'none'
 
 #Divide into L and R camera data frames
-df_left = denoised[denoised['camera']=='left']
-df_right = denoised[denoised['camera']=='right']
-df_left = pulses.reset_index(drop=True)	
-df_right = pulses.reset_index(drop=True)	
+df_left = df_pulse_sums[df_pulse_sums['camera']=='left']
+df_right = df_pulse_sums[df_pulse_sums['camera']=='right']
 
-#print(df_left.to_string())
-#print(df_right.to_string())
+#Next find pulses close enough in start, finish, and y to qualify as left/right stereo pairs
+spairN = 1
+for index, lrow in df_left.iterrows():
+    lpulse = [lrow['start'], lrow['finish'], lrow['modey']] #find nearby pulse in right camera
+    for i, rrow in df_right.iterrows() :
+        rpulse = [rrow['start'], rrow['finish'], rrow['modey']]
+        startdif = abs(rpulse[0]-lpulse[0])
+        findif = abs(rpulse[1]-lpulse[1])
+        ydif = abs(rpulse[2]-lpulse[2])
+        if(abs(startdif < PSD and findif < PFD and ydif < YD)) :
+            df_left.at[index, 'spulse'] = ("sp" + str(spairN))
+            df_right.at[i, 'spulse'] = ("sp" + str(spairN))
+            spairN = spairN + 1
+df_stereo_pairs = pd.concat([df_left, df_right], axis=0)
+#remove pulses without a stereo pair
+df_stereo_pairs = df_stereo_pairs.loc[df_stereo_pairs['spulse'] != 'none']
 
 
-
-
-#Visualize after removing noise
+##Visualize after removing noise
 #print(finalpulses.to_string())
 
-fig, axs = plt.subplots(ncols=2)
-sns.scatterplot(x='frame', y='cX', data=denoised, hue='pulse', edgecolor = 'none', ax=axs[0], legend = False)
-axs[0].set_ylim(1, 640)
-sns.scatterplot(x='frame', y='cY', data=denoised, hue='pulse', edgecolor = 'none', ax=axs[1], legend = False)
-axs[1].set_ylim(1, 480)
+#fig, axs = plt.subplots(ncols=2)
+#sns.scatterplot(x='frame', y='cX', data=denoised, hue='pulse', edgecolor = 'none', ax=axs[0], legend = True)
+#axs[0].set_ylim(1, 640)
+#sns.scatterplot(x='frame', y='cY', data=denoised, hue='pulse', edgecolor = 'none', ax=axs[1], legend = False)
+#axs[1].set_ylim(1, 480)
 
-##sns.scatterplot(x='frame', y='cX', data=noise, edgecolor = 'black', ax=axs[0], legend = False)
+#Compare raw L/R camera data to inferred stereo pulses
+maxframes = finalpulses['frame'].max()
+fig, axs = plt.subplots(ncols=2)
+sns.scatterplot(x='frame', y='cY', data=finalpulses, hue='camera', edgecolor = 'none', ax=axs[0], legend = True).set(title='Raw contour data by camera')
+axs[0].set_ylim(1, 480)
+axs[0].set_xlim(1, maxframes)
+axs[0].set_xlabel('Time (video frames)')
+sns.scatterplot(x='start', y='modey', data=df_stereo_pairs, hue='spulse', palette="Greens", edgecolor = 'none', ax=axs[1], legend = True).set(title='Algorithmically inferred stereo pulses')
+axs[1].set_ylim(1, 480)
+axs[1].set_xlim(1, maxframes)
+axs[1].set_xlabel('Start of Stereo Pulse (frame)')
+
+#fig, axs = plt.subplots()
+#sns.scatterplot(x='start', y='modey', data=df_stereo_pairs, hue='spulse', edgecolor = 'none', ax=axs, legend = True)
+#axs.set_ylim(1, 640)
+#axs.set_xlim(1, 480)
+
+##3d stereopolot
+#plt.figure(figsize=(6,5))
+#axes = plt.axes(projection='3d')
+#print(type(axes))
+#axes.scatter3D(df_stereo_pairs['start'], df_stereo_pairs['minx'], df_stereo_pairs['modey'], s=10)
+#axes.set_xlabel('time')
+#axes.set_ylabel('x position')
+#axes.set_zlabel('y position')
+
+
+
+#sns.scatterplot(x='frame', y='cX', data=noise, edgecolor = 'black', ax=axs[0], legend = False)
 
 plt.show()
 
