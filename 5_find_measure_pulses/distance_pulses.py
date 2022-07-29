@@ -8,13 +8,13 @@ import seaborn as sns
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--path", required=False, default='.', 
-        help="path to video frame files default is ./")
+ap.add_argument("-p", "--path", required=False, default='./', 
+        help="path to video frame files MUST include trailing /. Default is ./")
 ap.add_argument("-f", "--file", required=True, type=str,
 	help="file name for pulse data made by find_contours.py")
 args = vars(ap.parse_args())
 file = args["file"]
-
+path = args["path"]
 
 #Parameters for segmenting into pulses
 XMAX = 10	#max distance in X to be still considered the same pulse
@@ -31,7 +31,7 @@ PSD = 4 	#Pulse-start difference (minimum to diff in frame start to be considere
 PFD = 4
 YD = 20
 
-table = pd.read_csv(file, delimiter = '\t')
+table = pd.read_csv(path + file, delimiter = '\t')
 sorted = table.sort_values(['camera', 'frame', 'cX', 'cY'])
 sorted = sorted.reset_index(drop=True)	#need to re-index df to use index later in order of sorted rows
 
@@ -108,7 +108,6 @@ for index, row in pulses.iterrows():
     oldRow = pulses.iloc[index]
 
 finalpulses = finalpulses.sort_values(['pulse', 'frame', 'camera', 'cX', 'cY'])
-#finalpulses = finalpulses.reset_index(drop=True)	#need to re-index df to use index later in order of sorted rows
 
 xmode = finalpulses.mode()['cX'][0]					#find most common X-axis value
 uframes = len(pd.unique(finalpulses['frame']))		#count total number of unique frames
@@ -135,10 +134,6 @@ if(noisepulses/uframes > HPP) :
         finalpulses.loc[finalpulses.cX == xmode + 1, 'pulse'] = "noise"
         finalpulses.loc[finalpulses.cX == xmode - 1, 'pulse'] = "noise"
 
-#Visualize before noise
-
-
-
 #Next define as noise pulses that are too short to be a pulse
 unique_pulses = finalpulses['pulse'].unique()
 for rezy in unique_pulses:
@@ -147,18 +142,14 @@ for rezy in unique_pulses:
         print(rezy + " is too short to be a pulse based on PDMIN = " + str(PDMIN))
         finalpulses.loc[finalpulses.pulse == rezy, 'pulse'] = "too_short"
 
-
 noise = finalpulses.loc[finalpulses['pulse'] == 'noise']
 too_short = finalpulses.loc[finalpulses['pulse'] == 'too_short']
 denoised = finalpulses.loc[finalpulses['pulse'] != 'noise']
 denoised = denoised.loc[finalpulses['pulse'] != 'too_short']
 
-
 #Finally, find most probable stereo pairs based on correspondence of frame start/stop, correspondence of Y-axis point, and possibly X-axis disparity
 #Working with only denoised data at this point
 #create a new df with information about entire pulses instead of frame-by frame
-
-#create new df for pulses
 pulse_names = denoised['pulse'].unique()
 pulserows = []
 for rezy in pulse_names :
@@ -191,46 +182,12 @@ df_stereo_pairs = pd.concat([df_left, df_right], axis=0)
 df_stereo_pairs = df_stereo_pairs.loc[df_stereo_pairs['spulse'] != 'none']
 
 
-##Visualize after removing noise
-#print(finalpulses.to_string())
+print("SEGMENTED PULSES")
+print(finalpulses.to_string())
+# saving to file
+# saving as a CSV file
+finalpulses.to_csv(path + 'segmented_' + file, sep ='\t')
 
-#fig, axs = plt.subplots(ncols=2)
-#sns.scatterplot(x='frame', y='cX', data=denoised, hue='pulse', edgecolor = 'none', ax=axs[0], legend = True)
-#axs[0].set_ylim(1, 640)
-#sns.scatterplot(x='frame', y='cY', data=denoised, hue='pulse', edgecolor = 'none', ax=axs[1], legend = False)
-#axs[1].set_ylim(1, 480)
-
-#Compare raw L/R camera data to inferred stereo pulses
-maxframes = finalpulses['frame'].max()
-fig, axs = plt.subplots(ncols=2)
-sns.scatterplot(x='frame', y='cY', data=finalpulses, hue='camera', edgecolor = 'none', ax=axs[0], legend = True).set(title='Raw contour data by camera')
-axs[0].set_ylim(1, 480)
-axs[0].set_xlim(1, maxframes)
-axs[0].set_xlabel('Time (video frames)')
-sns.scatterplot(x='start', y='modey', data=df_stereo_pairs, hue='spulse', palette="Greens", edgecolor = 'none', ax=axs[1], legend = True).set(title='Algorithmically inferred stereo pulses')
-axs[1].set_ylim(1, 480)
-axs[1].set_xlim(1, maxframes)
-axs[1].set_xlabel('Start of Stereo Pulse (frame)')
-
-#fig, axs = plt.subplots()
-#sns.scatterplot(x='start', y='modey', data=df_stereo_pairs, hue='spulse', edgecolor = 'none', ax=axs, legend = True)
-#axs.set_ylim(1, 640)
-#axs.set_xlim(1, 480)
-
-##3d stereopolot
-#plt.figure(figsize=(6,5))
-#axes = plt.axes(projection='3d')
-#print(type(axes))
-#axes.scatter3D(df_stereo_pairs['start'], df_stereo_pairs['minx'], df_stereo_pairs['modey'], s=10)
-#axes.set_xlabel('time')
-#axes.set_ylabel('x position')
-#axes.set_zlabel('y position')
-
-
-
-#sns.scatterplot(x='frame', y='cX', data=noise, edgecolor = 'black', ax=axs[0], legend = False)
-
-plt.show()
-
-
-
+print("STEREO PULSES")
+print(df_stereo_pairs)
+df_stereo_pairs.to_csv(path + 'stereo_' + file, sep ='\t')
