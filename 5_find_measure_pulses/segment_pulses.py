@@ -154,8 +154,8 @@ pulse_names = denoised['pulse'].unique()
 pulserows = []
 for rezy in pulse_names :
     df_frames = denoised[denoised['pulse']==rezy]
-    pulserows.append([df_frames['camera'].mode()[0], rezy, df_frames['frame'].min(), df_frames['frame'].max(), df_frames['cX'].min(), df_frames['cX'].max(), df_frames['cY'].min(), df_frames['cY'].max(), df_frames['cY'].mode()[0]])
-df_pulse_sums = pd.DataFrame(pulserows, columns=['camera','pulse','start', 'finish', 'minx', 'maxx', 'miny', 'maxy', 'modey'])
+    pulserows.append([df_frames['camera'].mode()[0], rezy, df_frames['frame'].min(), df_frames['frame'].max(), df_frames['cX'].min(), df_frames['cX'].max(), df_frames['cX'].mode()[0], df_frames['cY'].min(), df_frames['cY'].max(), df_frames['cY'].mode()[0]])
+df_pulse_sums = pd.DataFrame(pulserows, columns=['camera','pulse','start', 'finish', 'minx', 'maxx', 'modex', 'miny', 'maxy', 'modey'])
 
 #Add empty column for spulse (stereo pulse)
 df_pulse_sums['spulse'] = 'none'

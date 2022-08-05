@@ -180,5 +180,5 @@ while(cap.isOpened() and cap2.isOpened() ):
 # Release everything if job is finished
 cv2.destroyAllWindows()
 
-plot.scatter(rxlist,rylist)
-plot.show()
+#plot.scatter(rxlist,rylist)
+#plot.show()

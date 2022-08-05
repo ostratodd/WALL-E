@@ -1,0 +1,3 @@
+python ../../5_find_measure_pulses/find_contours.py -v1 MGL_rightsideup_stereo_rectified.mkv -v2 MGL_upsidedown_stereorectified.mkv -b 120 -d 0.03 -m 3 -f contours_MGL.tab
+python ../../5_find_measure_pulses/visualize_contours.py -f contours_MGL.tab
+

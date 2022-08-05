@@ -1,0 +1,21 @@
+cp stereoMap.xml ../../video_data/southwater_pan/displays/
+cd ../../video_data/southwater_pan/displays/
+
+
+#Good signal at 23900 -although last pulses are seen by only one camera
+python ../../../video_utilites/clip2vids.py -v1 185538-1.mkv -v2 185539-2.mkv -s 23900 -e 24600 -o -13
+python ../../../2_stereo_rectification_scripts/remove_fisheye.py -p "./" -v 185538-1_clip_23900_24600.mkv
+python ../../../2_stereo_rectification_scripts/remove_fisheye.py -p "./" -v 185539-2_clip_23900_24600.mkv
+python ../../../2_stereo_rectification_scripts/rectify_videos.py  -v1 185538-1_clip_23900_24600.mkv -v2 185539-2_clip_23900_24600.mkv -w 1
+mv rectifiedL_.avi rectified_signal_23900_L.avi
+mv rectifiedR_.avi rectified_signal_23900_R.avi
+
+
+#Good signal about 30100. 31300 on new encoding?
+python ../../../video_utilites/clip2vids.py -v1 185538-1.mkv -v2 185539-2.mkv -s 31300 -e 31550 -o -13
+python ../../../2_stereo_rectification_scripts/remove_fisheye.py -p "./" -v 185538-1_clip_30130_30330.mkv
+python ../../../2_stereo_rectification_scripts/remove_fisheye.py -p "./" -v 185539-2_clip_30130_30330.mkv
+python ../../../2_stereo_rectification_scripts/rectify_videos.py  -v1 185538-1_clip_30130_30330.mkv -v2 185539-2_clip_30130_30330.mkv -w 1
+
+mv rectifiedL_.avi rectified_signal_30130_L.avi
+mv rectifiedR_.avi rectified_signal_30130_R.avi
