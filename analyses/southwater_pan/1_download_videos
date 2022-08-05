@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+#Use gdown to download videos stored on Google drive -- too large to keep in GitHub
+#pip install gdown
+#https://github.com/wkentaro/gdown
+
+#********** Video pair with displays
+VIDEO_DIR="/Users/oakley/Documents/GitHub/WALL-E/video_data/southwater_pan/"
+V1="185538-1"
+EXT=".ASF"
+LINK="1ouXtTiRl70z-hTEcg29FIZlk4pjJUWMQ"
+
+echo "Downloading V1"
+gdown $LINK -O $VIDEO_DIR$V1$EXT 
+
+V2=185539-2
+LINK="1M_Xkw3Z1Vn96DXFrIDNgjVNV5Wkf-Jhz"
+echo "Downloading V2"
+gdown $LINK -O $VIDEO_DIR$V2$EXT 
+

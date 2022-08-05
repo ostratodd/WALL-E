@@ -1,0 +1,65 @@
+Aug-04 15:02:20.282 [main] DEBUG nextflow.cli.Launcher - $> nextflow test2.nf --in data/sample.fa
+Aug-04 15:02:20.349 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.5
+Aug-04 15:02:20.406 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 by global default
+Aug-04 15:02:20.420 [main] INFO  nextflow.cli.CmdRun - Launching `test2.nf` [chaotic_mahavira] DSL2 - revision: 89df0ea572
+Aug-04 15:02:20.429 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.7.2,nf-azure@0.13.2,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+Aug-04 15:02:20.430 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Aug-04 15:02:20.438 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-04 15:02:20.438 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-04 15:02:20.441 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Aug-04 15:02:20.447 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-04 15:02:20.495 [main] DEBUG nextflow.Session - Session uuid: 82680fd5-0536-4a47-b21f-021e1c5a0fda
+Aug-04 15:02:20.496 [main] DEBUG nextflow.Session - Run name: chaotic_mahavira
+Aug-04 15:02:20.497 [main] DEBUG nextflow.Session - Executor pool size: 4
+Aug-04 15:02:20.518 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.04.5 build 5708
+  Created: 15-07-2022 16:09 UTC (09:09 PDT)
+  System: Mac OS X 12.5
+  Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 17.0.3+7-LTS
+  Encoding: UTF-8 (UTF-8)
+  Process: 5171@eemb-micro-room.eemb.ucsb.edu [128.111.226.149]
+  CPUs: 4 - Mem: 64 GB (16.9 GB) - Swap: 0 (0)
+Aug-04 15:02:20.530 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
+Aug-04 15:02:20.531 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/oakley/Documents/GitHub/WALL-E/nextflow/bin
+Aug-04 15:02:20.537 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Aug-04 15:02:20.544 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Aug-04 15:02:20.558 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Aug-04 15:02:20.565 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 5; maxThreads: 1000
+Aug-04 15:02:20.616 [main] DEBUG nextflow.Session - Session start invoked
+Aug-04 15:02:21.052 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Aug-04 15:02:21.134 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-04 15:02:21.135 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-04 15:02:21.138 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Aug-04 15:02:21.142 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=4; memory=64 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
+Aug-04 15:02:21.220 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-04 15:02:21.220 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-04 15:02:21.237 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: splitSequences, reverse
+Aug-04 15:02:21.238 [main] DEBUG nextflow.Session - Ignite dataflow network (2)
+Aug-04 15:02:21.238 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > splitSequences
+Aug-04 15:02:21.239 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > reverse
+Aug-04 15:02:21.239 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Aug-04 15:02:21.239 [main] DEBUG nextflow.Session - Session await
+Aug-04 15:02:21.283 [Actor Thread 5] ERROR nextflow.processor.TaskProcessor - Error executing process > 'splitSequences'
+
+Caused by:
+  Not a valid path value: 'data/sample.fa'
+
+
+Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
+Aug-04 15:02:21.287 [Actor Thread 5] DEBUG nextflow.Session - Session aborted -- Cause: Not a valid path value: 'data/sample.fa'
+Aug-04 15:02:21.295 [Actor Thread 5] DEBUG nextflow.Session - The following nodes are still active:
+[process] splitSequences
+  status=ACTIVE
+  port 0: (value) bound ; channel: input.fa
+  port 1: (cntrl) -     ; channel: $
+
+[process] reverse
+  status=ACTIVE
+  port 0: (value) OPEN  ; channel: x
+  port 1: (cntrl) -     ; channel: $
+
+Aug-04 15:02:21.296 [main] DEBUG nextflow.Session - Session await > all process finished
+Aug-04 15:02:21.296 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Aug-04 15:02:21.300 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=0; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=0ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=0; peakCpus=0; peakMemory=0; ]
+Aug-04 15:02:21.494 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Aug-04 15:02:21.504 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

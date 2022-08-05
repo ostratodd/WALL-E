@@ -1,0 +1,24 @@
+2022-08-04 12:36:29	1.9s	boring_franklin	OK	b08095dfab1df294466d7dc6f1952924	2d80fa51-6bea-47f6-9375-fee6bdd7f67c	nextflow tutorial.nf
+2022-08-04 12:39:22	2.2s	mighty_einstein	OK	b08095dfab1df294466d7dc6f1952924	e6645950-c225-4133-97f5-5beebdd4e2ff	nextflow run distance_pulses.nf
+2022-08-04 12:47:56	-	compassionate_monod	-	f415410f99645e066e494642d3be0c91	7d6da88a-9bde-4d17-90ad-fc4cce273a40	nextflow run tutorial.nf
+2022-08-04 12:48:46	2.6s	drunk_carson	OK	b08095dfab1df294466d7dc6f1952924	4ecafe25-23e6-479f-a946-f34149dfc023	nextflow tutorial.nf
+2022-08-04 12:49:01	1.4s	voluminous_koch	OK	b08095dfab1df294466d7dc6f1952924	e8868e50-db5a-491b-9b55-fe42d5d1d803	nextflow tutorial.nf --str 'bonjour mel'
+2022-08-04 12:51:00	2.4s	kickass_almeida	OK	b08095dfab1df294466d7dc6f1952924	8e5a60e5-66c6-4349-a2dc-e47a10c39785	nextflow tutorial.nf --instring 'bonjour mel'
+2022-08-04 12:51:14	1.8s	curious_church	OK	b08095dfab1df294466d7dc6f1952924	8e5a60e5-66c6-4349-a2dc-e47a10c39785	nextflow tutorial.nf --instring 'bonjour mel' -resume
+2022-08-04 12:51:42	1.8s	cranky_keller	OK	0f13a30b203646419dd47392c3c933f3	8e5a60e5-66c6-4349-a2dc-e47a10c39785	nextflow distance_pulses.nf --instring 'bonjour mel' -resume
+2022-08-04 12:52:10	1.8s	reverent_poincare	OK	da86c2ad993bb687d38f49cbba2d8c6d	8e5a60e5-66c6-4349-a2dc-e47a10c39785	nextflow distance_pulses.nf --instring 'bonjour mel' -resume
+2022-08-04 14:56:57	2.4s	loving_curran	OK	89df0ea572017f5c87c426919dbe9ad8	6e563409-ac5d-439f-a6b3-533008887158	nextflow run test2.nf
+2022-08-04 14:58:46	1.7s	boring_brown	ERR	89df0ea572017f5c87c426919dbe9ad8	100f097c-fe65-4acc-9d8c-b6895ce7513f	nextflow test2.nf --in sample.fa
+2022-08-04 14:58:56	1.2s	mighty_varahamihira	ERR	89df0ea572017f5c87c426919dbe9ad8	0cb0ad42-2e98-4350-a089-798a158f1123	nextflow test2.nf --in ./sample.fa
+2022-08-04 15:01:17	2.1s	big_pauling	OK	89df0ea572017f5c87c426919dbe9ad8	e38b91eb-b8ee-479e-92ce-e159659e2b2d	nextflow test2.nf
+2022-08-04 15:02:07	2s	scruffy_church	ERR	89df0ea572017f5c87c426919dbe9ad8	42919c6d-7a6a-4d3c-ba7a-087207a12145	nextflow test2.nf --in ./data/sample.fa
+2022-08-04 15:02:20	1.5s	chaotic_mahavira	ERR	89df0ea572017f5c87c426919dbe9ad8	82680fd5-0536-4a47-b21f-021e1c5a0fda	nextflow test2.nf --in data/sample.fa
+2022-08-04 15:02:36	1.2s	suspicious_kilby	ERR	89df0ea572017f5c87c426919dbe9ad8	0604a544-dbf5-42e3-8e12-8f1d63960eca	nextflow test2.nf --in /data/sample.fa
+2022-08-04 15:03:02	1.2s	maniac_bernard	ERR	89df0ea572017f5c87c426919dbe9ad8	ffe809c1-2a37-439b-98c9-94194ada98a6	nextflow test2.nf --in /data/sample.fa
+2022-08-04 15:03:10	2.1s	insane_waddington	OK	89df0ea572017f5c87c426919dbe9ad8	db2f6d1a-6d2c-4506-954b-a1703f9b947a	nextflow test2.nf
+2022-08-04 15:05:20	1.9s	intergalactic_booth	ERR	89df0ea572017f5c87c426919dbe9ad8	550b4f14-fbef-4ea2-a34d-ef5585a958b0	nextflow test2.nf --in /data/sample.fa
+2022-08-04 15:06:17	1.7s	infallible_mahavira	OK	89df0ea572017f5c87c426919dbe9ad8	9cb16421-c0de-4f11-8b0c-b38f2628c07b	nextflow test2.nf
+2022-08-04 15:06:47	1.2s	curious_darwin	ERR	80f06cd8804537928f2a1f8ed45308fb	0aeaf507-7253-4594-9b70-7bc7cf3969b3	nextflow test2.nf
+2022-08-04 15:08:29	2.1s	berserk_watson	ERR	80f06cd8804537928f2a1f8ed45308fb	a6eaa8f2-b33e-4db2-9ebc-a014a260ae50	nextflow test2.nf
+2022-08-04 15:09:02	2s	pensive_wilson	ERR	9665babf81d30670c7c6f0e675b7217d	c8863c5f-9fa1-4e26-b1c1-9670e40b9bfe	nextflow test2.nf
+2022-08-04 15:09:50	1.7s	angry_bassi	OK	f5bbacfe085907f51380ff10e352677a	e67260bf-de0d-45d7-b1a7-88fb5984399f	nextflow test2.nf

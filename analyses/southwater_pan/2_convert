@@ -15,9 +15,9 @@
 #*******************
 #Video with displays
 cd ../../video_data/southwater_pan/displays/
-#cp /Volumes/GoogleDrive/Shared\ drives/EEMB\ Oakley\ Lab/Data/Videos/Belize\ Data\ 10-19/Video/WALLE/10-16-2019/185538-1.ASF ./
-#cp /Volumes/GoogleDrive/Shared\ drives/EEMB\ Oakley\ Lab/Data/Videos/Belize\ Data\ 10-19/Video/WALLE/10-16-2019/185539-2.ASF ./
+cp /Volumes/GoogleDrive/Shared\ drives/EEMB\ Oakley\ Lab/Data/Videos/Belize\ Data\ 10-19/Video/WALLE/10-16-2019/185538-1.ASF ./
+cp /Volumes/GoogleDrive/Shared\ drives/EEMB\ Oakley\ Lab/Data/Videos/Belize\ Data\ 10-19/Video/WALLE/10-16-2019/185539-2.ASF ./
 
 #ffmpeg -i 185538-1.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 185538-1.mkv
-ffmpeg -i 185539-2.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 185539-2.mkv
+#ffmpeg -i 185539-2.ASF -f matroska -vcodec libx264 -an -framerate 30 -crf 0 185539-2.mkv
 

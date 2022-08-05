@@ -1,0 +1,52 @@
+Aug-04 15:06:17.267 [main] DEBUG nextflow.cli.Launcher - $> nextflow test2.nf
+Aug-04 15:06:17.331 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.5
+Aug-04 15:06:17.384 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 by global default
+Aug-04 15:06:17.399 [main] INFO  nextflow.cli.CmdRun - Launching `test2.nf` [infallible_mahavira] DSL2 - revision: 89df0ea572
+Aug-04 15:06:17.409 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.7.2,nf-azure@0.13.2,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+Aug-04 15:06:17.410 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Aug-04 15:06:17.418 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-04 15:06:17.419 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-04 15:06:17.421 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Aug-04 15:06:17.428 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-04 15:06:17.475 [main] DEBUG nextflow.Session - Session uuid: 9cb16421-c0de-4f11-8b0c-b38f2628c07b
+Aug-04 15:06:17.475 [main] DEBUG nextflow.Session - Run name: infallible_mahavira
+Aug-04 15:06:17.476 [main] DEBUG nextflow.Session - Executor pool size: 4
+Aug-04 15:06:17.498 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.04.5 build 5708
+  Created: 15-07-2022 16:09 UTC (09:09 PDT)
+  System: Mac OS X 12.5
+  Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 17.0.3+7-LTS
+  Encoding: UTF-8 (UTF-8)
+  Process: 7938@eemb-micro-room.eemb.ucsb.edu [128.111.226.149]
+  CPUs: 4 - Mem: 64 GB (16.5 GB) - Swap: 0 (0)
+Aug-04 15:06:17.508 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
+Aug-04 15:06:17.508 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/oakley/Documents/GitHub/WALL-E/nextflow/bin
+Aug-04 15:06:17.515 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Aug-04 15:06:17.522 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Aug-04 15:06:17.536 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Aug-04 15:06:17.544 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 5; maxThreads: 1000
+Aug-04 15:06:17.595 [main] DEBUG nextflow.Session - Session start invoked
+Aug-04 15:06:18.033 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Aug-04 15:06:18.115 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-04 15:06:18.115 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-04 15:06:18.119 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Aug-04 15:06:18.123 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=4; memory=64 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
+Aug-04 15:06:18.198 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-04 15:06:18.198 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-04 15:06:18.217 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: splitSequences, reverse
+Aug-04 15:06:18.217 [main] DEBUG nextflow.Session - Ignite dataflow network (2)
+Aug-04 15:06:18.217 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > splitSequences
+Aug-04 15:06:18.218 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > reverse
+Aug-04 15:06:18.218 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Aug-04 15:06:18.218 [main] DEBUG nextflow.Session - Session await
+Aug-04 15:06:18.312 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-04 15:06:18.315 [Task submitter] INFO  nextflow.Session - [a9/e1d749] Submitted process > splitSequences
+Aug-04 15:06:18.376 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: splitSequences; status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/a9/e1d7494d8c0fb9507004383d3eb824]
+Aug-04 15:06:18.406 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-04 15:06:18.407 [Task submitter] INFO  nextflow.Session - [18/64cb48] Submitted process > reverse
+Aug-04 15:06:18.501 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: reverse; status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/18/64cb48ad61252d16ed40d873749b89]
+Aug-04 15:06:18.502 [main] DEBUG nextflow.Session - Session await > all process finished
+Aug-04 15:06:18.505 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Aug-04 15:06:18.509 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=2; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=68ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
+Aug-04 15:06:18.660 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Aug-04 15:06:18.669 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
