@@ -2,11 +2,16 @@ import numpy as np
 import cv2
 import argparse
 import time
+import ntpath
+
+
+def path_leaf(path):			#function to extract basename from video filenames
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
+
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--path", required=False, default='.', 
-        help="path to video frame files default is ./")
 ap.add_argument("-v1", "--video1", required=True, type=str,
 	help="file name for first video")
 ap.add_argument("-v2", "--video2", required=True, type=str,
@@ -24,9 +29,12 @@ offset = args["offset"]
 delay = args["delay"]
 start = args["start"]
 end = args["end"]
-dir_path = args["path"]
 video1 = args["video1"]
 video2 = args["video2"]
+
+
+V1 = path_leaf(video1)
+V2 = path_leaf(video2)
 
 endframe = end - start
 
@@ -41,11 +49,13 @@ cap2.set(1,roffset);
 
 frameSize = (640, 480)
 
-new_filename_l = dir_path + "/" + video1[:-4] + "_clip_" + str(start) + "_" + str(end)+ ".mkv"
-new_filename_r = dir_path + "/" + video2[:-4] + "_clip_" + str(start) + "_" + str(end)+ ".mkv"
 
-out_l = cv2.VideoWriter(new_filename_l,cv2.VideoWriter_fourcc('F','F','V','1'), 30, frameSize)
-out_r = cv2.VideoWriter(new_filename_r,cv2.VideoWriter_fourcc('F','F','V','1'), 30, frameSize)
+#should check here to make sure video files contains 3 letter extension
+new_filename_l = video1[:-4] + "_clip_" + str(start) + "_" + str(end)+ ".mkv"
+new_filename_r = video2[:-4] + "_clip_" + str(start) + "_" + str(end)+ ".mkv"
+
+out_l = cv2.VideoWriter(new_filename_l,cv2.VideoWriter_fourcc('H','2','6','4'), 30, frameSize)
+out_r = cv2.VideoWriter(new_filename_r,cv2.VideoWriter_fourcc('H','2','6','4'), 30, frameSize)
 
 
 frametext=0
