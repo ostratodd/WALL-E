@@ -1,56 +1,67 @@
-Aug-04 15:02:35.886 [main] DEBUG nextflow.cli.Launcher - $> nextflow test2.nf --in /data/sample.fa
-Aug-04 15:02:35.949 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.5
-Aug-04 15:02:36.007 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 by global default
-Aug-04 15:02:36.021 [main] INFO  nextflow.cli.CmdRun - Launching `test2.nf` [suspicious_kilby] DSL2 - revision: 89df0ea572
-Aug-04 15:02:36.031 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.7.2,nf-azure@0.13.2,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
-Aug-04 15:02:36.033 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
-Aug-04 15:02:36.040 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
-Aug-04 15:02:36.041 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
-Aug-04 15:02:36.043 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
-Aug-04 15:02:36.053 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
-Aug-04 15:02:36.101 [main] DEBUG nextflow.Session - Session uuid: 0604a544-dbf5-42e3-8e12-8f1d63960eca
-Aug-04 15:02:36.102 [main] DEBUG nextflow.Session - Run name: suspicious_kilby
-Aug-04 15:02:36.103 [main] DEBUG nextflow.Session - Executor pool size: 4
-Aug-04 15:02:36.124 [main] DEBUG nextflow.cli.CmdRun - 
+Aug-08 12:11:13.539 [main] DEBUG nextflow.cli.Launcher - $> nextflow run prepare_video.nf
+Aug-08 12:11:13.637 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.5
+Aug-08 12:11:13.713 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+Aug-08 12:11:13.745 [main] INFO  nextflow.cli.CmdRun - Launching `prepare_video.nf` [cheesy_babbage] DSL2 - revision: 2b497f1363
+Aug-08 12:11:13.762 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.7.2,nf-azure@0.13.2,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+Aug-08 12:11:13.765 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Aug-08 12:11:13.779 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-08 12:11:13.780 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-08 12:11:13.785 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Aug-08 12:11:13.795 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-08 12:11:13.874 [main] DEBUG nextflow.Session - Session uuid: 3e44a30e-20b3-409d-b2b1-5fdb6e06395f
+Aug-08 12:11:13.874 [main] DEBUG nextflow.Session - Run name: cheesy_babbage
+Aug-08 12:11:13.876 [main] DEBUG nextflow.Session - Executor pool size: 4
+Aug-08 12:11:13.925 [main] DEBUG nextflow.cli.CmdRun - 
   Version: 22.04.5 build 5708
   Created: 15-07-2022 16:09 UTC (09:09 PDT)
   System: Mac OS X 12.5
   Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 17.0.3+7-LTS
   Encoding: UTF-8 (UTF-8)
-  Process: 5316@eemb-micro-room.eemb.ucsb.edu [128.111.226.149]
-  CPUs: 4 - Mem: 64 GB (16.7 GB) - Swap: 0 (0)
-Aug-04 15:02:36.136 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
-Aug-04 15:02:36.136 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/oakley/Documents/GitHub/WALL-E/nextflow/bin
-Aug-04 15:02:36.142 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
-Aug-04 15:02:36.151 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
-Aug-04 15:02:36.165 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
-Aug-04 15:02:36.172 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 5; maxThreads: 1000
-Aug-04 15:02:36.223 [main] DEBUG nextflow.Session - Session start invoked
-Aug-04 15:02:36.664 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Aug-04 15:02:36.746 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Aug-04 15:02:36.746 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Aug-04 15:02:36.750 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
-Aug-04 15:02:36.754 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=4; memory=64 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
-Aug-04 15:02:36.834 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Aug-04 15:02:36.834 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Aug-04 15:02:36.854 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: splitSequences, reverse
-Aug-04 15:02:36.855 [main] DEBUG nextflow.Session - Ignite dataflow network (2)
-Aug-04 15:02:36.855 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > splitSequences
-Aug-04 15:02:36.855 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > reverse
-Aug-04 15:02:36.855 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
-Aug-04 15:02:36.855 [main] DEBUG nextflow.Session - Session await
-Aug-04 15:02:36.904 [Actor Thread 5] DEBUG nextflow.util.CacheHelper - Unable to get file attributes file: /data/sample.fa -- Cause: java.nio.file.NoSuchFileException: /data/sample.fa
-Aug-04 15:02:36.946 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Aug-04 15:02:36.949 [Task submitter] INFO  nextflow.Session - [51/1ada51] Submitted process > splitSequences
-Aug-04 15:02:37.009 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: splitSequences; status: COMPLETED; exit: 1; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/51/1ada51d34eb12ab3ed88bd5ff249c8]
-Aug-04 15:02:37.030 [Task monitor] ERROR nextflow.processor.TaskProcessor - Error executing process > 'splitSequences'
+  Process: 55800@eemb-micro-room.eemb.ucsb.edu [128.111.226.149]
+  CPUs: 4 - Mem: 64 GB (8.5 GB) - Swap: 0 (0)
+Aug-08 12:11:13.940 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
+Aug-08 12:11:13.980 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Aug-08 12:11:13.993 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Aug-08 12:11:14.014 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Aug-08 12:11:14.028 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 5; maxThreads: 1000
+Aug-08 12:11:14.134 [main] DEBUG nextflow.Session - Session start invoked
+Aug-08 12:11:14.857 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Aug-08 12:11:14.987 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-08 12:11:14.988 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-08 12:11:14.993 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Aug-08 12:11:15.001 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=4; memory=64 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
+Aug-08 12:11:15.102 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-08 12:11:15.102 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-08 12:11:15.109 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-08 12:11:15.109 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-08 12:11:15.112 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: remove_fisheye, download_videos, convert_vid
+Aug-08 12:11:15.112 [main] DEBUG nextflow.Session - Ignite dataflow network (4)
+Aug-08 12:11:15.113 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > download_videos
+Aug-08 12:11:15.114 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > convert_vid
+Aug-08 12:11:15.116 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > remove_fisheye
+Aug-08 12:11:15.118 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Aug-08 12:11:15.118 [main] DEBUG nextflow.Session - Session await
+Aug-08 12:11:15.215 [Actor Thread 4] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::gdown; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-35d85b31e910d27e3494d6b680a96700
+Aug-08 12:11:15.297 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-08 12:11:15.302 [Task submitter] INFO  nextflow.Session - [fb/9ddf60] Submitted process > download_videos (1)
+Aug-08 12:11:19.246 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: download_videos (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/fb/9ddf605531caa7a9969b1430e1bff3]
+Aug-08 12:11:19.303 [Actor Thread 2] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::ffmpeg=4.4.1; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-fcdaabbf7f1c85016ae28a6afa1ae25c
+Aug-08 12:11:19.312 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-08 12:11:19.313 [Task submitter] INFO  nextflow.Session - [c6/50aaf6] Submitted process > convert_vid (1)
+Aug-08 12:11:46.400 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: convert_vid (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/c6/50aaf6bbd6a7d40a608844668e2b02]
+Aug-08 12:11:46.407 [Actor Thread 5] INFO  nextflow.conda.CondaCache - Creating env using conda: conda-forge::opencv [cache /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-c593350ba7c4ea77a7301c53459756fc]
+Aug-08 12:12:35.376 [Actor Thread 5] DEBUG nextflow.conda.CondaCache - 'conda' create complete env=conda-forge::opencv path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-c593350ba7c4ea77a7301c53459756fc
+Aug-08 12:12:35.386 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-08 12:12:35.386 [Task submitter] INFO  nextflow.Session - [84/2e06ba] Submitted process > remove_fisheye (1)
+Aug-08 12:12:54.080 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: remove_fisheye (1); status: COMPLETED; exit: 1; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/84/2e06bac97261226126d8501786912f]
+Aug-08 12:12:54.106 [Task monitor] ERROR nextflow.processor.TaskProcessor - Error executing process > 'remove_fisheye (1)'
 
 Caused by:
-  Process `splitSequences` terminated with an error exit status (1)
+  Process `remove_fisheye (1)` terminated with an error exit status (1)
 
 Command executed:
 
-  awk '/^>/{f="seq_"++d} {print > f}' < input.fa
+  remove_fisheye.py -v 161303-1.ASF.mkv
 
 Command exit status:
   1
@@ -59,15 +70,18 @@ Command output:
   (empty)
 
 Command error:
-  .command.sh: line 2: input.fa: No such file or directory
+  Traceback (most recent call last):
+    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/bin/remove_fisheye.py", line 20, in <module>
+      dir_path = args["path"]
+  KeyError: 'path'
 
 Work dir:
-  /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/51/1ada51d34eb12ab3ed88bd5ff249c8
+  /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/84/2e06bac97261226126d8501786912f
 
 Tip: view the complete command output by changing to the process work dir and entering the command `cat .command.out`
-Aug-04 15:02:37.035 [Task monitor] DEBUG nextflow.Session - Session aborted -- Cause: Process `splitSequences` terminated with an error exit status (1)
-Aug-04 15:02:37.035 [main] DEBUG nextflow.Session - Session await > all process finished
-Aug-04 15:02:37.043 [main] DEBUG nextflow.Session - Session await > all barriers passed
-Aug-04 15:02:37.047 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=0; failedCount=1; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=0ms; failedDuration=45ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
-Aug-04 15:02:37.243 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
-Aug-04 15:02:37.253 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
+Aug-08 12:12:54.109 [Task monitor] DEBUG nextflow.Session - Session aborted -- Cause: Process `remove_fisheye (1)` terminated with an error exit status (1)
+Aug-08 12:12:54.110 [main] DEBUG nextflow.Session - Session await > all process finished
+Aug-08 12:12:54.125 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Aug-08 12:12:54.133 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=2; failedCount=1; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=31s; failedDuration=18.6s; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
+Aug-08 12:12:54.332 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Aug-08 12:12:54.349 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

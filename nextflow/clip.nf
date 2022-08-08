@@ -4,7 +4,7 @@ nextflow.enable.dsl=2
 
 workflow {
     params.VIDEO_DIR="video_data"
-    params.LOC="southwater_pan"
+    params.LOC="Southwater_BZ"
     params.cEXT=".mkv"
 
 /*  channel containing: videoL, videoR, start, end, offset 	*/

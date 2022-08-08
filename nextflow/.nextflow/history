@@ -22,3 +22,29 @@
 2022-08-04 15:08:29	2.1s	berserk_watson	ERR	80f06cd8804537928f2a1f8ed45308fb	a6eaa8f2-b33e-4db2-9ebc-a014a260ae50	nextflow test2.nf
 2022-08-04 15:09:02	2s	pensive_wilson	ERR	9665babf81d30670c7c6f0e675b7217d	c8863c5f-9fa1-4e26-b1c1-9670e40b9bfe	nextflow test2.nf
 2022-08-04 15:09:50	1.7s	angry_bassi	OK	f5bbacfe085907f51380ff10e352677a	e67260bf-de0d-45d7-b1a7-88fb5984399f	nextflow test2.nf
+2022-08-08 10:06:17	58.8s	soggy_ardinghelli	ERR	69fcb5667fa3b80ecf9655c79854829e	6520cd38-0fbb-4cab-8f52-fb9bb6074b63	nextflow run rectification.nf
+2022-08-08 10:09:46	6.3s	golden_lamarr	ERR	456767b9001713a42742a5989baf518e	396fa4bc-bb48-43f0-a1d7-5eb0c04daa7c	nextflow run rectification.nf
+2022-08-08 10:10:32	3.7s	intergalactic_waddington	ERR	e57a1fe09fe312a54bca4dcf3fd32f44	36911f3c-311e-4ee6-9053-eb965dd31e30	nextflow run rectification.nf
+2022-08-08 10:14:12	10.3s	berserk_elion	OK	eaf1c721d17baff757711abcb5077c9b	7a80542d-8bf3-4c09-b457-114a3d92ad11	nextflow run rectification.nf
+2022-08-08 10:14:59	9.5s	mighty_jennings	OK	fb6f46ba4374a556884981e8075aec15	dce9bc82-7264-4145-a350-b1f8e6964904	nextflow run rectification.nf
+2022-08-08 10:16:29	7.2s	thirsty_agnesi	ERR	5877fefcd7ad1f20912fe1835e84fb3f	ed28d412-5cd5-4075-b094-e26b64d80259	nextflow run rectification.nf
+2022-08-08 10:17:28	9.9s	agitated_keller	OK	62ffc0515434629503d59472a83b9fa4	3b46330b-51db-4de8-924a-a272aa579476	nextflow run rectification.nf
+2022-08-08 11:26:03	10s	focused_ride	OK	62ffc0515434629503d59472a83b9fa4	1d94cffe-5e6f-4f04-b62a-db80dd64b9d6	nextflow run rectification.nf
+2022-08-08 11:28:08	1m 57s	fabulous_gautier	ERR	1297d8ff509a63ecfd462863c02d16a0	2729db03-c393-493e-8fcb-f5094398733d	nextflow run rectification.nf
+2022-08-08 11:30:41	33.4s	nice_mirzakhani	OK	4b42617a69952bd700082004905c9646	cd12e60d-9262-4ead-b462-3abb6707c29c	nextflow run rectification.nf
+2022-08-08 11:33:21	31.6s	boring_borg	OK	4b42617a69952bd700082004905c9646	467fcc72-d0ad-4e34-8d09-b2bc4ac44375	nextflow run prepare_video.nf
+2022-08-08 11:43:11	-	loving_dijkstra	-	084773f019fc1bff8a54eceba9ebc629	b8243487-dc20-43bb-8a21-1c0cc9675961	nextflow run prepare_video.nf
+2022-08-08 11:43:39	1m 8s	desperate_blackwell	OK	502f9b0862d73fd3b30a074f5251b5fa	519e7b77-c6be-4846-ace1-20e233e04f7f	nextflow run prepare_video.nf
+2022-08-08 11:47:31	33.4s	lethal_lavoisier	OK	c3ce86b5a32b080b9ca04eb771d2cc77	32780d74-372b-4501-a87f-703a1347430e	nextflow run prepare_video.nf
+2022-08-08 12:06:44	-	amazing_feynman	-	f80dfb4e23dc93c507c2c1a9178b401e	640bb587-da42-4795-9700-dcfce9822c36	nextflow run prepare_video.nf
+2022-08-08 12:07:39	-	astonishing_meitner	-	d42e0bd2ee6a100e5e27eea17f1df0cd	9d19ad6b-4601-493c-ada4-771da34280cc	nextflow run prepare_video.nf
+2022-08-08 12:08:59	5.7s	romantic_lavoisier	ERR	812fabb535806a2221f5a1338ff51875	bd55dadc-a853-4f95-93dd-69a1754352f4	nextflow run prepare_video.nf
+2022-08-08 12:11:13	1m 41s	cheesy_babbage	ERR	2b497f136368c342ad4eb6a2cc3e7b03	3e44a30e-20b3-409d-b2b1-5fdb6e06395f	nextflow run prepare_video.nf
+2022-08-08 12:13:53	35.4s	happy_bell	ERR	2b497f136368c342ad4eb6a2cc3e7b03	87c09a2e-756e-4669-bb8c-06c05631ee6f	nextflow run prepare_video.nf
+2022-08-08 12:16:38	3m 18s	evil_hugle	ERR	2b497f136368c342ad4eb6a2cc3e7b03	124e9e22-668d-4ca6-983f-6cb6538aa040	nextflow run prepare_video.nf
+2022-08-08 12:27:23	3m 19s	condescending_joliot	ERR	2b497f136368c342ad4eb6a2cc3e7b03	e78b69c7-b2ea-42c1-932f-96a059407f24	nextflow run prepare_video.nf
+2022-08-08 13:22:05	2m 47s	condescending_euler	OK	2b497f136368c342ad4eb6a2cc3e7b03	e78b69c7-b2ea-42c1-932f-96a059407f24	nextflow run prepare_video.nf -resume
+2022-08-08 14:14:12	3m 17s	stupefied_gautier	OK	5132004224b0ff673ef55f09a6dfe14d	b93d7934-8615-4590-8ddf-4a34e66faae3	nextflow run prepare_video.nf
+2022-08-08 14:22:38	3m 15s	pedantic_solvay	OK	5132004224b0ff673ef55f09a6dfe14d	c453ffdc-1c6c-427b-bb1d-c8419c16ba12	nextflow run prepare_video.nf
+2022-08-08 14:33:01	3m 15s	nostalgic_hawking	OK	972dbb4ac8e55d648b497a052d6ae89e	c684ba4c-6442-40e3-9067-341de5455c1b	nextflow run prepare_video.nf
+2022-08-08 15:02:07	28m 16s	drunk_sammet	OK	7c61aee6a8d85a0e6d1e9892c2adb39f	5a69b573-ac31-455f-8b11-abd28a898993	nextflow run prepare_video.nf

@@ -1,11 +1,11 @@
+#!/usr/bin/env python3
+
 import numpy as np
 import cv2
 import argparse
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--path", required=False, default='.',
-        help="path to video frame files default is ./")
 ap.add_argument("-v", "--video", required=True, type=str,
         help="file name for video to undistort")
 ap.add_argument("-s", "--start", required=False, default=1, type=int,
@@ -17,7 +17,6 @@ ap.add_argument("-d", "--delay", required=False, default=0, type=float,
 args = vars(ap.parse_args())
 delay = args["delay"]
 start = args["start"]
-dir_path = args["path"]
 watch = args["watch"]
 video = args["video"]
 
@@ -45,16 +44,16 @@ def undistort(img_orig, balance=0.0, dim2=None, dim3=None):
     return(undistorted_img)
 
 
-#create path and video name
-thefile = dir_path + video
-
 # Open video
-cap = cv2.VideoCapture(thefile)
+cap = cv2.VideoCapture(video)
 
 #open a file to write to
 frameSize = (640,480)
 
-outfile = dir_path + 'undistort_' + video
+
+#should check here to make sure video files contains 3 letter extension
+outfile = video[:-4] + "_undis.mkv"
+
 out = cv2.VideoWriter(outfile,cv2.VideoWriter_fourcc('F','F','V','1'), 30, frameSize)
 
 print("Undistorting fish eye video and writing to " + outfile)
@@ -63,28 +62,29 @@ _img_shape = None
 while(cap.isOpened()):
     succes, frame = cap.read()
 
-    if _img_shape == None:
-        _img_shape = frame.shape[:2]
-    else:
-        assert _img_shape == frame.shape[:2], "All images must share the same size."
+    if succes == True:
+        if _img_shape == None:
+            _img_shape = frame.shape[:2]
+        else:
+            assert _img_shape == frame.shape[:2], "All images must share the same size."
 
-    # Undistort and rectify images
+        # Undistort and rectify images
 
-    uframe = undistort(frame)
+        uframe = undistort(frame)
                     
-    #If watch variable is true
-    # Show the frames
-    if watch == 1:
-      cv2.imshow("frame", uframe) 
+        #If watch variable is true
+        # Show the frames
+        if watch == 1:
+          cv2.imshow("frame", uframe) 
 
-    #write the frame to outfile
-    out.write(uframe)
+        #write the frame to outfile
+        out.write(uframe)
 
-    # Hit "q" to close the window
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+        # Hit "q" to close the window
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    else:
         break
-
 # Release and destroy all windows before termination
 cap.release()
-
 cv2.destroyAllWindows()
