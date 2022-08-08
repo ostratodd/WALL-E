@@ -1,0 +1,13 @@
+name: walle
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - gdown
+  - ffmpeg
+  - seaborn
+  - matplotlib
+  - opencv
+  - numpy
+  - pandas
+  - x264

@@ -2,36 +2,56 @@
 
 nextflow.enable.dsl=2
 
-
 workflow {
-    params.SCRIPTS_DIR = "/Users/oakley/Documents/GitHub/WALL-E/"
-    params.VIDEO_DIR="/Users/oakley/Documents/GitHub/WALL-E/video_data/"
+    params.VIDEO_DIR="video_data"
     params.LOC="southwater_pan"
     params.cEXT=".mkv"
 
-    params.start=1000
-    params.end=6000
-    params.offset=-15
+/*  channel containing: videoL, videoR, start, end, offset 	*/
 
-    southwater_checker = Channel.of(["/Users/oakley/Documents/GitHub/WALL-E/video_data/southwater_pan/161303-1.mkv", "/Users/oakley/Documents/GitHub/WALL-E/video_data/southwater_pan/161303-2.mkv"])
+    southwater_checker = Channel.of(["161303-2", "161303-1", 1000, 6000, 15]) 
     
     clip_video_pair(southwater_checker)
+    clip_video_pair.out.verbiage.view()
 
 }
-process clip_video_pair {
 
-    conda = 'conda-forge::opencv'
+process clip_video_pair {
+    publishDir '$baseDir/clips'
 
     input:
-    tuple path(V1), path(V2)
+    tuple val(V1), val(V2), val(start), val(end), val(offset)
 
     output:
-    stdout
+    path '*.mkv', emit: videos
+    stdout emit: verbiage
 
     script:
     """
-
-    python ${params.SCRIPTS_DIR}video_utilities/play2vids.py -v1 $V1 -v2 $V2 -s ${params.start}
+    echo "Clipped $V1${params.cEXT} and $V2${params.cEXT}"
+    clip2vids.py -v1 "${params.VIDEO_DIR}${params.LOC}/$V1${params.cEXT}" -v2 "${params.VIDEO_DIR}${params.LOC}/$V2${params.cEXT}" -s $start -e $end -o $offset -w 0
 
     """
 }
+
+
+/* UNUSED LINES
+
+    publishDir(
+        path: "${params.VIDEO_DIR}/${params.LOC}",
+        mode: 'copy',
+        saveAs: { fn -> fn.substring(fn.lastIndexOf('/')+1) },
+    )
+
+
+
+process undistort_fisheye {
+
+}
+
+
+    path "${params.VIDEO_DIR}${params.LOC}/$V1_clip*" 
+
+    clip_video_pair.out.view()
+
+*/
