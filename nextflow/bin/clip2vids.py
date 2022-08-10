@@ -4,12 +4,6 @@ import numpy as np
 import cv2
 import argparse
 import time
-import ntpath
-
-
-def path_leaf(path):			#function to extract basename from video filenames
-    head, tail = ntpath.split(path)
-    return tail or ntpath.basename(head)
 
 
 # Construct the argument parser and parse the arguments
@@ -37,9 +31,6 @@ video1 = args["video1"]
 video2 = args["video2"]
 watch = args["watch"]
 
-V1 = path_leaf(video1)
-V2 = path_leaf(video2)
-
 endframe = end - start
 
 cap = cv2.VideoCapture(video1)
@@ -55,8 +46,9 @@ frameSize = (640, 480)
 
 
 #should check here to make sure video files contains 3 letter extension
-new_filename_l = video1[:-4] + "_clip_" + str(start) + "_" + str(end)+ ".mkv"
-new_filename_r = video2[:-4] + "_clip_" + str(start) + "_" + str(end)+ ".mkv"
+
+new_filename_l = video1[:-4] + "_cl_" + str(start) + "_" + str(end)+ ".mkv"
+new_filename_r = video2[:-4] + "_cl_" + str(start) + "_" + str(end)+ ".mkv"
 
 out_l = cv2.VideoWriter(new_filename_l,cv2.VideoWriter_fourcc('H','2','6','4'), 30, frameSize)
 out_r = cv2.VideoWriter(new_filename_r,cv2.VideoWriter_fourcc('H','2','6','4'), 30, frameSize)
