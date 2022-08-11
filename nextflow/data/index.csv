@@ -1,3 +1,4 @@
-location,videoL,linkL,videoR,linkR,start,end,offset
-Southwater_Belize,161303-2_L.mkv,1LzJHVtp41w8dDuvgFG6gpdZlSQHeeVac,161303-1_R.mkv,1_vhH9mNFtHswIcBcIwN0XQ_7L6Q6eCq6,1000,1200,15
-Hangman_Belize,174157-1_L.mkv,1kGIRJOB2PoSA2_UQF0Vl7v7FkYzBlcm0,174159-2_R.mkv,1DvkhoebXzOrJLv8ZfeKdwzJi0IyRy_nZ,13700,14250,13
+date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,stereoMap
+Oct-19,Belize,Southwater,calibration,161303-2_L.mkv,1LzJHVtp41w8dDuvgFG6gpdZlSQHeeVac,161303-1_R.mkv,1_vhH9mNFtHswIcBcIwN0XQ_7L6Q6eCq6,1000,6000,15,NA
+2017,Belize,Hangman,calibration,174157-1_L.mkv,1kGIRJOB2PoSA2_UQF0Vl7v7FkYzBlcm0,174159-2_R.mkv,1DvkhoebXzOrJLv8ZfeKdwzJi0IyRy_nZ,13700,14250,13,NA
+2022,Panama,Manglar,calibration,102338-1_L.mkv,1tHCvQCabL27Df10hMz5cKnLoFzpuLlMy,102338-2_R.mkv,1JHJ4mxCUODrc6rKKnAtCpMKDeavXtxCK,100,14600,-17,NA

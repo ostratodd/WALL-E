@@ -16,32 +16,33 @@ workflow {
     Channel.fromPath(params.index) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.location, row.videoL, row.linkL, row.videoR, row.linkR ) } \
-        | download_videos | flatten | make_cfr | collect | finish_download
+        | download_videos | flatten | make_cfr | finish_download
 
     pairs_ch = Channel.fromPath(params.index, checkIfExists:true) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.offset) }
 
-/*    finish_download(make_cfr.out) */
-    clip_video_pair(finish_download.out.state, pairs_ch)
+    clip_video_pair(finish_download.out.state, pairs_ch) \
+        | flatten | remove_fisheye
 
 }
 
 process clip_video_pair {
-    conda = 'conda-forge::opencv=4.5.5 conda-forge::numpy=1.22.4'
+    publishDir "$params.VIDEO_DIR"
+
+    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
 
     input:
     val ready
     tuple val(V1), val(V2), val(start), val(end), val(offset)
 
     output:
-    path '*.mkv'
+    path '*.mkv', emit: paired_vid
 
     script:
 
     """
-    clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_$V1 -v2 $baseDir/${params.VIDEO_DIR}/cfr_$V2 -s $start -e $end -o $offset -w 1
-
+    clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_$V1 -v2 $baseDir/${params.VIDEO_DIR}/cfr_$V2 -s $start -e $end -o $offset -w 0
     """
 }
 
@@ -97,8 +98,20 @@ process make_cfr {
     """
 }
 
+process remove_fisheye {
+    publishDir "$params.VIDEO_DIR"
 
-/*
+    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
 
+    input:
+    path V1
 
-*/
+    output:
+    path '*.mkv'
+
+    script:
+    """
+    remove_fisheye.py -v $V1
+    """
+}
+
