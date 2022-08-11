@@ -12,18 +12,20 @@ params.cEXT = '.mkv'
 
 workflow {
     params.VIDEO_DIR='video_data'
+    params.LOC="Southwater_BZ"
+
 
     Channel.fromPath(params.index) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.location, row.videoL, row.linkL, row.videoR, row.linkR ) } \
-        | download_videos | flatten | make_cfr | collect | finish_download
+        | download_videos | flatten | make_cfr
 
     pairs_ch = Channel.fromPath(params.index, checkIfExists:true) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.offset) }
 
-/*    finish_download(make_cfr.out) */
-    clip_video_pair(finish_download.out.state, pairs_ch)
+/*    finish_download(make_cfr.out.vid)
+    clip_video_pair(finish_download.out.state, pairs_ch) | view */
 
 }
 
@@ -35,28 +37,13 @@ process clip_video_pair {
     tuple val(V1), val(V2), val(start), val(end), val(offset)
 
     output:
-    path '*.mkv'
+    stdout
 
     script:
 
     """
-    clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_$V1 -v2 $baseDir/${params.VIDEO_DIR}/cfr_$V2 -s $start -e $end -o $offset -w 1
+    echo "Clipped $V1 and $V2 and wrote to data directory"
 
-    """
-}
-
-process finish_download {
-
-    input:
-    path vids
-
-    output:
-    val true, emit: state
-
-    script:
-
-    """
-    echo "Finished download"
     """
 }
 
@@ -100,5 +87,6 @@ process make_cfr {
 
 /*
 
+    #clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/${params.LOC}/$V1${params.EXT}${params.cEXT} -v2 $baseDir/${params.VIDEO_DIR}/${params.LOC}/$V2${params.EXT}${params.cEXT} -s $start -e $end -o $offset -w 0
 
 */
