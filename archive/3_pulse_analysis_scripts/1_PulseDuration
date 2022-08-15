@@ -1,0 +1,31 @@
+#Lightening strikes cause some problems with the analyses
+	# one strike is at frames 002332-002335
+	# Thresholding above 145 removes the strike
+#./adjust_gamma.py -g 1 -i data/mgl/original/002332.png -o data/mgl/002332.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/002333.png -o data/mgl/002333.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/002334.png -o data/mgl/002334.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/002335.png -o data/mgl/002335.png -b 145 -w 255
+
+	#another strike from 5952-5956 no apparent signals so remove these frames
+#mv data/mgl/005952.png data/mgl/original/005952.png
+#mv data/mgl/005953.png data/mgl/original/005953.png
+#mv data/mgl/005954.png data/mgl/original/005954.png
+#mv data/mgl/005955.png data/mgl/original/005955.png
+#mv data/mgl/005956.png data/mgl/original/005956.png 
+
+	#14153-14156
+#./adjust_gamma.py -g 1 -i data/mgl/original/014153.png -o data/mgl/014153.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/014154.png -o data/mgl/014154.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/014155.png -o data/mgl/014155.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/014156.png -o data/mgl/014156.png -b 145 -w 255
+
+	#17165-8
+#./adjust_gamma.py -g 1 -i data/mgl/original/017165.png -o data/mgl/017165.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/017166.png -o data/mgl/017166.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/017167.png -o data/mgl/017167.png -b 145 -w 255
+#./adjust_gamma.py -g 1 -i data/mgl/original/017168.png -o data/mgl/017168.png -b 145 -w 255
+
+
+#Now analyze
+./chart_contours.py -p ./data/mgl/ -g .8 -t 0 -b 110 -w 255 > contours_MGL.csv
+perl classify.pl contours_MGL.csv > pulses_MGL.csv

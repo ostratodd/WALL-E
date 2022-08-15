@@ -1,15 +1,19 @@
+#!/usr/bin/env python3
+
 import numpy as np
 import cv2 as cv
 import glob
 import argparse
 
-#Script written by Nico Nielsen taken from https://github.com/niconielsen32/ComputerVision/blob/master/stereoVisionCalibration/stereovision_calibration.py
+#Original cript written by Nico Nielsen taken from https://github.com/niconielsen32/ComputerVision/blob/master/stereoVisionCalibration/stereovision_calibration.py
 ################ FIND CHESSBOARD CORNERS - OBJECT POINTS AND IMAGE POINTS #############################
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--path", required=False, default='.', 
         help="path to video frame files default is ./")
+ap.add_argument("-pre", "--prefix", required=False, default='', 
+        help="prefix for the name of the image files before the required CH")
 ap.add_argument("-v1", "--video1", required=True, type=str,
 	help="prefix of file name for left stills")
 ap.add_argument("-v2", "--video2", required=True, type=str,
@@ -20,6 +24,7 @@ ap.add_argument("-e", "--extension", required=False, default="png", type=str,
 	help="extension of files. Default = png")
 args = vars(ap.parse_args())
 dir_path = args["path"]
+prefix = args["prefix"]
 video1 = args["video1"]
 video2 = args["video2"]
 cb_size = args["cb_size"]
@@ -47,8 +52,8 @@ imgpointsL = [] # 2d points in image plane.
 imgpointsR = [] # 2d points in image plane.
 
 
-imagesLeft = sorted(glob.glob(dir_path + '/' + video1 + '*.' + ext))
-imagesRight = sorted(glob.glob(dir_path + '/' + video2 + '*.' + ext))
+imagesLeft = sorted(glob.glob(dir_path + '/' + prefix + "_" + video1 + '*.' + ext))
+imagesRight = sorted(glob.glob(dir_path + '/' + prefix + "_" + video2 + '*.' + ext))
 
 
 for imgLeft, imgRight in zip(imagesLeft, imagesRight):
@@ -64,6 +69,7 @@ for imgLeft, imgRight in zip(imagesLeft, imagesRight):
 
     # If found, add object points, image points (after refining them)
     if retL and retR == True:
+        print("FOUND matching corners")
 
         objpoints.append(objp)
 
@@ -78,12 +84,14 @@ for imgLeft, imgRight in zip(imagesLeft, imagesRight):
         cv.imshow('img left', imgL)
         cv.drawChessboardCorners(imgR, chessboardSize, cornersR, retR)
         cv.imshow('img right', imgR)
-        cv.moveWindow('img right', 650, 0)
+        cv.moveWindow('img left', 0, 0)
+        cv.moveWindow('img right', 642, 0)
         cv.waitKey(1000)
     else:
         cv.imshow('img left', imgL)
         cv.imshow('img right', imgR)
-        cv.moveWindow('img right', 650, 0)
+        cv.moveWindow('img left', 0, 0)
+        cv.moveWindow('img right', 642, 0)
         cv.waitKey(1000)
 
 cv.destroyAllWindows()
@@ -127,7 +135,7 @@ stereoMapL = cv.initUndistortRectifyMap(newCameraMatrixL, distL, rectL, projMatr
 stereoMapR = cv.initUndistortRectifyMap(newCameraMatrixR, distR, rectR, projMatrixR, grayR.shape[::-1], cv.CV_16SC2)
 
 print("Saving parameters!")
-cv_file = cv.FileStorage('stereoMap.xml', cv.FILE_STORAGE_WRITE)
+cv_file = cv.FileStorage(prefix + '_stereoMap.xml', cv.FILE_STORAGE_WRITE)
 
 cv_file.write('stereoMapL_x',stereoMapL[0])
 cv_file.write('stereoMapL_y',stereoMapL[1])

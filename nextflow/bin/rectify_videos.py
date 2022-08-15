@@ -1,12 +1,16 @@
-#Much of original script copied from Nico Nielsen Github
+#!/usr/bin/env python3
+
 import numpy as np
 import cv2
 import argparse
 
+#Much of original script copied from Nico Nielsen Github
+
+
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--path", required=False, default='.',
-        help="path to video frame files default is ./")
+ap.add_argument("-f", "--stereo_file", required=True,
+        help="prefix for stereoMap.xml file")
 ap.add_argument("-v1", "--video1", required=True, type=str,
         help="file name for first video")
 ap.add_argument("-v2", "--video2", required=True, type=str,
@@ -22,7 +26,7 @@ ap.add_argument("-d", "--delay", required=False, default=0, type=float,
 args = vars(ap.parse_args())
 delay = args["delay"]
 start = args["start"]
-dir_path = args["path"]
+file = args["stereo_file"]
 watch = args["watch"]
 lines = args["lines"]
 video1 = args["video1"]
@@ -31,7 +35,7 @@ video2 = args["video2"]
 
 # Camera parameters to undistort and rectify images
 cv_file = cv2.FileStorage()
-cv_file.open('stereoMap.xml', cv2.FileStorage_READ)
+cv_file.open(file, cv2.FileStorage_READ)
 
 stereoMapL_x = cv_file.getNode('stereoMapL_x').mat()
 stereoMapL_y = cv_file.getNode('stereoMapL_y').mat()
@@ -55,10 +59,10 @@ while(cap_right.isOpened() and cap_left.isOpened()):
     succes_left, frame_left = cap_left.read()
 
 
-    cv2.imshow("orig frame right", frame_right) 
-    cv2.moveWindow("orig frame right",642, 600)
-    cv2.imshow("orig frame left", frame_left)
-    cv2.moveWindow("orig frame left",1, 600)
+    #cv2.imshow("orig frame right", frame_right) 
+    #cv2.moveWindow("orig frame right",642, 600)
+    #cv2.imshow("orig frame left", frame_left)
+    #cv2.moveWindow("orig frame left",1, 600)
 
 
     # Undistort and rectify images

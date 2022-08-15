@@ -3,28 +3,101 @@
 nextflow.enable.dsl=2
 
 params.index = "$baseDir/data/index.csv"
-
+params.cEXT = '.mkv'
+params.VIDEO_DIR='video_data'
 
 /* Downloads from Google Drive link, converts to constant frame rate (30 fps)
     then runs undistort (fisheye) custom for WALLE camera housings           */
 
-params.cEXT = '.mkv'
 
-workflow {
-    params.VIDEO_DIR='video_data'
+workflow DOWNLOAD_RAW {
 
     Channel.fromPath(params.index) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.location, row.videoL, row.linkL, row.videoR, row.linkR ) } \
+        | map { row-> tuple(row.location, row.videoL, row.linkL, row.videoR, row.linkR) } \
         | download_videos | flatten | make_cfr | finish_download
+}
+
+workflow CLIP {
 
     pairs_ch = Channel.fromPath(params.index, checkIfExists:true) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.offset) }
 
     clip_video_pair(finish_download.out.state, pairs_ch) \
-        | flatten | remove_fisheye
+    | flatten \
+    | remove_fisheye | finish_defish
+}
+workflow MAKE_STEREO_MAPS {
+    stereo_ch = Channel.fromPath(params.index, checkIfExists:true) \
+        | splitCsv(header:true) \
+        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.stereoMap, row.movement, row.checksize, row.stereoMap, row.distance) }
 
+    find_pairs(finish_defish.out.state, stereo_ch) | stereo_rectification
+
+
+}
+
+workflow {
+    DOWNLOAD_RAW()
+}
+
+process remove_fisheye {
+    publishDir "$params.VIDEO_DIR"
+
+    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+
+    input:
+    path V1
+
+    output:
+    path '*.mkv'
+
+    script:
+    """
+    remove_fisheye.py -v $V1
+    """
+}
+
+process stereo_rectification {
+    publishDir "$params.VIDEO_DIR/stereo_maps"
+
+    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+
+    input:
+    path pairs
+    val(checksize)
+    val(stereomap)
+
+
+    output:
+    path '*.xml'
+
+    script:
+    """
+    stereovision_calibration.py -v1 CH_L -v2 CH_R -pre $stereomap -p $baseDir/${params.VIDEO_DIR}/pairs -c $checksize
+    """
+
+}
+
+process find_pairs {
+    publishDir "$params.VIDEO_DIR/pairs"
+
+    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+
+    input:
+    val ready
+    tuple val(VL), val(VR), val(start), val(end), val(stereomap), val(movement), val(checksize), val(stereoMap), val(distance)
+
+    output:
+    path '*.png'
+    val(checksize)
+    val(stereomap)
+
+    script:
+    """
+    collect_stereo_pairs.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/cfr_${VR}_cl_${start}_${end}_undis.mkv -m ${movement} -c ${checksize} -p $stereoMap -l 0 -e $distance
+    """
 }
 
 process clip_video_pair {
@@ -42,7 +115,7 @@ process clip_video_pair {
     script:
 
     """
-    clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_$V1 -v2 $baseDir/${params.VIDEO_DIR}/cfr_$V2 -s $start -e $end -o $offset -w 0
+    clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_$V1${params.cEXT} -v2 $baseDir/${params.VIDEO_DIR}/cfr_$V2${params.cEXT} -s $start -e $end -o $offset -w 0
     """
 }
 
@@ -61,6 +134,21 @@ process finish_download {
     """
 }
 
+process finish_defish {
+
+    input:
+    path vids
+
+    output:
+    val true, emit: state
+
+    script:
+
+    """
+    echo "Finished undistorting"
+    """
+}
+
 process download_videos {
 
     conda = 'conda-forge::gdown'
@@ -74,8 +162,8 @@ process download_videos {
     script:
 
     """
-    gdown $linkL -O $videoL
-    gdown $linkR -O $videoR
+    gdown $linkL -O $videoL${params.cEXT}
+    gdown $linkR -O $videoR${params.cEXT}
 
     """
 }
@@ -98,20 +186,18 @@ process make_cfr {
     """
 }
 
-process remove_fisheye {
-    publishDir "$params.VIDEO_DIR"
+/*
 
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+    echo "collect_stereo_pairs.py -v1 cfr_"+$V1+"_cl_$start_$end_undis.mkv -v2 cfr_$V2_cl_$start_$end_undis.mkv  -m $movement -c $checksize "
 
-    input:
-    path V1
+ -v2 cfr_$V2_cl_$start_$end_undis.mkv  -m $movement -c $checksize "
 
-    output:
-    path '*.mkv'
 
-    script:
-    """
-    remove_fisheye.py -v $V1
-    """
-}
 
+
+#----------------------workflow works with one video
+
+
+
+
+*/
