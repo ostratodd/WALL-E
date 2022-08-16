@@ -14,8 +14,8 @@ workflow DOWNLOAD_RAW {
 
     Channel.fromPath(params.index) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.location, row.videoL, row.linkL, row.videoR, row.linkR) } \
-        | download_videos | flatten | make_cfr | finish_download
+        | map { row-> tuple(row.location, row.videoL, row.linkL, row.videoR, row.linkR, row.name) } \
+        | download_videos | flatten | make_cfr 
 }
 
 workflow {
@@ -42,7 +42,7 @@ process download_videos {
     conda = 'conda-forge::gdown'
 
     input:
-    tuple val(location), val(videoL), val(linkL), val(videoR), val(linkR)
+    tuple val(location), val(videoL), val(linkL), val(videoR), val(linkR), val(name)
 
     output:
     path '*.mkv'
@@ -50,8 +50,8 @@ process download_videos {
     script:
 
     """
-    gdown $linkL -O $videoL${params.cEXT}
-    gdown $linkR -O $videoR${params.cEXT}
+    gdown $linkL -O $name$videoL${params.cEXT}
+    gdown $linkR -O $name$videoR${params.cEXT}
 
     """
 }

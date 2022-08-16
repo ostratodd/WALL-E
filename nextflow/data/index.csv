@@ -1,4 +1,2 @@
-date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,stereoMap,movement,checksize,distance
-October2019,Belize,Southwater,calibration,161303-2_L,1LzJHVtp41w8dDuvgFG6gpdZlSQHeeVac,161303-1_R,1_vhH9mNFtHswIcBcIwN0XQ_7L6Q6eCq6,1000,6000,15,southwater2019,1,8 6,25
-2022,Panama,Manglar,calibration,102338-1_L,1tHCvQCabL27Df10hMz5cKnLoFzpuLlMy,102338-2_R,1JHJ4mxCUODrc6rKKnAtCpMKDeavXtxCK,7000,14600,-17,bocas2022,1,9 6,14
-2017,Belize,Hangman,calibration,174157-1_L,1kGIRJOB2PoSA2_UQF0Vl7v7FkYzBlcm0,174159-2_R,1DvkhoebXzOrJLv8ZfeKdwzJi0IyRy_nZ,13700,14250,13,hangman2017,3,8 6,23
+date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,name,movement,checksize,distance
+October2019,Belize,Southwater,calibration,161303-1_L,1_vhH9mNFtHswIcBcIwN0XQ_7L6Q6eCq6,161303-2_R,1LzJHVtp41w8dDuvgFG6gpdZlSQHeeVac,1000,6000,-15,2019southwater,1,8 6,25
