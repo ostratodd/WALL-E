@@ -1,3 +1,6 @@
 date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,name,movement,checksize,distance
-2017,Belize,Hangman,calibration,174157-1_L,1kGIRJOB2PoSA2_UQF0Vl7v7FkYzBlcm0,174159-2_R,1DvkhoebXzOrJLv8ZfeKdwzJi0IyRy_nZ,13850,14250,-32,2017hangman,3,8 6,22
+2017,Belize,Hangman,calibration,174159-2_L,1DvkhoebXzOrJLv8ZfeKdwzJi0IyRy_nZ,174157-1_R,1kGIRJOB2PoSA2_UQF0Vl7v7FkYzBlcm0,13850,14500,32,2017hangman,2.5,8 6,22
+
+
+
 

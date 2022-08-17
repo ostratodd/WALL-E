@@ -1,6 +1,0 @@
-profiles {
-  conda {
-        conda '$baseDir/bin/conda_profile.yml'
-  }
-}
-
