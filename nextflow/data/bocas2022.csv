@@ -1,3 +1,3 @@
-date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,name,movement,checksize,distance
-2022,Panama,Manglar,calibration,102338-1_L,1tHCvQCabL27Df10hMz5cKnLoFzpuLlMy,102338-2_R,1JHJ4mxCUODrc6rKKnAtCpMKDeavXtxCK,11000,14600,-33,2022bocas,2,9 6,18
+date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,name,movement,checksize,distance,stereomap
+2022,Panama,Manglar,calibration,102338-1_L,1tHCvQCabL27Df10hMz5cKnLoFzpuLlMy,102338-2_R,1JHJ4mxCUODrc6rKKnAtCpMKDeavXtxCK,11000,14600,-33,2022bocas,2,9 6,18,2022bocas
 

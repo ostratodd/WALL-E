@@ -2,7 +2,7 @@
 
 nextflow.enable.dsl=2
 
-params.index = "$baseDir/data/index.csv"
+params.index = "$baseDir/data/metadata.csv"
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 
@@ -12,23 +12,13 @@ params.VIDEO_DIR='video_data'
 
 workflow CLIP {
 
-    pairs_ch = Channel.fromPath(params.index, checkIfExists:true) \
+    pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.offset, row.name) }
 
     clip_video_pair(pairs_ch) | flatten | remove_fisheye
 
 }
-workflow MAKE_STEREO_MAPS {
-    stereo_ch = Channel.fromPath(params.index, checkIfExists:true) \
-        | splitCsv(header:true) \
-        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.stereoMap, row.movement, row.checksize, row.stereoMap, row.distance) }
-
-    find_pairs(finish_defish.out.state, stereo_ch) | stereo_rectification
-
-
-}
-
 workflow {
     CLIP()
 }

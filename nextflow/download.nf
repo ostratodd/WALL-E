@@ -2,7 +2,7 @@
 
 nextflow.enable.dsl=2
 
-params.index = "$baseDir/data/index.csv"
+params.metadata = "$baseDir/data/metadata.csv"
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 
@@ -12,7 +12,7 @@ params.VIDEO_DIR='video_data'
 
 workflow DOWNLOAD_RAW {
 
-    Channel.fromPath(params.index) \
+    Channel.fromPath(params.metadata) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.location, row.videoL, row.linkL, row.videoR, row.linkR, row.name) } \
         | download_videos | flatten | make_cfr 

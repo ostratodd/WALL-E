@@ -14,7 +14,7 @@ workflow RECTIFY {
 
     pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name) }
+        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name, row.stereomap) }
 
     rectify(pairs_ch)
     rectify.out.name.view()
@@ -29,7 +29,7 @@ process rectify {
     publishDir "$params.VIDEO_DIR/rectified"
 
     input:
-    tuple val(VL), val(VR), val(start), val(end), val(name)
+    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap)
 
     output:
     path('*.mkv')
@@ -37,6 +37,6 @@ process rectify {
 
     script:
     """
-    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.VIDEO_DIR}/stereo_maps/${name}_stereoMap.xml -l 0 -w 0 -pre ${name}
+    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.VIDEO_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l 0 -w 0 -pre ${name}
     """
 }
