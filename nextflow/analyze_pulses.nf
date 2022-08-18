@@ -18,20 +18,60 @@ workflow {
 
     rectify(pairs_ch)
     find_contours(rectify.out.vidarray)
+    segment_contours(find_contours.out)
     visualize(find_contours.out)
+    visualize_segments(segment_contours.out[0])
 }
+
+process segment_contours {
+    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+
+    publishDir "$params.VIDEO_DIR/contours"
+
+    input:
+    tuple file(f), val(name)
+    
+    output:
+    tuple file('segmented_*.tab'), val(name)
+    tuple file('stereo_*.tab'), val(name)
+
+    script:
+    """
+    segment_pulses.py -f $f -n $name
+
+    """
+}
+
+
 process visualize {
+    publishDir "$params.VIDEO_DIR/plots"
     conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
 
     input :
-    file f
+    tuple file(f), val(name)
 
     output :
-    stdout
+    file('*.pdf')
 
     script :
     """
-    visualize_contours.py -f $f -o ''
+    visualize_contours.py -f $f -o ${name}_contourplot
+    """
+
+}
+process visualize_segments {
+    publishDir "$params.VIDEO_DIR/plots"
+    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+
+    input :
+    tuple file(f), val(name)
+
+    output :
+    file('*.pdf')
+
+    script :
+    """
+    visualize_contours.py -f $f -o ${name}_segmented
     """
 
 }
@@ -55,7 +95,7 @@ process rectify {
 }
 
 process find_contours {
-    params.black = 110
+    params.black = 120
     params.minpulse = 3
 
     conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
@@ -65,11 +105,11 @@ process find_contours {
     tuple val(VL), val(VR), val(name)
     
     output:
-    file('*.tab')
+    tuple file('*.tab'), val(name)
 
     script:
     """
-    find_contours.py -v1 $VL -v2 $VR -b ${params.black} -m ${params.minpulse} -f ${name}_contours -l 0
+    find_contours.py -v1 $VL -v2 $VR -b ${params.black} -m ${params.minpulse} -f ${name} -l 0
 
     """
 }

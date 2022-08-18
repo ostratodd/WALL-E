@@ -1,10 +1,14 @@
-import matplotlib.pyplot as plt
+#!/usr/bin/env python3
+
 import csv
 import pandas as pd
-import numpy as np
 import argparse
-import seaborn as sns
+import numpy as np
+import warnings
 
+
+#Append function will be deprecated so throws warning -- ignore with this code
+#warnings.filterwarnings("ignore")
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -12,9 +16,11 @@ ap.add_argument("-p", "--path", required=False, default='./',
         help="path to video frame files MUST include trailing /. Default is ./")
 ap.add_argument("-f", "--file", required=True, type=str,
 	help="file name for pulse data made by find_contours.py")
+ap.add_argument("-n", "--name", required=True, type=str,
+	help="file name for two output files")
 args = vars(ap.parse_args())
 file = args["file"]
-path = args["path"]
+name = args["name"]
 
 #Parameters for segmenting into pulses
 XMAX = 10	#max distance in X to be still considered the same pulse
@@ -31,7 +37,7 @@ PSD = 4 	#Pulse-start difference (minimum to diff in frame start to be considere
 PFD = 4
 YD = 20
 
-table = pd.read_csv(path + file, delimiter = '\t')
+table = pd.read_csv(file, delimiter = '\t')
 sorted = table.sort_values(['camera', 'frame', 'cX', 'cY'])
 sorted = sorted.reset_index(drop=True)	#need to re-index df to use index later in order of sorted rows
 
@@ -54,16 +60,21 @@ for index, row in sorted.iterrows():
         #if difF is zero, multiple contours are on same frame, so automatically keep to sort later
         if (difF == 1 and oldDifF ==0) or (difX < XMAX and difY < YMAX and difF < 3) or (difF == 0): 
             if len(curpulse.index) > 0 :
-                curpulse = curpulse.append(sorted.iloc[index]) #append data row to current pulse
+                curpulse = pd.concat([curpulse, pd.DataFrame(sorted.iloc[index]).transpose()], axis=0) #append data row to current pulse
+                #curpulse = curpulse.append(sorted.iloc[index]) #append data row to current pulse
+                #print(curpulse)
             else :
-                curpulse = curpulse.append(sorted.iloc[index-1])
-                curpulse = curpulse.append(sorted.iloc[index])
+                curpulse = pd.concat([curpulse, pd.DataFrame(sorted.iloc[index-1]).transpose()], axis=0) #append data row to current pulse
+                curpulse = pd.concat([curpulse, pd.DataFrame(sorted.iloc[index]).transpose()], axis=0)
+                #curpulse = curpulse.append(sorted.iloc[index-1])
+                #curpulse = curpulse.append(sorted.iloc[index])
         else :
             if len(curpulse.index) > 0:
                 #add column data to curpulse with an identifier for this pulse
                 pname = ["p" + str(pulseN)] * len(curpulse.index)
                 curpulse['pulse'] = pname
-                pulses = pulses.append(curpulse, ignore_index=True) #add current pulse into df with all pulses
+                pulses = pd.concat([pulses, curpulse], ignore_index=True)
+                #pulses = pulses.append(curpulse, ignore_index=True) #add current pulse into df with all pulses
                 curpulse.drop(curpulse.index[:], inplace=True)	#reset to start new pulse
                 pulseN = pulseN + 1
     oldRow = sorted.iloc[index]
@@ -73,7 +84,8 @@ for index, row in sorted.iterrows():
 if len(curpulse.index) > 0:
     pname = ["p" + str(pulseN)] * len(curpulse.index)
     curpulse['pulse'] = pname
-    pulses = pulses.append(curpulse, ignore_index=True) #add current pulse into df with all pulses
+    pulses = pd.concat([pulses, curpulse], ignore_index=True)
+    #pulses = pulses.append(curpulse, ignore_index=True) #add current pulse into df with all pulses
     curpulse.drop(curpulse.index[:], inplace=True)	#reset to start new pulse
     pulseN = pulseN + 1
 
@@ -93,16 +105,20 @@ for index, row in pulses.iterrows():
         #print("\tindex:" + str(index) + " frame:" + str(row['frame']) + " difF:" + str(difF) + " difX:" + str(difX) + " difY:" + str(difY) + " olddiff:" + str(oldDifF))
         if (difX < XMAX and difY < YMAX): 
             if len(curpulse.index) > 0 :
-                curpulse = curpulse.append(pulses.iloc[index]) #append data row to current pulse
+                curpulse = pd.concat([curpulse, pd.DataFrame(pulses.iloc[index]).transpose()], axis=0) #append data row to current pulse
+                #curpulse = curpulse.append(pulses.iloc[index]) #append data row to current pulse
             else :
-                curpulse = curpulse.append(pulses.iloc[index-1])
-                curpulse = curpulse.append(pulses.iloc[index])
+                curpulse = pd.concat([curpulse, pd.DataFrame(pulses.iloc[index-1]).transpose()], axis=0) #append data row to current pulse
+                curpulse = pd.concat([curpulse, pd.DataFrame(pulses.iloc[index]).transpose()], axis=0) #append data row to current pulse
+#                curpulse = curpulse.append(pulses.iloc[index-1])
+#                curpulse = curpulse.append(pulses.iloc[index])
         else :
             if len(curpulse.index) > 0:
                 #add column data to curpulse with an identifier for this pulse
                 pname = ["p" + str(pulseN)] * len(curpulse.index)
                 curpulse['pulse'] = pname
-                finalpulses = finalpulses.append(curpulse, ignore_index=True) #add current pulse into df with all pulses
+                finalpulses = pd.concat([finalpulses, curpulse], ignore_index=True)
+#                finalpulses = finalpulses.append(curpulse, ignore_index=True) #add current pulse into df with all pulses
                 curpulse.drop(curpulse.index[:], inplace=True)	#reset to start new pulse
                 pulseN = pulseN + 1
     oldRow = pulses.iloc[index]
@@ -110,18 +126,20 @@ for index, row in pulses.iterrows():
 finalpulses = finalpulses.sort_values(['pulse', 'frame', 'camera', 'cX', 'cY'])
 
 xmode = finalpulses.mode()['cX'][0]					#find most common X-axis value
-uframes = len(pd.unique(finalpulses['frame']))		#count total number of unique frames
+uframes = len(pd.unique(finalpulses['frame']))				#count total number of unique frames
 noisepulses = 0
 
 #Should probably separate out L and R cameras and do them separately
 noisepulses = noisepulses + finalpulses['cX'].value_counts()[xmode]	#count total number of times most common X value is found
 
-#I think there is a mistake here because it will count x-1 twice
-for i in range(1, HPD + 1):
-    if xmode + i in finalpulses['cX']:
-        noisepulses = noisepulses + finalpulses['cX'].value_counts()[xmode + i] 	#Find number of frames within +/- HPD of most common value
-    if xmode - i in finalpulses['cX']:
-        noisepulses = noisepulses + finalpulses['cX'].value_counts()[xmode - i]
+#Want to also account for pixels adjacent to hot pixels, but this has a bug with southwater2 data
+##I think there is a mistake here because it will count x-1 twice
+#for i in range(1, HPD + 1):
+#    if (xmode + i) in finalpulses['cX']:
+#        print("\n\n\nXMODE PLUS I IS IN FINAL PULSES i=" + str(i) + " xmodei]=" + str(xmode+i) + "\n\n\n\n")
+#        noisepulses = noisepulses + finalpulses['cX'].value_counts()[xmode + i] 	#Find number of frames within +/- HPD of most common value
+#    if (xmode - i) in finalpulses['cX']:
+#        noisepulses = noisepulses + finalpulses['cX'].value_counts()[xmode - i]
 
 
 #Replace pulse name with 'noise' for most common x-axis value, if it is above the HPP threshold defining it as Hot Pixel noise
@@ -184,10 +202,8 @@ df_stereo_pairs = df_stereo_pairs.loc[df_stereo_pairs['spulse'] != 'none']
 
 print("SEGMENTED PULSES")
 print(finalpulses.to_string())
-# saving to file
+print("\nSTEREO PAIRS")
+print(df_stereo_pairs.to_string())
 # saving as a CSV file
-finalpulses.to_csv(path + 'segmented_' + file, sep ='\t')
-
-print("STEREO PULSES")
-print(df_stereo_pairs)
-df_stereo_pairs.to_csv(path + 'stereo_' + file, sep ='\t')
+finalpulses.to_csv('segmented_' + name + '.tab', sep ='\t')
+df_stereo_pairs.to_csv('stereo_' + name + '.tab', sep ='\t')
