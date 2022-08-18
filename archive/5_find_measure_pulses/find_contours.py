@@ -67,7 +67,7 @@ minArea = args["minArea"]
 file = args["file"]
 
 
-writefile = open(file, 'w')
+writefile = open(file + '.tab', 'w')
 
 #Print Header
 print("camera\tframe\tx\ty\tarea\tminI\tmaxI\tmeanI" )
