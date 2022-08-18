@@ -105,7 +105,7 @@ while(cap.isOpened() and cap2.isOpened() ):
         #analyze contours for left video
         imgray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
         ret,thresh = cv2.threshold(imgray,black,white,0)
-        contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+        _, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 
         contourcount = 0
         cX = 0
@@ -134,7 +134,7 @@ while(cap.isOpened() and cap2.isOpened() ):
         #analyze contours for right video
         imgray2 = cv2.cvtColor(frame2,cv2.COLOR_BGR2GRAY)
         ret2,thresh2 = cv2.threshold(imgray2,black,white,0)
-        contours2, hierarchy = cv2.findContours(thresh2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+        _, contours2, hierarchy = cv2.findContours(thresh2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 
         contourcount2 = 0
         cX2 = 0

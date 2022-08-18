@@ -18,6 +18,21 @@ workflow {
 
     rectify(pairs_ch)
     find_contours(rectify.out.vidarray)
+    visualize(find_contours.out)
+}
+process visualize {
+    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+
+    input :
+    file f
+
+    output :
+    stdout
+
+    script :
+    """
+    visualize_contours.py -f $f -o ''
+    """
 
 }
 
@@ -43,7 +58,7 @@ process find_contours {
     params.black = 110
     params.minpulse = 3
 
-    conda = 'conda-forge::opencv=4.5.5 conda-forge::numpy=1.22.4'
+    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
     publishDir "$params.VIDEO_DIR/contours"
 
     input:
@@ -61,5 +76,6 @@ process find_contours {
 
 /*
 
+    conda = 'conda-forge::opencv=4.5.5 conda-forge::numpy=1.22.4'
 
 */

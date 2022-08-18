@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import matplotlib.pyplot as plt
 import csv
 import pandas as pd
@@ -10,8 +12,8 @@ ap.add_argument("-p", "--path", required=False, default='.',
         help="path to video frame files default is ./")
 ap.add_argument("-f", "--file", required=True, type=str,
 	help="file name for pulse data made by find_contours.py")
-ap.add_argument("-o", "--outfile", required=False, default='', type=str,
-	help="Name to save graphic, leave out to not save")
+ap.add_argument("-o", "--outfile", required=True, type=str,
+	help="file name for pulse data made by find_contours.py")
 args = vars(ap.parse_args())
 file = args["file"]
 outfile = args["outfile"]
@@ -32,10 +34,6 @@ sns.scatterplot(x='frame', y='cY', data=table, hue='camera', edgecolor = 'none',
 #axes.set_ylabel('x position')
 #axes.set_zlabel('y position')
 
-if outfile == '' :
-    plt.show()
-else :
-    outfilename = outfile + '.png'
-    plt.savefig(outfilename, bbox_inches='tight')
-    plt.show()
+
+plt.show()
 

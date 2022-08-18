@@ -17,8 +17,6 @@ workflow RECTIFY {
         | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name, row.stereomap) }
 
     rectify(pairs_ch)
-    rectify.out.name.view()
-
 }
 workflow {
     RECTIFY()
@@ -33,7 +31,6 @@ process rectify {
 
     output:
     path('*.mkv')
-    val(name), emit: name    
 
     script:
     """
