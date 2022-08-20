@@ -2,7 +2,7 @@
 
 nextflow.enable.dsl=2
 
-params.index = "$baseDir/data/index.csv"
+params.metadata = "$baseDir/data/metadata.csv"
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 
@@ -11,7 +11,7 @@ params.VIDEO_DIR='video_data'
 
 
 workflow MAKE_STEREO_MAPS {
-    stereo_ch = Channel.fromPath(params.index, checkIfExists:true) \
+    stereo_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.movement, row.checksize, row.name, row.distance) }
 

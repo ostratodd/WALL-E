@@ -67,7 +67,7 @@ file = args["file"]
 watch = args["look"]
 
 
-writefile = open(file + '.tab', 'w')
+writefile = open('contours_' + file + '.tab', 'w')
 
 #Print Header
 print("camera\tframe\tx\ty\tarea\tminI\tmaxI\tmeanI" )
