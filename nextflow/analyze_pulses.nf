@@ -5,6 +5,7 @@ nextflow.enable.dsl=2
 params.metadata = "$baseDir/data/metadata.csv"
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
+params.DATA_DIR='data'
 
 /* Downloads from Google Drive link, converts to constant frame rate (30 fps)
     then runs undistort (fisheye) custom for WALLE camera housings           */
@@ -14,26 +15,62 @@ workflow {
 
     pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name, row.stereomap) }
+        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name, row.stereomap, row.baseline) }
 
     rectify(pairs_ch)
     find_contours(rectify.out.vidarray)
     segment_contours(find_contours.out)
+    parallax_depth(segment_contours.out.stereo)
     visualize(find_contours.out)
     visualize_segments(segment_contours.out[0])
+    visualize_coordinates(parallax_depth.out[0])
 }
 
+process visualize_coordinates {
+    params.mindis = 20
+
+    publishDir "$params.DATA_DIR/plots"
+    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+
+    input :
+    tuple file(f), val(name)
+
+    output :
+    file('*.pdf')
+
+
+    script:
+    """
+    visualize_coordinates.py -f $f -o ${name}_coordinateplot -d ${params.mindis}
+    """
+}
+process parallax_depth {
+    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+    publishDir "$params.DATA_DIR/contours"
+
+    input:
+    tuple file(f), val(name), val(baseline)
+
+    output:
+    tuple file('coordinates_*.tab'), val(name)
+
+    script:
+    """
+    parallax_depth.py -f $f -o $name -d $baseline
+
+    """
+}
 process segment_contours {
     conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
 
-    publishDir "$params.VIDEO_DIR/contours"
+    publishDir "$params.DATA_DIR/contours"
 
     input:
-    tuple file(f), val(name)
+    tuple file(f), val(name), val(baseline)
     
     output:
     tuple file('segmented_*.tab'), val(name)
-    tuple file('stereo_*.tab'), val(name)
+    tuple file('stereo_*.tab'), val(name), val(baseline), emit: stereo
 
     script:
     """
@@ -44,11 +81,11 @@ process segment_contours {
 
 
 process visualize {
-    publishDir "$params.VIDEO_DIR/plots"
+    publishDir "$params.DATA_DIR/plots"
     conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
 
     input :
-    tuple file(f), val(name)
+    tuple file(f), val(name), val(baseline)
 
     output :
     file('*.pdf')
@@ -60,7 +97,7 @@ process visualize {
 
 }
 process visualize_segments {
-    publishDir "$params.VIDEO_DIR/plots"
+    publishDir "$params.DATA_DIR/plots"
     conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
 
     input :
@@ -82,34 +119,35 @@ process rectify {
     publishDir "$params.VIDEO_DIR/rectified"
 
     input:
-    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap)
+    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), val(baseline)
 
     output:
     path('*.mkv')
-    tuple file('*L.mkv'), file('*R.mkv'), val(name), emit: vidarray
+    tuple file('*L.mkv'), file('*R.mkv'), val(name), val(baseline), emit: vidarray
 
     script:
     """
-    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.VIDEO_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l 0 -w 0 -pre ${name}
+    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l 0 -w 0 -pre ${name}
     """
 }
 
 process find_contours {
     params.black = 120
     params.minpulse = 3
+    params.watchvideo = 0
 
     conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
-    publishDir "$params.VIDEO_DIR/contours"
+    publishDir "$params.DATA_DIR/contours"
 
     input:
-    tuple val(VL), val(VR), val(name)
+    tuple val(VL), val(VR), val(name), val(baseline)
     
     output:
-    tuple file('*.tab'), val(name)
+    tuple file('*.tab'), val(name), val(baseline)
 
     script:
     """
-    find_contours.py -v1 $VL -v2 $VR -b ${params.black} -m ${params.minpulse} -f ${name} -l 0
+    find_contours.py -v1 $VL -v2 $VR -b ${params.black} -m ${params.minpulse} -f ${name} -l ${params.watchvideo}
 
     """
 }

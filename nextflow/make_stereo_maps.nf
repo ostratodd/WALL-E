@@ -5,6 +5,7 @@ nextflow.enable.dsl=2
 params.metadata = "$baseDir/data/metadata.csv"
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
+params.DATA_DIR='data'
 
 /* Downloads from Google Drive link, converts to constant frame rate (30 fps)
     then runs undistort (fisheye) custom for WALLE camera housings           */
@@ -25,7 +26,7 @@ workflow {
 }
 
 process stereo_rectification {
-    publishDir "$params.VIDEO_DIR/stereo_maps"
+    publishDir "$params.DATA_DIR/stereo_maps"
 
     conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
 
