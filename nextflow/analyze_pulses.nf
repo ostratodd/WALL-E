@@ -63,6 +63,8 @@ process parallax_depth {
 process segment_contours {
     conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
 
+    params.HPP = .15
+
     publishDir "$params.DATA_DIR/contours"
 
     input:
@@ -74,7 +76,7 @@ process segment_contours {
 
     script:
     """
-    segment_pulses.py -f $f -n $name
+    segment_pulses.py -f $f -n $name -HPP ${params.HPP}
 
     """
 }

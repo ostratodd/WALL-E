@@ -40,9 +40,9 @@ def distance(xL, xR, ymode, F, D):
     return ([z, x, y])
 
 table = pd.read_csv(file, delimiter = '\t')
-sorted = table.sort_values(['start', 'modex'])
+sorted = table.sort_values(['spulse', 'camera'])
 sorted = sorted.reset_index(drop=True) 		#re-index
-#print(sorted)
+print(sorted)
 
 FPS = 30
 coords = []
@@ -65,3 +65,5 @@ for index, row in sorted.iterrows():
             out = tab.join([sorted.iloc[index]['spulse'],sorted.iloc[index]['pulse'],sorted.iloc[index+1]['pulse'],str(startp),str(endp),str(round((endp-startp)/FPS,2)),str(disparity),str(z[0]),str(z[1]),str(z[2])])
             print(out)
             writefile.write(out + '\n')
+        else:
+            print("ERROR: pulse names " + sorted.iloc[index]['spulse'] + " " + sorted.iloc[index+1]['spulse'] + " do not match in input file. Make sure input (stereo) file is formatted correctly")

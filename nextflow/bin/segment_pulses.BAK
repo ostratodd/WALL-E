@@ -4,8 +4,7 @@ import csv
 import pandas as pd
 import argparse
 import numpy as np
-
-from scipy.optimize import linear_sum_assignment
+import warnings
 
 
 # Construct the argument parser and parse the arguments
@@ -33,8 +32,8 @@ HPD = 2		#hot pixel distance (number of pixels +/- ) from defined hot pixels
 PDMIN = 3 	#minimum number of frames for pulse duration
 
 #Stereo parameters
-PSD = 5 	#Pulse-start difference (minimum to diff in frame start to be considered stereo pair)
-PFD = 5
+PSD = 4 	#Pulse-start difference (minimum to diff in frame start to be considered stereo pair)
+PFD = 4
 YD = 10
 
 table = pd.read_csv(file, delimiter = '\t')
@@ -182,8 +181,6 @@ df_pulse_sums['spulse'] = 'none'
 #Divide into L and R camera data frames
 df_left = df_pulse_sums[df_pulse_sums['camera']=='left']
 df_right = df_pulse_sums[df_pulse_sums['camera']=='right']
-df_left = df_left.reset_index(drop=True)
-df_right = df_right.reset_index(drop=True)
 
 print(df_left)
 print(df_right)
@@ -194,63 +191,97 @@ print(df_right)
 
 spairN = 1
 
-pulmatrix = np.zeros((len(df_left.index),len(df_right.index)))
-
-print("Matrix of size: " + str(len(df_left.index)) + "x" + str(len(df_right.index)) )
-#Create dict of dicts to use hungarian algorithm to match pulses
+pos_pair = [[],[]] 	#To narrow down possible matches to closeest stereo pair
 for index, lrow in df_left.iterrows():
-    lpulse = [lrow['start'], lrow['finish'], lrow['modey'], lrow['modex'], lrow['pulse'] ] 
+    lpulse = [lrow['start'], lrow['finish'], lrow['modey'], lrow['modex'] ] #find nearby pulse in right camera
+    #First right pulse with closest Y, start, finish ... for each left pulse
+    sims = []
+    simYS = []
+    simfinal = []
     for i, rrow in df_right.iterrows() :
-        rpulse = [rrow['start'], rrow['finish'], rrow['modey'], rrow['modex'], rrow['pulse']]
+        rpulse = [rrow['start'], rrow['finish'], rrow['modey'], rrow['modex']]
         startdif = abs(rpulse[0]-lpulse[0])	#Difference in start pulse frame
-        findif = abs(rpulse[1]-lpulse[1])	#Difference in finish pulse frame
         ydif = abs(rpulse[2]-lpulse[2])		#Difference in y-axis position
-        xdif = rpulse[3]-lpulse[3]		#Difference in x-axis position (disparity)
-        cost = int(ydif + startdif + findif)
-        print("Cost for [][]=c " + str(index) + "/" + str(i) + " = " + str(cost) )
-        pulmatrix[index][i] = cost
-print(pulmatrix)
-row_ind, col_ind = linear_sum_assignment(pulmatrix)
+        if(abs(ydif) < YD ) :
+            sims.append(rrow)
+#            print(str(lrow['pulse']) + " has close enough Y to " + str(rrow['pulse']))
+    for rrow in sims :		#See if similar Y pulses are similar in start
+        rpulse = [rrow['start'], rrow['finish'], rrow['modey'], rrow['modex']]
+        startdif = abs(rpulse[0]-lpulse[0])	#Difference in start pulse frame
+        if(abs(startdif) < PSD ) :
+            simYS.append(rrow)
+#            print(str(lrow['pulse']) + " has close enough start to " + str(rrow['pulse']))
+    for rrow in simYS :		#See if similar Y pulses are similar in start
+        rpulse = [rrow['start'], rrow['finish'], rrow['modey'], rrow['modex']]
+        findif = abs(rpulse[1]-lpulse[1])	#Difference in finish pulse frame
+        if(abs(findif) < PFD ) :
+            simfinal.append(rrow)
+            print(str(lrow['pulse']) + " has close enough finish to " + str(rrow['pulse']))
+    if(len(simfinal) == 1) :
+        print("unique stereo match for Left Pulse: " + str(lrow['pulse']))
+        df_left.at[index, 'spulse'] = ("sp" + str(spairN))
+        df_right.loc[df_right['pulse'] == simfinal[0]['pulse'], ['spulse'] ] = str("sp" + str(spairN) ) 
 
-#print(col_ind)
-for i, lrow in df_left.iterrows() :
-    print("left pulse " + str(lrow['pulse']) + " ... Best right col index" + str(col_ind[i]))
-    print("\t" + df_right.loc[[col_ind[i]]]['pulse'].item() )
-    df_left.at[i, 'spulse'] = ("sp" + str(i))
-    df_right.at[col_ind[i], 'spulse'] = ("sp" + str(i))
+        print(str("sp" + str(spairN)) + " Unambig Updating right spulse value LOC: " + simfinal[0]['pulse'] )
+        print("\n\n")
 
-#print(row_ind)
-#print (pulmatrix[row_ind, col_ind].sum())
+        spairN = spairN + 1
+
+    elif(len(simfinal) > 1) :
+        print("Warning: more than one blob could be a match for stereo pair. Left Pulse: " + str(lrow['pulse']) + ". Adding _a to spulse name")
+        #Find closest Y value and keep that as matching pulse -- or change to use smallest disparity?
+        minY = 10000
+        closest = []
+        oclosest = []
+        for rrow in simfinal :
+            rpulse = [rrow['start'], rrow['finish'], rrow['modey'], rrow['modex'], rrow['pulse']]
+            ydif = abs(rpulse[2]-lpulse[2])		#Difference in y-axis position
+            if(ydif < minY) :
+                minY = ydif
+                oclosest = closest
+                closest = rpulse[4]
+
+        df_left.at[index, 'spulse'] = ("sp" + str(spairN) + "_a")
+
+        #check if right pulse already has stereo pulse name, if so, don't want to overwrite so use other pulse
+        brp = df_right.loc[df_right['pulse'] == closest, ['spulse'] ]['spulse'].item()
+        if(brp == 'none'):
+            print("BRP is none. Oclosest = " + str(oclosest))
+            df_right.loc[df_right['pulse'] == closest, ['spulse'] ] = str("sp" + str(spairN) + "_a" ) 
+
+            print("sp" + str(spairN) + " Ambig Updating right spulse value " + str(closest))
+            print("\n\n")
+
+        else :
+            print("BRP already used. Oclosest = " + str(oclosest))
+            print("\n\n")
 
 
 
+        spairN = spairN + 1
 
 
-
+#for index, lrow in df_left.iterrows():
+#    lpulse = [lrow['start'], lrow['finish'], lrow['modey'], lrow['modex'] ] #find nearby pulse in right camera
+#    for i, rrow in df_right.iterrows() :
+#        rpulse = [rrow['start'], rrow['finish'], rrow['modey'], rrow['modex']]
+#        startdif = abs(rpulse[0]-lpulse[0])	#Difference in start pulse frame
+#        findif = abs(rpulse[1]-lpulse[1])	#Difference in finish pulse frame
+#        ydif = abs(rpulse[2]-lpulse[2])		#Difference in y-axis position
 #        if(abs(startdif < PSD and findif < PFD and ydif < YD)) :
-#            multimatch.append(i)
-#            print("Left pulse:" + str(df_left.at[index, 'pulse']) + " matches Right index: " + str(df_right.at[i, 'pulse']) + " ydif,startdif,findif,xdif = " + str(ydif) + " " + str(startdif) + " " + str(findif) + " " + str(xdif)) 
-#            right_match_i = i
-#    if(len(multimatch) > 1) :
-#        print ("Left pulse:" + str(df_left.at[index, 'pulse']) + " matches more than one right pulse\n")
-#        df_left.at[index, 'spulse'] = ("multimatch")
-#    else:
-#        print ("Left pulse " + str(df_left.at[index, 'pulse']) + " has unique match to " + str(df_right.at[right_match_i, 'pulse'])  + " ydif,startdif,findif,xdif = " + str(ydif) + " " + str(startdif) + " " + str(findif) + " " + str(xdif) + "\n" )
-#        df_left.at[index, 'spulse'] = ("sp" + str(spairN))
-#        df_right.at[right_match_i, 'spulse'] = ("sp" + str(spairN))
-#        spairN = spairN + 1
-
+#            print("Left pulse:" + str(index) + " matches Right index: " + str(i)) 
+#            df_left.at[index, 'spulse'] = ("sp" + str(spairN))
+#            df_right.at[i, 'spulse'] = ("sp" + str(spairN))
+#            spairN = spairN + 1
 df_stereo_pairs = pd.concat([df_left, df_right], axis=0)
 #remove pulses without a stereo pair
 df_stereo_pairs = df_stereo_pairs.loc[df_stereo_pairs['spulse'] != 'none']
 
 
 #Print to screen
-print("SEGMENTED PULSES")
-print(finalpulses.to_string())
+#print("SEGMENTED PULSES")
+#print(finalpulses.to_string())
 print("\nSTEREO PAIRS")
-df_stereo_pairs = df_stereo_pairs.sort_values(['spulse'])
-
 print(df_stereo_pairs.to_string())
 # saving as a CSV file
 finalpulses.to_csv('segmented_' + name + '.tab', sep ='\t')
