@@ -1,2 +1,2 @@
 date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,name,stereomap,baseline
-2022,USA,labtest,signal,160233-1,13N55c5nR0eujvw9ibvKpY1bteIAOq4Ij,160233-2,1qaxvtStfxKuYVCE3XuaNYqbLkTlEBuzE,10,500,0,labtest1,2022labtest,122.5
+2022,USA,labtest,signal,160233-1_L,13N55c5nR0eujvw9ibvKpY1bteIAOq4Ij,160233-2_R,1qaxvtStfxKuYVCE3XuaNYqbLkTlEBuzE,10,500,0,labtest1,2022labtest,122.5

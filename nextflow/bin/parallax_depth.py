@@ -13,7 +13,7 @@ F = 3.7
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--distance", required=True, 
-        help="Distance in mm between paired cameras")
+        help="Distance in mm between paired cameras (baseline)")
 ap.add_argument("-f", "--file", required=True, type=str,
 	help="file name for pulse data made by find_contours.py")
 ap.add_argument("-o", "--outfile", required=True, type=str,
@@ -30,9 +30,9 @@ writefile = open('coordinates_' + outfile + '.tab', 'w')
 
 
 def distance(xL, xR, ymode, F, D):
-    L = min(xR, xL)				#left cam will always have lower x value
-    R = max(xR, xL)
-    disparity = R - L				#difference between axis value of the same point on L and R cameras
+    R = min(xR, xL)				
+    L = max(xR, xL)
+    disparity = abs(R - L)			#difference between axis value of the same point on L and R cameras
     z = round(F*D/disparity,3)			#equation to find distance from camera - called z in computer vision
     x = round(L * z / F, 3)
     y = round(ymode * z / F, 3)			#this is height off the lowest view of the cameras

@@ -137,6 +137,7 @@ process find_contours {
     params.black = 120
     params.minpulse = 3
     params.watchvideo = 0
+    params.delay = 0
 
     conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
     publishDir "$params.DATA_DIR/contours"
@@ -149,7 +150,7 @@ process find_contours {
 
     script:
     """
-    find_contours.py -v1 $VL -v2 $VR -b ${params.black} -m ${params.minpulse} -f ${name} -l ${params.watchvideo}
+    find_contours.py -v1 $VL -v2 $VR -b ${params.black} -m ${params.minpulse} -f ${name} -l ${params.watchvideo} -d ${params.delay}
 
     """
 }
