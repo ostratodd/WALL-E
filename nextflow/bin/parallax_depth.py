@@ -7,8 +7,11 @@ import argparse
 import matplotlib.pyplot as plt
 
 #focal length in millimeters
-F = 3.7
-#distance between cameras in millimeters
+F = 3.7 		#focal length of camera in mm
+ALPHA=60		#angle of horizontal view of camera in degrees
+frame_width = 640	#number of pixels horizontally in frame
+SENSOR = 4.8		#either SENSOR or ALPHA can be used to calculate focal length in pixels
+
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -32,7 +35,14 @@ writefile = open('coordinates_' + outfile + '.tab', 'w')
 def distance(xL, xR, ymode, F, D):
     R = min(xR, xL)				
     L = max(xR, xL)
+    #Different formulas I encountered that might be worth trying in the future
+    #f_pixel = (frame_width * 0.5) / np.tan(ALPHA * 0.5 * np.pi/180)	#formula for focal length in pixels
+    #R = (R-frame_width/2) * (SENSOR/640)
+    #L = (L-frame_width/2) * (SENSOR/640)
+
     disparity = abs(R - L)			#difference between axis value of the same point on L and R cameras
+
+
     z = round(F*D/disparity,3)			#equation to find distance from camera - called z in computer vision
     x = round(L * z / F, 3)
     y = round(ymode * z / F, 3)			#this is height off the lowest view of the cameras
