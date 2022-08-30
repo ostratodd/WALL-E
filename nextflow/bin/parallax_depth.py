@@ -36,12 +36,13 @@ def distance(xL, xR, ymode, F, D):
     R = min(xR, xL)				
     L = max(xR, xL)
     #Different formulas I encountered that might be worth trying in the future
-    #f_pixel = (frame_width * 0.5) / np.tan(ALPHA * 0.5 * np.pi/180)	#formula for focal length in pixels
     #R = (R-frame_width/2) * (SENSOR/640)
     #L = (L-frame_width/2) * (SENSOR/640)
 
     disparity = abs(R - L)			#difference between axis value of the same point on L and R cameras
 
+    f_pixel = (frame_width * 0.5) / np.tan(ALPHA * 0.5 * np.pi/180)	#formula for focal length in pixels using alpha which is field of fiew angle
+    F = f_pixel
 
     z = round(F*D/disparity,3)			#equation to find distance from camera - called z in computer vision
     x = round(L * z / F, 3)
