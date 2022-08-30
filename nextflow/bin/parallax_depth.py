@@ -6,11 +6,11 @@ import pandas as pd
 import argparse
 import matplotlib.pyplot as plt
 
-#focal length in millimeters
 F = 3.7 		#focal length of camera in mm
-ALPHA=60		#angle of horizontal view of camera in degrees
+ALPHA=29.8		#angle of horizontal view of camera in degrees
 frame_width = 640	#number of pixels horizontally in frame
-SENSOR = 4.8		#either SENSOR or ALPHA can be used to calculate focal length in pixels
+frame_height = 480	#number of pixels vertically in frame
+FPS = 30		#frame rate of video
 
 
 # Construct the argument parser and parse the arguments
@@ -33,11 +33,11 @@ writefile = open('coordinates_' + outfile + '.tab', 'w')
 
 
 def distance(xL, xR, ymode, F, D):
-    R = min(xR, xL)				
-    L = max(xR, xL)
-    #Different formulas I encountered that might be worth trying in the future
-    #R = (R-frame_width/2) * (SENSOR/640)
-    #L = (L-frame_width/2) * (SENSOR/640)
+    #R = xR - (frame_width/2)	#calculates distance from optical center				
+    #L = xL - (frame_width/2)
+    #ymode = ymode - (frame_height/2)
+    R = xR
+    L = xL
 
     disparity = abs(R - L)			#difference between axis value of the same point on L and R cameras
 
@@ -55,7 +55,6 @@ sorted = table.sort_values(['spulse', 'camera'])
 sorted = sorted.reset_index(drop=True) 		#re-index
 print(sorted)
 
-FPS = 30
 coords = []
 tab = "\t"
 
