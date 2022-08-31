@@ -7,6 +7,14 @@ params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 params.DATA_DIR='data'
 
+
+/* Parameters for finding contours */
+params.black = 140
+params.minpulse = 2
+params.watchvideo = 1
+params.delay = 0
+
+
 /* Downloads from Google Drive link, converts to constant frame rate (30 fps)
     then runs undistort (fisheye) custom for WALLE camera housings           */
 
@@ -134,10 +142,6 @@ process rectify {
 }
 
 process find_contours {
-    params.black = 120
-    params.minpulse = 3
-    params.watchvideo = 0
-    params.delay = 0
 
     conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
     publishDir "$params.DATA_DIR/contours"

@@ -45,12 +45,15 @@ ap.add_argument("-f", "--file", required=True, type=str,
 	help="file name for pulse data made by find_contours.py")
 ap.add_argument("-o", "--outfile", required=False, default='', type=str,
 	help="file name for pulse data made by find_contours.py")
+ap.add_argument("-l", "--label", required=False, default='0', type=int,
+	help="1= Label points by pulse name 0= no label")
 ap.add_argument("-d", "--mindis", required=False, default='0', type=int,
 	help="Minimum disparity value (max distance from camera) to plot")
 args = vars(ap.parse_args())
 file = args["file"]
 outfile = args["outfile"]
 mindis = args["mindis"]
+label = args["label"]
 
 table = pd.read_csv(file, delimiter = '\t')
 
@@ -64,13 +67,19 @@ print(df_table)
 xco = df_table['d2cam'].tolist()
 yco = df_table['lrd'].tolist()
 zco = df_table['height'].tolist()
+names = df_table['pname'].tolist()
 markercolor = df_table['start'].tolist()
 
 #3d
 plt.figure(figsize=(6,5))
 axes = plt.axes(projection='3d')
+label = 1
 print(type(axes))
 axes.scatter3D(xco, yco, zco, s=10, c = 'blue')
+if label == 1:
+    for i in range(len(xco)):
+        axes.text(xco[i],yco[i],zco[i], '%s' % (str(names[i])), size=10, zorder=1, color='k') 
+
 
 
 set_axes_equal(axes)
