@@ -207,17 +207,29 @@ for index, lrow in df_left.iterrows():
         ydif = abs(rpulse[2]-lpulse[2])		#Difference in y-axis position
         xdif = rpulse[3]-lpulse[3]		#Difference in x-axis position (disparity)
         cost = int(ydif + startdif + findif)
-        print("Cost for [][]=c " + str(index) + "/" + str(i) + " = " + str(cost) )
+        #print("Cost for [][]=c " + str(index) + "/" + str(i) + " = " + str(cost) )
         pulmatrix[index][i] = cost
 print(pulmatrix)
+#This command executes the Hungarian algorithm to match the most similar left and right pulses based on the distance matrix
 row_ind, col_ind = linear_sum_assignment(pulmatrix)
 
+# can only match as many pairs as minimum rows in left or right tables
+#Therefore, choose the camera with the fewest pulses to loop through and change
+#The name of spulse in corresponding L and R 
 #print(col_ind)
-for i, lrow in df_left.iterrows() :
-    print("left pulse " + str(lrow['pulse']) + " ... Best right col index" + str(col_ind[i]))
-    print("\t" + df_right.loc[[col_ind[i]]]['pulse'].item() )
-    df_left.at[i, 'spulse'] = ("sp" + str(i))
-    df_right.at[col_ind[i], 'spulse'] = ("sp" + str(i))
+
+if len(df_left) <= len(df_right) :
+    for i, lrow in df_left.iterrows() :
+        print("left pulse " + str(lrow['pulse']) + " ... Best right col index" + str(col_ind[i]))
+        print("\t" + df_right.loc[[col_ind[i]]]['pulse'].item() )
+        df_left.at[i, 'spulse'] = ("sp" + str(i))
+        df_right.at[col_ind[i], 'spulse'] = ("sp" + str(i))
+else :
+    for i, rrow in df_right.iterrows() :
+        print("right pulse " + str(rrow['pulse']) + " ... Best left col index" + str(col_ind[i]))
+        print("\t" + df_left.loc[[col_ind[i]]]['pulse'].item() )
+        df_right.at[i, 'spulse'] = ("sp" + str(i))
+        df_left.at[col_ind[i], 'spulse'] = ("sp" + str(i))
 
 #print(row_ind)
 #print (pulmatrix[row_ind, col_ind].sum())
