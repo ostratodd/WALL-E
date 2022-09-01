@@ -49,11 +49,14 @@ ap.add_argument("-l", "--label", required=False, default='0', type=int,
 	help="1= Label points by pulse name 0= no label")
 ap.add_argument("-d", "--mindis", required=False, default='0', type=int,
 	help="Minimum disparity value (max distance from camera) to plot")
+ap.add_argument("-s", "--setaxes", required=False, default='1', type=int,
+	help="Set the axes of 3d plot to equal scale? 1=yes 0=no")
 args = vars(ap.parse_args())
 file = args["file"]
 outfile = args["outfile"]
 mindis = args["mindis"]
 label = args["label"]
+setaxes = args["setaxes"]
 
 table = pd.read_csv(file, delimiter = '\t')
 
@@ -81,8 +84,8 @@ if label == 1:
         axes.text(xco[i],yco[i],zco[i], '%s' % (str(names[i])), size=10, zorder=1, color='k') 
 
 
-
-set_axes_equal(axes)
+if setaxes == 1:
+    set_axes_equal(axes)
 axes.set_xlabel('distance from camera')
 axes.set_ylabel('L-R position from L cam')
 axes.set_zlabel('height')
