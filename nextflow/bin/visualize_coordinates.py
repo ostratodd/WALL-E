@@ -57,6 +57,7 @@ outfile = args["outfile"]
 mindis = args["mindis"]
 label = args["label"]
 setaxes = args["setaxes"]
+label = args["label"]
 
 table = pd.read_csv(file, delimiter = '\t')
 
@@ -76,7 +77,6 @@ markercolor = df_table['start'].tolist()
 #3d
 plt.figure(figsize=(6,5))
 axes = plt.axes(projection='3d')
-label = 1
 print(type(axes))
 axes.scatter3D(xco, yco, zco, s=10, c = 'blue')
 if label == 1:
