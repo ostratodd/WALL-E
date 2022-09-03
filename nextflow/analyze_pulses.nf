@@ -9,10 +9,12 @@ params.DATA_DIR='data'
 
 
 /* Parameters for finding contours */
-params.black = 140
+params.black = 120
 params.minpulse = 2
 params.watchvideo = 1
 params.delay = 0
+params.HPP = 2
+
 
 
 /* Downloads from Google Drive link, converts to constant frame rate (30 fps)
@@ -70,8 +72,6 @@ process parallax_depth {
 }
 process segment_contours {
     conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
-
-    params.HPP = .15
 
     publishDir "$params.DATA_DIR/contours"
 
