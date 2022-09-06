@@ -14,7 +14,7 @@ params.DATA_DIR='data'
 workflow MAKE_STEREO_MAPS {
     stereo_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.movement, row.checksize, row.name, row.distance) }
+        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.movement, row.checksize, row.squaresize, row.name, row.distance, row.framesize) }
 
     find_pairs(stereo_ch) | stereo_rectification
 
@@ -34,14 +34,15 @@ process stereo_rectification {
     path pairs
     val(checksize)
     val(name)
-
+    val(squaresize)
+    val(framesize)
 
     output:
     path '*.xml'
 
     script:
     """
-    stereovision_calibration.py -v1 CH_L -v2 CH_R -pre $name -p $baseDir/${params.VIDEO_DIR}/pairs -c $checksize
+    stereovision_calibration.py -v1 CH_L -v2 CH_R -pre $name -p $baseDir/${params.VIDEO_DIR}/pairs -c $checksize -fr $framesize -sq $squaresize
     """
 
 }
@@ -52,12 +53,14 @@ process find_pairs {
     conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
 
     input:
-    tuple val(VL), val(VR), val(start), val(end), val(movement), val(checksize), val(name), val(distance)
+    tuple val(VL), val(VR), val(start), val(end), val(movement), val(checksize), val(squaresize), val(name), val(distance), val(framesize)
 
     output:
     path '*.png'
     val(checksize)
     val(name)
+    val(squaresize)
+    val(framesize)
 
     script:
     """

@@ -71,7 +71,7 @@ watch =1
 #Need to read stereo file here
 #*****************************
 table = pd.read_csv(file, delimiter = '\t')
-sorted = table.sort_values(['spulse', 'camera'])
+sorted = table.sort_values(['pulse', 'camera'])
 sorted = sorted.reset_index(drop=True)          #re-index
 print(sorted)
 
@@ -99,19 +99,19 @@ while(cap.isOpened() and cap2.isOpened() ):
 
         #Loop through pulse data to see if any are on current frame
         for index, row in sorted.iterrows():
-            if int(row['start']) <= frametext and int(row['finish']) >= frametext :
-                print("Pulse " + str(row['spulse']) + " is detected on frame " + row['camera'] + " " + str(frametext) + "X,Y: " + str(row['modex']) + "," + str(640-row['modey']) )
+            if int(row['frame']) == frametext :
+                print("Pulse " + str(row['pulse']) + " is detected on frame " + row['camera'] + " " + str(frametext) + "X,Y: " + str(row['cX']) + "," + str(640-row['cY']) )
                 color = (0,0,255)
                 color = (0,255,0)
                 color = (255,0,0)
                 txtoffset = 25
                 font = cv2.FONT_HERSHEY_PLAIN
                 if row['camera'] == 'left' :
-                    cv2.circle(adjusted,(row['modex'], 500-row['modey']), 4, color, 2)
-                    cv2.putText(adjusted, row['spulse'], (row['modex'] + txtoffset, 500-row['modey']), font, 1, color)
+                    cv2.circle(adjusted,(row['cX'], 500-row['cY']), 4, color, 2)
+                    cv2.putText(adjusted, row['pulse'], (row['cX'] + txtoffset, 500-row['cY']), font, 1, color)
                 elif row['camera'] == 'right' :
-                    cv2.circle(adjusted2,(row['modex'], 500-row['modey']), 4, color, 2 )
-                    cv2.putText(adjusted2, row['spulse'], (row['modex'] + txtoffset, 500-row['modey']), font, 1, color)
+                    cv2.circle(adjusted2,(row['cX'], 500-row['cY']), 4, color, 2 )
+                    cv2.putText(adjusted2, row['pulse'], (row['cX'] + txtoffset, 500-row['cY']), font, 1, color)
 
 
         if watch == 1:

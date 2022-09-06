@@ -6,13 +6,6 @@ import pandas as pd
 import argparse
 import matplotlib.pyplot as plt
 
-F = 3.7 		#focal length of camera in mm
-ALPHA=29.8		#angle of horizontal view of camera in degrees
-frame_width = 640	#number of pixels horizontally in frame
-frame_height = 480	#number of pixels vertically in frame
-FPS = 30		#frame rate of video
-
-
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--distance", required=True, 
@@ -21,12 +14,27 @@ ap.add_argument("-f", "--file", required=True, type=str,
 	help="file name for pulse data made by find_contours.py")
 ap.add_argument("-o", "--outfile", required=True, type=str,
 	help="file name for output data")
+ap.add_argument("-FOCAL", required=False, default=3.7, type=float,
+	help="Focal length of camera")
+ap.add_argument("-ALPHA", required=False, default=65, type=float,
+	help="Degrees of field of view of camera")
+ap.add_argument("-frame_width", required=False, default=640, type=int,
+	help="Pixel width of video view")
+ap.add_argument("-frame_height", required=False, default=480, type=int,
+	help="Pixel height of video view")
+ap.add_argument("-rate", required=False, default=30, type=int,
+	help="Frame rate of video")
 args = vars(ap.parse_args())
 file = args["file"]
 outfile = args["outfile"]
 distance = args["distance"]
+F = args["FOCAL"]
+ALPHA = args["ALPHA"]
+frame_height = args["frame_height"]
+frame_width = args["frame_width"]
+FPS = args["rate"]
 
-D = float(distance)
+D = float(distance)	#also called baseline (distance bewteen cameras in mm)
 writefile = open('coordinates_' + outfile + '.tab', 'w')
 
 

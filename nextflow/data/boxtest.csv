@@ -1,0 +1,6 @@
+date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,name,stereomap,baseline
+2022,USA,labtest,signal,160233-1_L,13N55c5nR0eujvw9ibvKpY1bteIAOq4Ij,160233-2_R,1qaxvtStfxKuYVCE3XuaNYqbLkTlEBuzE,10,90,0,labtest1,2022labtest,122.5
+2022,USA,labtest,signal,160400-1_L,16u5zCTbEYHyoLVdiKJlU2FwMGGiBu_lf,160401-2_R,1UAMwBZVZ39OcyKlEsX-RXonoOW12SIEJ,1,90,0,labtest2,2022labtest,122.5
+2022,USA,labtest,signal,160456-1_L,1LhfOJrGbtmkwXFVBbuINCyeZSr9z2AgA,160456-2_R,1nk0o3tGvHsg3rGMViZZcMrLdqm8135bA,1,90,0,labtest3,2022labtest,122.5
+2022,USA,labtest,signal,160547-1_L,1ogPwkyk_cIiG6dsRHj9_NiMCt4TZOCBJ,160547-2_R,1ToTPwTupoWfEVeGVU24V_3S_gb0y7cuA,1,90,0,labtest4,2022labtest,122.5
+2022,USA,labtest,signal,190540-1_L,1-eCzl-NAh2GOH0lIpAj5NZLrctITa8Ey,190541-2_R,1gcaPoY1WE8MpGdTC6CDpLniO1GXIk1gK,900,4110,0,labsingle1,2022labtest,122.5 

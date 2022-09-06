@@ -16,26 +16,42 @@ ap.add_argument("-f", "--file", required=True, type=str,
 	help="file name for pulse data made by find_contours.py")
 ap.add_argument("-n", "--name", required=True, type=str,
 	help="file name for two output files")
-ap.add_argument("-HPP", "--HPP", required=False, default=0.15, type=float,
+ap.add_argument("-HPP", "--HPP", required=False, default=2.0, type=float,
 	help="hot pixel proportion = percentage of frames that contain a contour at the same X-axis value to be considered noise")
+ap.add_argument("-HPD", "--HPD", required=False, default=2, type=int,
+	help="hot pixel distance - include HPD pixels away from hot pixel in filtering")
+ap.add_argument("-XMAX", "--XMAX", required=False, default=10, type=int,
+	help="Must be withing XMAX pixels from frame to frame to be same pulse")
+ap.add_argument("-YMAX", "--YMAX", required=False, default=10, type=int,
+	help="Must be withing YMAX pixels from frame to frame to be same pulse")
+ap.add_argument("-PDMIN", required=False, default=3, type=int,
+	help="Minimum num of consectuive frames to be a pulse")
+ap.add_argument("-SRMAX", required=False, default=5, type=int,
+	help="Must be withing SRMAX pixels in Yaxis to be same stereo pulse (stereo rectification should take care of this)")
+ap.add_argument("-PSD", required=False, default=5, type=int,
+	help="Pulse-start difference (max allowed diff in frame start to be considered stereo pair)")
+ap.add_argument("-PFD", required=False, default=5, type=int,
+	help="Pulse-finish difference (max allowed diff in frame end to be considered stereo pair)")
+ap.add_argument("-XD", required=False, default=300, type=int,
+	help="Max disparity allowed to be a possible stereo pulse")
 args = vars(ap.parse_args())
 file = args["file"]
 name = args["name"]
 HPP = args["HPP"]
+HPD = args["HPD"]
+XMAX = args["XMAX"]
+YMAX = args["YMAX"]
+SRMAX = args["SRMAX"]
+PDMIN = args["PDMIN"]
+PSD = args["PSD"]
+PFD = args["PFD"]
+XD = args["XD"]
 
-#Parameters for segmenting into pulses
-XMAX = 10	#max distance in X to be still considered the same pulse
-YMAX = 10
+	#Parameters for weighting differences between frame start, frame end, and y for distance matrix to match pulses
+SFW = 1
+EFW = 1
+YDW = 1
 
-SRMAX = 5	#max difference for correspondence of Y axis, assuming stereo rectification aligns Y
-HPD = 2		#hot pixel distance (number of pixels +/- ) from defined hot pixels
-
-PDMIN = 3 	#minimum number of frames for pulse duration
-
-#Stereo parameters
-PSD = 5 	#Pulse-start difference (minimum to diff in frame start to be considered stereo pair)
-PFD = 5
-YD = 10
 
 table = pd.read_csv(file, delimiter = '\t')
 sorted = table.sort_values(['camera', 'frame', 'cX', 'cY'])
@@ -166,7 +182,7 @@ too_short = finalpulses.loc[finalpulses['pulse'] == 'too_short']
 denoised = finalpulses.loc[finalpulses['pulse'] != 'noise']
 denoised = denoised.loc[finalpulses['pulse'] != 'too_short']
 
-#Finally, find most probable stereo pairs based on correspondence of frame start/stop, correspondence of Y-axis point, and possibly X-axis disparity
+#Finally, will find most probable stereo pairs based on correspondence of frame start/stop, correspondence of Y-axis point, and possibly X-axis disparity
 #Working with only denoised data at this point
 #create a new df with information about entire pulses instead of frame-by frame
 pulse_names = denoised['pulse'].unique()
@@ -185,18 +201,45 @@ df_right = df_pulse_sums[df_pulse_sums['camera']=='right']
 df_left = df_left.reset_index(drop=True)
 df_right = df_right.reset_index(drop=True)
 
-print(df_left)
+print("RIGHT PULSES")
 print(df_right)
+print("/nLEFT PULSES")
+print(df_left)
 
-#Next find pulses close enough in start, finish, and y to qualify as left/right stereo pairs
+#Next find pulses with any other in opposite camera close enough in start, finish, y and low enough in x disparity to qualify as left/right stereo pairs
 #This narrows down in turn right pulses similar enough in Yaxis value, then start then finish time of pulse
-#The best of remaining Candidates is currently chosen based on closest Y-axis value
+#Later pass candidates into hungarian algorithm to assign best pairs from those remaining as possible
+for index, lrow in df_left.iterrows():
+    lpulse = [lrow['start'], lrow['finish'], lrow['modey'], lrow['modex'], lrow['pulse'] ] 
+    for i, rrow in df_right.iterrows() :
+        rpulse = [rrow['start'], rrow['finish'], rrow['modey'], rrow['modex'], rrow['pulse']]
+        startdif = abs(rpulse[0]-lpulse[0])	#Difference in start pulse frame
+        findif = abs(rpulse[1]-lpulse[1])	#Difference in finish pulse frame
+        ydif = abs(rpulse[2]-lpulse[2])		#Difference in y-axis position
+        xdif = abs(rpulse[3]-lpulse[3])		#Difference in x-axis position, same as disparity, but some disparities unreasonable
+        if(abs(startdif < PSD and findif < PFD and ydif < SRMAX and xdif < XD)) :
+            right_match_i = i
+            df_left.at[index, 'spulse'] = ("candidate")
+            df_right.at[right_match_i, 'spulse'] = ("candidate")
+
+left_pairless = df_left.loc[df_left['spulse'] == 'none']
+right_pairless = df_right.loc[df_right['spulse'] == 'none']
+
+print("LEFT PAIRLESS")
+print(left_pairless)
+
+print("RIGHT PAIRLESS")
+print(right_pairless)
+
+df_left = df_left.loc[df_left['spulse'] == 'candidate']
+df_right = df_right.loc[df_right['spulse'] == 'candidate']
+df_left = df_left.reset_index(drop=True)
+df_right = df_right.reset_index(drop=True)
 
 spairN = 1
 
 pulmatrix = np.zeros((len(df_left.index),len(df_right.index)))
 
-print("Matrix of size: " + str(len(df_left.index)) + "x" + str(len(df_right.index)) )
 #Create dict of dicts to use hungarian algorithm to match pulses
 for index, lrow in df_left.iterrows():
     lpulse = [lrow['start'], lrow['finish'], lrow['modey'], lrow['modex'], lrow['pulse'] ] 
@@ -206,8 +249,8 @@ for index, lrow in df_left.iterrows():
         findif = abs(rpulse[1]-lpulse[1])	#Difference in finish pulse frame
         ydif = abs(rpulse[2]-lpulse[2])		#Difference in y-axis position
         xdif = rpulse[3]-lpulse[3]		#Difference in x-axis position (disparity)
-        cost = int(ydif + startdif + findif)
-        #print("Cost for [][]=c " + str(index) + "/" + str(i) + " = " + str(cost) )
+        cost = int((ydif * YDW) + (startdif * SFW) + (findif * EFW))
+        #print("Cost between " + str(lpulse[4]) + " and " + str(rpulse[4]) + " = " + str(cost))
         pulmatrix[index][i] = cost
 print(pulmatrix)
 #This command executes the Hungarian algorithm to match the most similar left and right pulses based on the distance matrix
@@ -220,14 +263,14 @@ row_ind, col_ind = linear_sum_assignment(pulmatrix)
 
 if len(df_left) <= len(df_right) :
     for i, lrow in df_left.iterrows() :
-        print("left pulse " + str(lrow['pulse']) + " ... Best right col index" + str(col_ind[i]))
-        print("\t" + df_right.loc[[col_ind[i]]]['pulse'].item() )
+        #print("left pulse " + str(lrow['pulse']) + " ... Best right col index" + str(col_ind[i]))
+        #print("\t" + df_right.loc[[col_ind[i]]]['pulse'].item() )
         df_left.at[i, 'spulse'] = ("sp" + str(i))
         df_right.at[col_ind[i], 'spulse'] = ("sp" + str(i))
 else :
     for i, rrow in df_right.iterrows() :
-        print("right pulse " + str(rrow['pulse']) + " ... Best left col index" + str(col_ind[i]))
-        print("\t" + df_left.loc[[col_ind[i]]]['pulse'].item() )
+        #print("right pulse " + str(rrow['pulse']) + " ... Best left col index" + str(col_ind[i]))
+        #print("\t" + df_left.loc[[col_ind[i]]]['pulse'].item() )
         df_right.at[i, 'spulse'] = ("sp" + str(i))
         df_left.at[col_ind[i], 'spulse'] = ("sp" + str(i))
 
@@ -237,29 +280,16 @@ else :
 
 
 
-
-
-#        if(abs(startdif < PSD and findif < PFD and ydif < YD)) :
-#            multimatch.append(i)
-#            print("Left pulse:" + str(df_left.at[index, 'pulse']) + " matches Right index: " + str(df_right.at[i, 'pulse']) + " ydif,startdif,findif,xdif = " + str(ydif) + " " + str(startdif) + " " + str(findif) + " " + str(xdif)) 
-#            right_match_i = i
-#    if(len(multimatch) > 1) :
-#        print ("Left pulse:" + str(df_left.at[index, 'pulse']) + " matches more than one right pulse\n")
-#        df_left.at[index, 'spulse'] = ("multimatch")
-#    else:
-#        print ("Left pulse " + str(df_left.at[index, 'pulse']) + " has unique match to " + str(df_right.at[right_match_i, 'pulse'])  + " ydif,startdif,findif,xdif = " + str(ydif) + " " + str(startdif) + " " + str(findif) + " " + str(xdif) + "\n" )
-#        df_left.at[index, 'spulse'] = ("sp" + str(spairN))
-#        df_right.at[right_match_i, 'spulse'] = ("sp" + str(spairN))
-#        spairN = spairN + 1
-
 df_stereo_pairs = pd.concat([df_left, df_right], axis=0)
+
 #remove pulses without a stereo pair
 df_stereo_pairs = df_stereo_pairs.loc[df_stereo_pairs['spulse'] != 'none']
+df_stereo_pairs = df_stereo_pairs.loc[df_stereo_pairs['spulse'] != 'candidate']
 
 
 #Print to screen
-print("SEGMENTED PULSES")
-print(finalpulses.to_string())
+#print("SEGMENTED PULSES")
+#print(finalpulses.to_string())
 print("\nSTEREO PAIRS")
 df_stereo_pairs = df_stereo_pairs.sort_values(['spulse'])
 

@@ -2,7 +2,7 @@
 
 nextflow.enable.dsl=2
 
-params.metadata = "$baseDir/data/metadata.csv"
+params.infile = "$baseDir/data/infile.csv"
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 params.DATA_DIR='data'
@@ -15,6 +15,9 @@ params.watchvideo = 1
 params.delay = 0
 params.HPP = 2
 
+/* Parameters for visualizing contours */
+params.mindis = 20
+
 
 
 /* Downloads from Google Drive link, converts to constant frame rate (30 fps)
@@ -23,7 +26,7 @@ params.HPP = 2
 
 workflow {
 
-    pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
+    pairs_ch = Channel.fromPath(params.infile, checkIfExists:true) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name, row.stereomap, row.baseline) }
 
@@ -37,7 +40,6 @@ workflow {
 }
 
 process visualize_coordinates {
-    params.mindis = 20
 
     publishDir "$params.DATA_DIR/plots"
     conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
@@ -66,7 +68,7 @@ process parallax_depth {
 
     script:
     """
-    parallax_depth.py -f $f -o $name -d $baseline
+    parallax_depth.py -f $f -o $name -d $baseline -F ${params.FOCAL} -ALPHA ${params.ALPHA} -frame_width ${params.frame_width} -frame_height ${params.frame_height} -rate ${params.FPS} 
 
     """
 }
@@ -84,8 +86,7 @@ process segment_contours {
 
     script:
     """
-    segment_pulses.py -f $f -n $name -HPP ${params.HPP}
-
+    segment_pulses.py -f $f -n $name -HPP ${params.HPP} -HPD ${params.HPD} -XMAX ${params.XMAX} -YMAX ${params.YMAX} -SRMAX ${params.SRMAX} -PDMIN ${params.PDMIN} -PSD ${params.PSD} -PFD ${params.PFD} -XD ${params.XD}
     """
 }
 
