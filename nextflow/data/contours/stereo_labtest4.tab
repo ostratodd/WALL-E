@@ -1,17 +1,1 @@
-	camera	pulse	start	finish	minx	maxx	modex	miny	maxy	modey	spulse
-0	left	p1	1	89	319	319	319	86	86	86	sp0
-0	right	p10	1	89	125	126	126	88	88	88	sp0
-1	left	p2	1	89	323	324	323	153	153	153	sp1
-1	right	p11	1	89	131	131	131	157	158	157	sp1
-2	left	p3	1	89	328	328	328	221	221	221	sp2
-2	right	p12	1	89	137	137	137	226	226	226	sp2
-3	left	p4	1	89	331	332	332	287	288	287	sp3
-3	right	p13	1	89	140	141	141	292	293	292	sp3
-4	left	p5	1	89	451	451	451	75	75	75	sp4
-4	right	p14	1	89	259	260	260	79	80	80	sp4
-5	left	p6	1	89	457	458	457	142	142	142	sp5
-5	right	p15	1	89	265	266	266	147	148	148	sp5
-6	left	p7	1	89	463	464	463	209	210	209	sp6
-6	right	p16	1	89	272	272	272	214	214	214	sp6
-7	left	p8	1	89	469	469	469	278	278	278	sp7
-7	right	p17	1	89	278	279	278	281	282	282	sp7
+/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/fc/ca182c61a64e412dfe1db54b3077e0/stereo_labtest4.tab
