@@ -2,7 +2,7 @@
 
 nextflow.enable.dsl=2
 
-params.infile = "$baseDir/data/infile.csv"
+params.config = "$baseDir/data/infile.config"
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 params.DATA_DIR='data'
@@ -13,10 +13,25 @@ params.black = 120
 params.minpulse = 2
 params.watchvideo = 1
 params.delay = 0
-params.HPP = 2
+params.HPP = 2  /* hot pixel noise filtering parameter >2 don't filter. 0.15 filter more aggressively */
 
 /* Parameters for visualizing contours */
 params.mindis = 20
+
+
+
+/* Parameters for segmenting pulses across frames into single pulses */
+params.XMAX = 10
+params.YMAX = 10
+params.PDMIN = 30
+params.HPD = 2
+
+/* Parameters for pairing pulses across left and right cameras into stereo pulses */
+params.PSD = 500
+params.PFD = 500
+params.SRMAX = 10
+params.XD = 250
+
 
 
 
