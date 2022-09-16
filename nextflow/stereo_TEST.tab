@@ -1,9 +1,0 @@
-	camera	pulse	start	finish	minx	maxx	modex	miny	maxy	modey	spulse
-0	left	p3	1	90	374	375	375	156	156	156	sp0
-1	right	p11	2	76	270	271	271	154	154	154	sp0
-1	left	p4	1	90	381	382	381	132	133	133	sp1
-0	right	p10	1	90	261	262	261	132	133	132	sp1
-2	left	p5	1	90	391	392	392	98	98	98	sp2
-3	right	p9	1	90	248	248	248	101	101	101	sp2
-3	left	p6	1	90	407	408	408	41	42	41	sp3
-2	right	p8	1	90	225	225	225	48	49	49	sp3
