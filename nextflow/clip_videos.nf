@@ -6,10 +6,6 @@ params.index = "$baseDir/data/metadata.csv"
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 
-/* Downloads from Google Drive link, converts to constant frame rate (30 fps)
-    then runs undistort (fisheye) custom for WALLE camera housings           */
-
-
 workflow CLIP {
 
     pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \

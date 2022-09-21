@@ -6,12 +6,12 @@ import glob
 
 #program from derived from Nico Nielsen at https://raw.githubusercontent.com/niconielsen32/ComputerVision/master/cameraCalibration.py
 
+
 ################ FIND CHESSBOARD CORNERS - OBJECT POINTS AND IMAGE POINTS #############################
 
 chessboardSize = (9,6)
 frameSize = (640,480)
-size_of_chessboard_squares_mm = 22
-
+size_of_chessboard_squares_mm = 21
 
 
 # termination criteria
@@ -30,7 +30,7 @@ objpoints = [] # 3d point in real world space
 imgpoints = [] # 2d points in image plane.
 
 
-images = glob.glob('*.png')
+images = glob.glob('*R*.png')
 
 for image in images:
 
@@ -50,7 +50,7 @@ for image in images:
         # Draw and display the corners
         cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
         cv.imshow('img', img)
-        cv.waitKey(1000)
+        cv.waitKey(10)
 
 
 cv.destroyAllWindows()
@@ -62,45 +62,84 @@ cv.destroyAllWindows()
 
 ret, cameraMatrix, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, frameSize, None, None)
 
-print("Camera Matrix")
-print(cameraMatrix)
+print("Camera calibrated: ", ret)
+print("Camera Matrix\n", cameraMatrix)
+print("Distortion\n", dist)
 
 ############## UNDISTORTION #####################################################
 
-img = cv.imread('2022labtest_CH_L_2379.png')
-h,  w = img.shape[:2]
-newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(cameraMatrix, dist, (w,h), 1, (w,h))
+
+def undistort(img, cameraMatrix, dist) :
+    h,  w = img.shape[:2]
+    newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(cameraMatrix, dist, (w,h), 1, (w,h))
+
+    # Undistort
+    dst = cv.undistort(img, cameraMatrix, dist, None, newCameraMatrix)
+
+    # crop the image
+    x, y, w, h = roi
+
+    dst = dst[y:y+h, x:x+w]
 
 
+    ## Undistort with Remapping
+    #This is a different algorithm for remapping -- not sure of the resulting differences though
+    #mapx, mapy = cv.initUndistortRectifyMap(cameraMatrix, dist, None, newCameraMatrix, (w,h), 5)
+    #dst = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
 
-# Undistort
-dst = cv.undistort(img, cameraMatrix, dist, None, newCameraMatrix)
-
-# crop the image
-x, y, w, h = roi
-dst = dst[y:y+h, x:x+w]
-cv.imwrite('caliResult1.png', dst)
-
-
-
-# Undistort with Remapping
-mapx, mapy = cv.initUndistortRectifyMap(cameraMatrix, dist, None, newCameraMatrix, (w,h), 5)
-dst = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
-
-# crop the image
-x, y, w, h = roi
-dst = dst[y:y+h, x:x+w]
-cv.imwrite('caliResult2.png', dst)
+    ## crop the image
+    #x, y, w, h = roi
+    #dst = dst[y:y+h, x:x+w]
+    return(dst)
 
 
+video = "../../video_data/cfr_2022labtest155703-1_L.mkv"
+watch = 1
 
 
-# Reprojection Error
-mean_error = 0
+#*******************
+# Open video
+cap = cv.VideoCapture(video)
+        
+#open a file to write to
+frameSize = (640,480)
+    
+        
+#should check here to make sure video files contains 3 letter extension
+outfile = video[:-4] + "_LINundis.mkv"
 
-for i in range(len(objpoints)):
-    imgpoints2, _ = cv.projectPoints(objpoints[i], rvecs[i], tvecs[i], cameraMatrix, dist)
-    error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
-    mean_error += error
+out = cv.VideoWriter(outfile,cv.VideoWriter_fourcc('H','2','6','4'), 30, frameSize)
 
-print( "total error: {}".format(mean_error/len(objpoints)) )
+print("Undistorting fish eye video and writing to " + outfile)
+_img_shape = None
+
+while(cap.isOpened()):
+    succes, frame = cap.read()
+
+    if succes == True:
+        if _img_shape == None:
+            _img_shape = frame.shape[:2]
+        else:
+            assert _img_shape == frame.shape[:2], "All images must share the same size."
+
+        # Undistort and rectify images
+
+        uframe = undistort(frame, cameraMatrix, dist)
+
+        #If watch variable is true
+        # Show the frames
+        if watch == 1:
+          cv.imshow("frame", uframe)
+
+        #write the frame to outfile
+        out.write(uframe)
+
+       # Hit "q" to close the window
+        if cv.waitKey(1) & 0xFF == ord('q'):
+            break
+    else:
+        break
+# Release and destroy all windows before termination
+cap.release()
+cv.destroyAllWindows()
+

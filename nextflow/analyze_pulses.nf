@@ -18,8 +18,6 @@ params.HPP = 2  /* hot pixel noise filtering parameter >2 don't filter. 0.15 fil
 /* Parameters for visualizing contours */
 params.mindis = 20
 
-
-
 /* Parameters for segmenting pulses across frames into single pulses */
 params.XMAX = 10
 params.YMAX = 10
@@ -31,12 +29,6 @@ params.PSD = 500
 params.PFD = 500
 params.SRMAX = 10
 params.XD = 250
-
-
-
-
-/* Downloads from Google Drive link, converts to constant frame rate (30 fps)
-    then runs undistort (fisheye) custom for WALLE camera housings           */
 
 
 workflow {
