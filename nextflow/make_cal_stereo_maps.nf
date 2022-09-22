@@ -16,7 +16,7 @@ params.watch = 0
 workflow MAKE_STEREO_MAPS {
     stereo_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.movement, row.checksize, row.squaresize, row.name, row.distance, row.framesize, row.mindist) }
+        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.movement, row.checksize, row.squaresize, row.name, row.distance, row.framesize, row.mindist, row.singledist) }
 
     find_singles(stereo_ch)
     find_singles.out | calibrate
@@ -33,15 +33,15 @@ process undistort {
     conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3 conda-forge::pickle5'
 
     input:
-    tuple val(VL), val(VR), val(start), val(end), val(checksize), val(squaresize), val(name), val(framesize)
+    tuple val(VL), val(VR), val(start), val(end), val(checksize), val(squaresize), val(name), val(framesize), val(singledist)
 
     output:
     path '*.mkv'
 
     script:
     """
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -pre $baseDir/${params.DATA_DIR}/stereo_maps/${name}_L_CH_1 -w ${params.watch} -fr ${framesize}
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -pre $baseDir/${params.DATA_DIR}/stereo_maps/${name}_R_CH_1 -w ${params.watch} -fr ${framesize}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_L_CH_1 -w ${params.watch} -fr ${framesize}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_R_CH_1 -w ${params.watch} -fr ${framesize}
 
     """
 }
@@ -52,11 +52,11 @@ process find_singles {
     conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3 conda-forge::pickle5'
 
     input:
-    tuple val(VL), val(VR), val(start), val(end), val(movement), val(checksize), val(squaresize), val(name), val(distance), val(framesize), val(mindist)
+    tuple val(VL), val(VR), val(start), val(end), val(movement), val(checksize), val(squaresize), val(name), val(distance), val(framesize), val(mindist), val(singledist)
 
     output:
     file '*.png'
-    tuple val(VL), val(VR), val(start), val(end), val(checksize), val(squaresize), val(name), val(framesize), emit: vidarray
+    tuple val(VL), val(VR), val(start), val(end), val(checksize), val(squaresize), val(name), val(framesize), val(singledist), emit: vidarray
 
     script:
     """
@@ -74,11 +74,11 @@ process calibrate {
 
     input:
     path pairs
-    tuple val(VL), val(VR), val(start), val(end), val(checksize), val(squaresize), val(name), val(framesize)
+    tuple val(VL), val(VR), val(start), val(end), val(checksize), val(squaresize), val(name), val(framesize), val(singledist)
 
     output:
     path '*.p'
-    tuple val(VL), val(VR), val(start), val(end), val(checksize), val(squaresize), val(name), val(framesize), emit: vidarray
+    tuple val(VL), val(VR), val(start), val(end), val(checksize), val(squaresize), val(name), val(framesize), val(singledist), emit: vidarray
     
     script:
     """

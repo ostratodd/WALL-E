@@ -13,8 +13,8 @@ import argparse
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--path", required=False, default='.',
-        help="path to video frame files default is ./")
+ap.add_argument("-p", "--path", required=False, default='./',
+        help="path to parameter file. default is ./")
 ap.add_argument("-v", "--video", required=True, type=str,
         help="file name for video to undistort")
 ap.add_argument("-w", "--watch", required=False, default=0, type=int,
@@ -37,7 +37,7 @@ frameSize = tuple(frameSize[0])
 
 
 ########## READ PICKLE PARAM FILE########################
-infile = prefix + ".p"
+infile = dir_path + prefix + ".p"
 print("Opening infile ", infile)
 calib_result_pickle = pickle.load( open(infile, "rb" ) )
 
