@@ -3,16 +3,46 @@
 import numpy as np
 import cv2 as cv
 import glob
+import pickle
+import argparse
 
-#program from derived from Nico Nielsen at https://raw.githubusercontent.com/niconielsen32/ComputerVision/master/cameraCalibration.py
+#program derived from Nico Nielsen at https://raw.githubusercontent.com/niconielsen32/ComputerVision/master/cameraCalibration.py
 
 
 ################ FIND CHESSBOARD CORNERS - OBJECT POINTS AND IMAGE POINTS #############################
 
-chessboardSize = (9,6)
-frameSize = (640,480)
-size_of_chessboard_squares_mm = 21
+# Construct the argument parser and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-p", "--path", required=False, default='.',
+        help="path to video frame files default is ./")
+ap.add_argument("-w", "--watch", required=False, default=0, type=int,
+        help="whether (1) or not (0) to watch video while writing. Default = 1")
+ap.add_argument("-d", "--delay", required=False, default=0, type=float,
+        help="delay time between frames for slo-mo")
+ap.add_argument("-pre", "--prefix", required=True, type=str,
+        help="prefix name for rectified videos L and R")
+ap.add_argument("-e", "--extension", required=False, default = ".png", type=str,
+        help="file extension for checkerboard images default = .png ")
+ap.add_argument ('-c', '--cb_size', nargs=2, type=int, action = 'append', required=True,
+        help="need to specify checkerboard size e.g. -c 8 6")
+ap.add_argument ('-fr', '--frameSize', nargs=2, type=int, action = 'append', required=True,
+        help="need to specify frame size of video e.g. -c 640 480")
+ap.add_argument("-sq", "--squareSize", required=True, type=int,
+        help="Size of an individual square of the checkerboard in mm")
+args = vars(ap.parse_args())
+delay = args["delay"]
+watch = args["watch"]
+prefix = args["prefix"]
+extension = args["extension"]
+cb_size = args["cb_size"]
+chessboardSize = tuple(cb_size[0])
+frameSize = args["frameSize"]
+frameSize = tuple(frameSize[0])
+ext = args["extension"]
+squareSize = args["squareSize"]
+dir_path = args["path"]
 
+size_of_chessboard_squares_mm = squareSize
 
 # termination criteria
 criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -30,8 +60,9 @@ objpoints = [] # 3d point in real world space
 imgpoints = [] # 2d points in image plane.
 
 
-images = glob.glob('*R*.png')
+images = glob.glob(prefix + "*" + extension)
 
+#images = glob.glob("*.png")
 for image in images:
 
     img = cv.imread(image)
@@ -47,12 +78,11 @@ for image in images:
         corners2 = cv.cornerSubPix(gray, corners, (11,11), (-1,-1), criteria)
         imgpoints.append(corners)
 
-        # Draw and display the corners
-        cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
-        cv.imshow('img', img)
-        cv.waitKey(10)
-
-
+        if watch == 1 :
+            # Draw and display the corners
+            cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
+            cv.imshow('img', img)
+            cv.waitKey(10)
 cv.destroyAllWindows()
 
 
@@ -62,84 +92,17 @@ cv.destroyAllWindows()
 
 ret, cameraMatrix, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, frameSize, None, None)
 
-print("Camera calibrated: ", ret)
+#print("Camera calibrated: ", ret)
 print("Camera Matrix\n", cameraMatrix)
-print("Distortion\n", dist)
+#print("Distortion\n", dist)
 
-############## UNDISTORTION #####################################################
+###SAVE parameters to files###
+calib_result_pickle = {}
+calib_result_pickle["cameraMatrix"] = cameraMatrix
+calib_result_pickle["dist"] = dist
+calib_result_pickle["rvecs"] = rvecs
+calib_result_pickle["tvecs"] = tvecs
 
-
-def undistort(img, cameraMatrix, dist) :
-    h,  w = img.shape[:2]
-    newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(cameraMatrix, dist, (w,h), 1, (w,h))
-
-    # Undistort
-    dst = cv.undistort(img, cameraMatrix, dist, None, newCameraMatrix)
-
-    # crop the image
-    x, y, w, h = roi
-
-    dst = dst[y:y+h, x:x+w]
-
-
-    ## Undistort with Remapping
-    #This is a different algorithm for remapping -- not sure of the resulting differences though
-    #mapx, mapy = cv.initUndistortRectifyMap(cameraMatrix, dist, None, newCameraMatrix, (w,h), 5)
-    #dst = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
-
-    ## crop the image
-    #x, y, w, h = roi
-    #dst = dst[y:y+h, x:x+w]
-    return(dst)
-
-
-video = "../../video_data/cfr_2022labtest155703-1_L.mkv"
-watch = 1
-
-
-#*******************
-# Open video
-cap = cv.VideoCapture(video)
-        
-#open a file to write to
-frameSize = (640,480)
-    
-        
-#should check here to make sure video files contains 3 letter extension
-outfile = video[:-4] + "_LINundis.mkv"
-
-out = cv.VideoWriter(outfile,cv.VideoWriter_fourcc('H','2','6','4'), 30, frameSize)
-
-print("Undistorting fish eye video and writing to " + outfile)
-_img_shape = None
-
-while(cap.isOpened()):
-    succes, frame = cap.read()
-
-    if succes == True:
-        if _img_shape == None:
-            _img_shape = frame.shape[:2]
-        else:
-            assert _img_shape == frame.shape[:2], "All images must share the same size."
-
-        # Undistort and rectify images
-
-        uframe = undistort(frame, cameraMatrix, dist)
-
-        #If watch variable is true
-        # Show the frames
-        if watch == 1:
-          cv.imshow("frame", uframe)
-
-        #write the frame to outfile
-        out.write(uframe)
-
-       # Hit "q" to close the window
-        if cv.waitKey(1) & 0xFF == ord('q'):
-            break
-    else:
-        break
-# Release and destroy all windows before termination
-cap.release()
-cv.destroyAllWindows()
-
+#Writes the matrices to a .p file using pickle, which can be loaded later
+paramfile = prefix + ".p"
+pickle.dump(calib_result_pickle, open(paramfile, "wb" ))

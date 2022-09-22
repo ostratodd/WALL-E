@@ -1,0 +1,1 @@
+/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/99/f8ac71a9195299746a40bddeef893a/2022labtest_L_CH_1.p
