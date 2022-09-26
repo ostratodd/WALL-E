@@ -89,7 +89,6 @@ process calibrate {
 }
 
 
-
 process stereo_rectification {
     publishDir "$params.DATA_DIR/stereo_maps"
 
