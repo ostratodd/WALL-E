@@ -32,7 +32,7 @@ workflow {
 process clip_video_pair {
     publishDir "$params.VIDEO_DIR/clips"
 
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
     tuple val(V1), val(V2), val(start), val(end), val(offset), val(name)
@@ -69,7 +69,7 @@ process download_videos {
 process make_cfr {
     publishDir "$params.VIDEO_DIR"
 
-    conda = 'conda-forge::ffmpeg=3.4.2'
+    conda = 'conda-forge::ffmpeg=4.3.1'
 
     input:
     path vid
