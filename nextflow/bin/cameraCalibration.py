@@ -17,7 +17,7 @@ ap.add_argument("-p", "--path", required=False, default='.',
         help="path to video frame files default is ./")
 ap.add_argument("-w", "--watch", required=False, default=0, type=int,
         help="whether (1) or not (0) to watch video while writing. Default = 1")
-ap.add_argument("-d", "--delay", required=False, default=0, type=float,
+ap.add_argument("-d", "--delay", required=False, default=10, type=int,
         help="delay time between frames for slo-mo")
 ap.add_argument("-pre", "--prefix", required=True, type=str,
         help="prefix name for rectified videos L and R")
@@ -82,7 +82,7 @@ for image in images:
             # Draw and display the corners
             cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
             cv.imshow('img', img)
-            cv.waitKey(10)
+            cv.waitKey(delay)
 cv.destroyAllWindows()
 
 

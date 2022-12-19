@@ -37,6 +37,10 @@ chessboardSize = tuple(cb_size[0])
 invert = args["invert"]
 look = args["look"]
 
+frame_size = (640,480)
+border = 30
+
+xmax=0
 
 def find_closest(input_list, input_value):
   arr = np.asarray(input_list)
@@ -80,7 +84,7 @@ while(cap.isOpened()):
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
 #Find chessboard corners
-        ret, corners = cv2.findChessboardCorners(gray, chessboardSize, None)
+        retcorn, corners = cv2.findChessboardCorners(gray, chessboardSize, None)
 
         if invert == 1:
             adjusted = cv2.bitwise_not(gray)
@@ -88,11 +92,21 @@ while(cap.isOpened()):
             adjusted = gray
 
 #New code to add corners
-        if ret == True:
+        if retcorn == True:
 
             totcorners = 2 * (chessboardSize[0] * chessboardSize[1])
 
             corners = cv2.cornerSubPix(adjusted, corners, (11,11), (-1,-1), criteria)
+
+            #print("Max cooridnate of corners: " + str(xmax) )
+            xarray = corners[:,0,0]
+            yarray = corners[:,0,1]
+
+            ymin = np.min(yarray)
+            xmin = np.min(xarray)
+            ymax = np.max(yarray)
+            xmax = np.max(xarray)
+
             flatcorn = corners.reshape([1, totcorners]) #Need to calculate array size based on checkerboard size
 
             X1 = float(corners[0][0][0])	#convert first 2 corners to x,y coordinates to find distance
@@ -110,22 +124,33 @@ while(cap.isOpened()):
               #check distance between corners to exclude boards far away in view, which seem inaccurate
 
               if corndist > edgeThresh :
-                  closest = find_closest(keepersX, X1)
-                  closestY = find_closest(keepersY, Y1)
-                  if X1 - closest > moveThresh or Y1 - closestY > moveThresh:
-                      keepersX.append(X1)
-                      keepersY.append(Y1)
-                      print("*** Meets edge proximity threshold and distance from existing checker" + str(corndist) + " Meets distane threshold from previous. " + str(X1) + "," + str(Y1) + " writing images")
-                      cv2.imwrite(prefix + "_CH_1_" + str(frametext) + ".png", adjusted)
+                  #check if any checkerboard corner is too close to border, which messes up calibration
+                  if xmin > border and xmax < (640-border) and ymin > border and ymax < (480-border) :
+                      closest = find_closest(keepersX, X1)
+                      closestY = find_closest(keepersY, Y1)
+                      if X1 - closest > moveThresh or Y1 - closestY > moveThresh:
+                          keepersX.append(X1)
+                          keepersY.append(Y1)
+                          print("*** Meets edge proximity threshold and distance. " + str(corndist) + " Meets movement threshold. " + str(round(X1)) + "," + str(round(Y1)) + " writing images")
+                          cv2.imwrite(prefix + "_CH_1_" + str(frametext) + ".png", adjusted)
+                      else:
+                          print("moveThresh of " + str(moveThresh) + " exceeded")
+                  else :
+                      print("Too close to border, ignoring. Border parameter set to " + str(border) )
               else:
-                  print("Chessboard corners too close (board too distant) " + str(corndist) +  " SKIP")
+                  print("edgeThresh of " + str(edgeThresh) + " exceeded. ie Chessboard corners too close together (board too distant from camera) " + str(corndist) +  " SKIP")
 
             boards = boards + 1
             old_corners = flatcorn
 
+            if look == 1 :
+                # Draw the corners
+                cv2.drawChessboardCorners(adjusted, chessboardSize, corners, ret)
 #***********
         if look == 1:
             cv2.putText(adjusted,str(frametext+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
+
+            cv2.line(adjusted, (xmax,0), (xmax,400), (0,255,0), 3)
 
             cv2.imshow('frame',adjusted)
 

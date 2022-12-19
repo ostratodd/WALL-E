@@ -29,7 +29,7 @@ workflow {
 process undistort {
     publishDir "$params.VIDEO_DIR/clips"
 
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3 conda-forge::pickle5'
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
     tuple val(VL), val(VR), val(start), val(end), val(movement), val(checksize), val(squaresize), val(name), val(distance), val(framesize), val(mindist), val(singledist)
@@ -49,7 +49,7 @@ process undistort {
 process find_singles {
     publishDir "$params.VIDEO_DIR/pairs"
 
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3 conda-forge::pickle5'
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
     tuple val(VL), val(VR), val(start), val(end), val(movement), val(checksize), val(squaresize), val(name), val(distance), val(framesize), val(mindist), val(singledist)
@@ -70,7 +70,7 @@ process find_singles {
 process calibrate {
     publishDir "$params.DATA_DIR/stereo_maps"
 
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
     path pairs
@@ -92,7 +92,7 @@ process calibrate {
 process stereo_rectification {
     publishDir "$params.DATA_DIR/stereo_maps"
 
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
     tuple val(VL), val(VR), val(start), val(end), val(movement), val(checksize), val(squaresize), val(name), val(distance), val(framesize), val(mindist), val(singledist)
@@ -116,7 +116,7 @@ process stereo_rectification {
 process find_pairs {
     publishDir "$params.VIDEO_DIR/pairs"
 
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
     tuple val(VL), val(VR), val(start), val(end), val(movement), val(checksize), val(squaresize), val(name), val(distance), val(framesize), val(mindist), val(singledist)
