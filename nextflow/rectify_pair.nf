@@ -34,6 +34,6 @@ process rectify {
 
     script:
     """
-    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.VIDEO_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l ${params.lines} -w ${params.watch} -pre ${name}
+    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}_L_CH_1_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}_R_CH_1_undis.mkv -f $baseDir/data/stereo_maps/${stereomap}_stereoMap.xml -l ${params.lines} -w ${params.watch} -pre ${name}
     """
 }

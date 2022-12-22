@@ -60,8 +60,8 @@ process find_singles {
 
     script:
     """
-    collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p ${name}_L -c ${checksize} -l ${params.watch} -m ${mindist}
-    collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p ${name}_R -c ${checksize} -l ${params.watch} -m ${mindist}
+    collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p ${name}_L -c ${checksize} -l ${params.watch} -m ${mindist} -e ${singledist}
+    collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p ${name}_R -c ${checksize} -l ${params.watch} -m ${mindist} -e ${singledist}
     """
 }
 

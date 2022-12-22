@@ -2,7 +2,7 @@
 
 nextflow.enable.dsl=2
 
-params.config = "$baseDir/data/infile.config"
+params.metadata = "$baseDir/data/metadata.csv"
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 params.DATA_DIR='data'
@@ -13,7 +13,7 @@ params.black = 120
 params.minpulse = 2
 params.watchvideo = 1
 params.delay = 0
-params.HPP = 2  /* hot pixel noise filtering parameter >2 don't filter. 0.15 filter more aggressively */
+params.HPP = 2  /* hot pixel noise filtering parameter >2 doesn't filter. 0.15 filter more aggressively */
 
 /* Parameters for visualizing contours */
 params.mindis = 20
@@ -33,7 +33,7 @@ params.XD = 250
 
 workflow {
 
-    pairs_ch = Channel.fromPath(params.infile, checkIfExists:true) \
+    pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
         | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name, row.stereomap, row.baseline) }
 
@@ -49,7 +49,7 @@ workflow {
 process visualize_coordinates {
 
     publishDir "$params.DATA_DIR/plots"
-    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+    conda = 'conda-forge::matplotlib=3.3.3 conda-forge::scipy=1.6.0 conda-forge::pandas=1.2.0 conda-forge::seaborn=0.12.1 conda-forge::numpy=1.19.4'
 
     input :
     tuple file(f), val(name)

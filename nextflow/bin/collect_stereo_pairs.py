@@ -175,7 +175,7 @@ while(cap.isOpened()):
                 else:
                     print("Chessboard corners too close (board too distant) " + str(corndist) +  " SKIP")
               else :
-                print("Exceeds movement threshold. LEFT:" + str(movementL) + " RIGHT:" + str(movementR) + " SKIP")
+                print("Exceeds movement threshold moveThresh = " + str(moveThresh) + " LEFT:" + str(movementL) + " RIGHT:" + str(movementR) + " SKIP")
 
             boards = boards + 1
             old_cornersL = flatcornL

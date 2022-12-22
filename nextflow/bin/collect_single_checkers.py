@@ -38,7 +38,7 @@ invert = args["invert"]
 look = args["look"]
 
 frame_size = (640,480)
-border = 30
+border = 40
 
 xmax=0
 
