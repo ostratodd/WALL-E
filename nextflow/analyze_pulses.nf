@@ -35,16 +35,55 @@ workflow {
 
     pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name, row.stereomap, row.baseline) }
+        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name, row.stereomap, row.framesize, row.baseline) }
 
-    rectify(pairs_ch)
-    find_contours(rectify.out.vidarray)
+    undistort(pairs_ch)
+    rectify(undistort.out.uvidarray)
+    find_contours(rectify.out.rvidarray)
     segment_contours(find_contours.out)
     parallax_depth(segment_contours.out.stereo)
     visualize(find_contours.out)
     visualize_segments(segment_contours.out[0])
     visualize_coordinates(parallax_depth.out[0])
 }
+
+process undistort {
+    publishDir "$params.VIDEO_DIR/clips"
+        
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
+
+    input:
+    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), val(framesize), val(baseline)
+    
+    output:
+    path '*.mkv'
+    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), val(framesize), val(baseline), emit: uvidarray
+ 
+    script:
+    """   
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_L_CH_1 -w ${params.watchvideo} -fr ${framesize} -o ${name}${VL}_cl_${start}_${end}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_R_CH_1 -w ${params.watchvideo} -fr ${framesize} -o ${name}${VR}_cl_${start}_${end}
+
+    """
+}
+process rectify {
+    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+
+    publishDir "$params.VIDEO_DIR/rectified"
+
+    input:
+    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), val(framesize), val(baseline)
+
+    output:
+    path('*.mkv')
+    tuple file('*L.mkv'), file('*R.mkv'), val(name), val(baseline), emit: rvidarray
+
+    script:
+    """
+    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l 0 -w ${params.watchvideo} -pre ${name}
+    """
+}
+
 
 process visualize_coordinates {
 
@@ -129,24 +168,6 @@ process visualize_segments {
     visualize_contours.py -f $f -o ${name}_segmented
     """
 
-}
-
-process rectify {
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
-
-    publishDir "$params.VIDEO_DIR/rectified"
-
-    input:
-    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), val(baseline)
-
-    output:
-    path('*.mkv')
-    tuple file('*L.mkv'), file('*R.mkv'), val(name), val(baseline), emit: vidarray
-
-    script:
-    """
-    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l 0 -w 0 -pre ${name}
-    """
 }
 
 process find_contours {

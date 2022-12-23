@@ -23,6 +23,8 @@ ap.add_argument("-d", "--delay", required=False, default=0, type=float,
         help="delay time between frames for slo-mo")
 ap.add_argument("-pre", "--prefix", required=True, type=str,
         help="prefix name for parameters file ending in .p")
+ap.add_argument("-o", "--outfile", required=True, type=str,
+        help="outfile for video name not including extension")
 ap.add_argument ('-fr', '--frameSize', nargs=2, type=int, action = 'append', required=True,
         help="need to specify frame size of video e.g. -c 640 480")
 
@@ -31,6 +33,7 @@ delay = args["delay"]
 watch = args["watch"]
 video = args["video"]
 prefix = args["prefix"]
+outfile = args["outfile"]
 dir_path = args["path"]
 frameSize = args["frameSize"]
 frameSize = tuple(frameSize[0])
@@ -76,11 +79,11 @@ def undistort(img, cameraMatrix, dist) :
 cap = cv.VideoCapture(video)
         
 #should check here to make sure video files contains 3 letter extension
-outfile = prefix + "_undis.mkv"
+vidoutfile = outfile + "_undis.mkv"
 
-out = cv.VideoWriter(outfile,cv.VideoWriter_fourcc('H','2','6','4'), 30, frameSize)
+out = cv.VideoWriter(vidoutfile,cv.VideoWriter_fourcc('H','2','6','4'), 30, frameSize)
 
-print("Undistorting fish eye video and writing to " + outfile)
+print("Undistorting fish eye video and writing to " + vidoutfile)
 _img_shape = None
 
 while(cap.isOpened()):
