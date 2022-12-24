@@ -12,6 +12,7 @@ params.DATA_DIR='data'
 params.black = 120
 params.minpulse = 2
 params.watchvideo = 1
+params.lines = 1
 params.delay = 0
 params.HPP = 2  /* hot pixel noise filtering parameter >2 doesn't filter. 0.15 filter more aggressively */
 
@@ -80,7 +81,7 @@ process rectify {
 
     script:
     """
-    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l 0 -w ${params.watchvideo} -pre ${name}
+    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l ${params.lines} -w ${params.watchvideo} -pre ${name}
     """
 }
 

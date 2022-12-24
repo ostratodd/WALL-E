@@ -7,7 +7,7 @@ params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 params.DATA_DIR='data'
 
-params.watch = 0
+params.watchvideo = 0
 
 workflow MAKE_STEREO_MAPS {
     stereo_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
@@ -40,8 +40,8 @@ process undistort {
 
     script:
     """
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_L_CH_1 -w ${params.watch} -fr ${framesize}
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_R_CH_1 -w ${params.watch} -fr ${framesize}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_L_CH_1 -w ${params.watchvideo} -fr ${framesize} -o ${name}${VL}_cl_${start}_${end}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_R_CH_1 -w ${params.watchvideo} -fr ${framesize} -o ${name}${VR}_cl_${start}_${end}
 
     """
 }
@@ -60,8 +60,8 @@ process find_singles {
 
     script:
     """
-    collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p ${name}_L -c ${checksize} -l ${params.watch} -m ${mindist} -e ${singledist}
-    collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p ${name}_R -c ${checksize} -l ${params.watch} -m ${mindist} -e ${singledist}
+    collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p ${name}_L -c ${checksize} -l ${params.watchvideo} -m ${mindist} -e ${singledist}
+    collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p ${name}_R -c ${checksize} -l ${params.watchvideo} -m ${mindist} -e ${singledist}
     """
 }
 
@@ -82,8 +82,8 @@ process calibrate {
 
     script:
     """
-    cameraCalibration.py -c $checksize -fr $framesize -sq $squaresize -w ${params.watch} -pre ${name}_L_CH_1 -p $baseDir/${params.VIDEO_DIR}/pairs
-    cameraCalibration.py -c $checksize -fr $framesize -sq $squaresize -w ${params.watch} -pre ${name}_R_CH_1 -p $baseDir/${params.VIDEO_DIR}/pairs
+    cameraCalibration.py -c $checksize -fr $framesize -sq $squaresize -w ${params.watchvideo} -pre ${name}_L_CH_1 -p $baseDir/${params.VIDEO_DIR}/pairs
+    cameraCalibration.py -c $checksize -fr $framesize -sq $squaresize -w ${params.watchvideo} -pre ${name}_R_CH_1 -p $baseDir/${params.VIDEO_DIR}/pairs
 
     """
 }
@@ -96,12 +96,6 @@ process stereo_rectification {
 
     input:
     tuple val(VL), val(VR), val(start), val(end), val(movement), val(checksize), val(squaresize), val(name), val(distance), val(framesize), val(mindist), val(singledist)
-
-/*    path pairs
-    val(checksize)
-    val(name)
-    val(squaresize)
-    val(framesize) */
 
     output:
     path '*.xml'
@@ -127,7 +121,7 @@ process find_pairs {
 
     script:
     """
-    collect_stereo_pairs.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}_L_CH_1_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}_R_CH_1_undis.mkv -m ${movement} -c ${checksize} -p $name -l ${params.watch} -e $distance
+    collect_stereo_pairs.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -m ${movement} -c ${checksize} -p $name -l ${params.watchvideo} -e $distance
     """
 }
 
