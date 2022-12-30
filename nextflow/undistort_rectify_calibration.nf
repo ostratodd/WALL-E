@@ -42,8 +42,14 @@ process undistort {
 
     script:
     """
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_L_CH_1 -w ${params.watchvideo} -fr ${framesize} -o ${name}${VL}_cl_${start}_${end}
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_R_CH_1 -w ${params.watchvideo} -fr ${framesize} -o ${name}${VR}_cl_${start}_${end}
+    if ls $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv 1> /dev/null 2>&1; then
+        rm $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv
+    fi
+    if ls $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv 1> /dev/null 2>&1; then
+        rm $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv
+    fi
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_L_single -w ${params.watchvideo} -fr ${framesize} -o ${name}${VL}_cl_${start}_${end}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_R_single -w ${params.watchvideo} -fr ${framesize} -o ${name}${VR}_cl_${start}_${end}
 
     """
 }
@@ -62,6 +68,12 @@ process find_singles {
 
     script:
     """
+    if ls $baseDir/${params.VIDEO_DIR}/pairs/${name}_L*.png 1> /dev/null 2>&1; then
+        rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_L*.png
+    fi
+    if ls $baseDir/${params.VIDEO_DIR}/pairs/${name}_R*.png 1> /dev/null 2>&1; then
+        rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_R*.png
+    fi
     collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p ${name}_L -c ${checkdim} -l ${params.watchvideo} -m ${L_move} -e ${L_dist} -b ${L_bord} -n ${L_mindist}
     collect_single_checkers.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p ${name}_R -c ${checkdim} -l ${params.watchvideo} -m ${R_move} -e ${R_dist} -b ${R_bord} -n ${R_mindist}
     """
@@ -84,8 +96,8 @@ process calibrate {
 
     script:
     """
-    cameraCalibration.py -c $checkdim -fr $framesize -sq $squaresize -w ${params.watchvideo} -pre ${name}_L_CH_1 -p $baseDir/${params.VIDEO_DIR}/pairs
-    cameraCalibration.py -c $checkdim -fr $framesize -sq $squaresize -w ${params.watchvideo} -pre ${name}_R_CH_1 -p $baseDir/${params.VIDEO_DIR}/pairs
+    cameraCalibration.py -c $checkdim -fr $framesize -sq $squaresize -w ${params.watchvideo} -pre ${name}_L_single -p $baseDir/${params.VIDEO_DIR}/pairs
+    cameraCalibration.py -c $checkdim -fr $framesize -sq $squaresize -w ${params.watchvideo} -pre ${name}_R_single -p $baseDir/${params.VIDEO_DIR}/pairs
 
     """
 }
@@ -105,7 +117,11 @@ process stereo_rectification {
 
     script:
     """
-    stereovision_calibration.py -v1 CH_L -v2 CH_R -pre $name -p $baseDir/${params.VIDEO_DIR}/pairs -c $checkdim -fr $framesize -sq $squaresize
+    if ls $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereoMap.xml 1> /dev/null 2>&1; then
+        rm $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereoMap.xml
+    fi
+
+    stereovision_calibration.py -v1 pair_L -v2 pair_R -pre $name -p $baseDir/${params.VIDEO_DIR}/pairs -c $checkdim -fr $framesize -sq $squaresize
     """
 
 }
@@ -145,10 +161,17 @@ process find_pairs {
     script:
     if( mode == 'internal' )
         """
+
+        if ls $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair_?_*.png 1> /dev/null 2>&1; then
+            rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair_?_*.png
+        fi
         collect_stereo_pairs.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -m ${P_move} -c ${checkdim} -p $name -l ${params.watchvideo} -e ${P_dist} -n ${P_mindist}
         """
     else if( mode == 'external' )
         """
+        if ls $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair_?_*.png 1> /dev/null 2>&1; then
+            rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair_?_*.png
+        fi
         collect_stereo_pairs.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -m ${P_move} -c ${checkdim} -p $name -l ${params.watchvideo} -e ${P_dist} -n ${P_mindist}
         """
 }

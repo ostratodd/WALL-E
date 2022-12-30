@@ -51,7 +51,7 @@ xmax=0
 
 #********Delete previous files 
 # Get a list of all the file paths that ends with .txt from in specified directory
-oldfiles = prefix + "_CH_1_*.png"
+oldfiles = prefix + "_single_*.png"
 fileList = glob.glob(oldfiles)
 # Iterate over the list of filepaths & remove each file.
 for filePath in fileList:
@@ -127,7 +127,7 @@ while(cap.isOpened()):
             ymax = np.max(yarray)
             xmax = np.max(xarray)
 
-            #convert first 2 corners to x,y coordinates to find distance
+            #convert first 2 corners to x,y coordinates to find distance from previously stored
             X1 = float(corners[0][0][0])	
             Y1 = float(corners[0][0][1])
             X2 = float(corners[1][0][0])
@@ -151,7 +151,7 @@ while(cap.isOpened()):
                             keepersX.append(X1)
                             keepersY.append(Y1)
                             print("***" + str(frametext) + ": Meets edge proximity threshold and distance. " + str(corndist) + " Not too close (" + str(round(mindist)) + ") at " + str(round(np.abs(X1-closest),3)) + str(round(np.abs(Y1-closestY),3)) + " writing images")
-                            cv2.imwrite(prefix + "_CH_1_" + str(frametext) + ".png", adjusted)
+                            cv2.imwrite(prefix + "_single_" + str(frametext) + ".png", adjusted)
                         else:
                             print(str(frametext) + ": mindist (-n) of " + str(mindist) + " not exceeded. Too close to existing board. X,Y: " + str(round(np.abs(X1-closest),3)) + "," + str(round(np.abs(Y1-closestY),3)) )
                     else :

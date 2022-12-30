@@ -36,7 +36,7 @@ workflow {
 
     pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.videoL, row.videoR, row.start, row.end, row.name, row.stereomap, row.framesize, row.baseline) }
+        | map { row-> tuple(row.VL, row.VR, row.start, row.end, row.name, row.stereomap, row.framesize, row.baseline) }
 
     undistort(pairs_ch)
     rectify(undistort.out.uvidarray)

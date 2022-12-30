@@ -1,2 +1,2 @@
 date,country,location,name,VL,linkL,VR,linkR,start,end,offset,framesize,checkdim,squaresize,L_move,L_mindist,L_dist,L_bord,R_move,R_mindist,R_dist,R_bord,P_move,P_dist,P_mindist
-2022,USA,UCSB,2022labtest,155703-1_L,1NdFNOQPGHFYSjl9Ru1zsyNNYCVQQw7PU,155704-2_R,11OM8Jh6sJKhRicAaVNH3jpT_blshRDu0,100,2700,-15,640 480,9 6,21,1,10,18,37,1,15,18,35,.5,15,10
+2022,USA,UCSB,2022labtest,155703-1_L,1NdFNOQPGHFYSjl9Ru1zsyNNYCVQQw7PU,155704-2_R,11OM8Jh6sJKhRicAaVNH3jpT_blshRDu0,100,2700,-15,640 480,9 6,21,1,10,18,37,2,1,15,30,1.5,22,2

@@ -18,7 +18,7 @@ workflow DOWNLOAD_RAW {
 
     Channel.fromPath(params.metadata) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.videoL, row.linkL, row.videoR, row.linkR, row.start, row.end, row.offset, row.name) } \
+        | map { row-> tuple(row.VL, row.linkL, row.VR, row.linkR, row.start, row.end, row.offset, row.name) } \
         | download_videos 
         download_videos.out.vidarray | make_cfr 
         make_cfr.out.vidarray | clip_video_pair

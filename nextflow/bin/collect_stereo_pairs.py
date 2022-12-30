@@ -96,7 +96,7 @@ cap2 = cv2.VideoCapture(video2)
 
 #********Delete previous files
 # Get a list of all the file paths that ends with .txt from in specified directory
-oldfiles = prefix + "_CH_?_*.png"
+oldfiles = prefix + "_pair_?_*.png"
 fileList = glob.glob(oldfiles) 
 # Iterate over the list of filepaths & remove each file.
 for filePath in fileList:
@@ -197,16 +197,15 @@ while(cap.isOpened()):
                         closest = find_closest(keepersX, X1)    #keepers is the X and Y value of one corner to keep only if far enough from previous keeper
                         closestY = find_closest(keepersY, Y1)
                         if np.abs(X1 - closest) > mindist or np.abs(Y1 - closestY) > mindist:
-                            keepersX.append(X1)
-                            keepersY.append(Y1)
                             if corndist > edgeThresh :
                                 #Add frame to printed video -- could add a toggle option here
                                 #cv2.putText(adjusted,str(frametext+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
                                 #cv2.putText(adjusted2,str(frametext+roffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
-
-                                cv2.imwrite(prefix + "_CH_L_" + str(frametext) + ".png", adjusted)
-                                cv2.imwrite(prefix + "_CH_R_" + str(frametext) + ".png", adjusted2)
+                                cv2.imwrite(prefix + "_pair_L_" + str(frametext) + ".png", adjusted)
+                                cv2.imwrite(prefix + "_pair_R_" + str(frametext) + ".png", adjusted2)
                                 print("*** Meets edge proximity threshold " + str(corndist) + " Meets movement threshold. LEFT:" + str(movementL) + " RIGHT:" + str(movementR) + " writing images")
+                                keepersX.append(X1)
+                                keepersY.append(Y1)
                             else:
                                  print("Chessboard corners too close (board too distant) " + str(corndist) +  " SKIP")
                         else:
