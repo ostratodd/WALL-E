@@ -1,5 +1,5 @@
-date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,name,movement,checksize,distance,stereomap
-2017,Belize,Hangman,calibration,174159-2_L,1DvkhoebXzOrJLv8ZfeKdwzJi0IyRy_nZ,174157-1_R,1kGIRJOB2PoSA2_UQF0Vl7v7FkYzBlcm0,13850,14500,32,2017hangman,2.5,8 6,22,2017hangman
+date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,name,PAIRmovement,checksize,squaresize,PAIRdistance,stereomap,framesize,mindist,singledist,border
+2017,Belize,Hangman,calibration,174159-2_L,1DvkhoebXzOrJLv8ZfeKdwzJi0IyRy_nZ,174157-1_R,1kGIRJOB2PoSA2_UQF0Vl7v7FkYzBlcm0,13850,14500,32,2017hangman,3,8 6,21,20,2017hangman,640 480,15,18,45
 
 
 

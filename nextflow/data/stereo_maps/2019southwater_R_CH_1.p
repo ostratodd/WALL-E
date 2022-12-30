@@ -1,1 +1,1 @@
-/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/c2/a868bd0a881c625a93831ebd214596/2019southwater_R_CH_1.p
+/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/27/b22ff21dc76de7c4a2d5c7f1a58e24/2019southwater_R_CH_1.p

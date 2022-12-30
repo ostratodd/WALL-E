@@ -20,8 +20,8 @@ workflow DOWNLOAD_RAW {
         | splitCsv(header:true) \
         | map { row-> tuple(row.videoL, row.linkL, row.videoR, row.linkR, row.start, row.end, row.offset, row.name) } \
         | download_videos 
-        download_videos.out.downloads | flatten | make_cfr 
-        download_videos.out.vidarray | clip_video_pair
+        download_videos.out.vidarray | make_cfr 
+        make_cfr.out.vidarray | clip_video_pair
 }
 
 workflow {
@@ -49,13 +49,15 @@ process clip_video_pair {
 
 process download_videos {
 
+    publishDir "$params.VIDEO_DIR"
+
     conda = 'conda-forge::gdown'
 
     input:
     tuple val(videoL), val(linkL), val(videoR), val(linkR), val(start), val(end), val(offset), val(name)
 
     output:
-    path '*.mkv', emit: downloads
+    path '*.mkv'
     tuple val(videoL), val(videoR), val(start), val(end), val(offset), val(name), emit: vidarray
 
     script:
@@ -72,14 +74,16 @@ process make_cfr {
     conda = 'conda-forge::ffmpeg=4.3.1'
 
     input:
-    path vid
+    tuple val(V1), val(V2), val(start), val(end), val(offset), val(name)
 
     output:
     path '*.mkv'
+    tuple val(V1), val(V2), val(start), val(end), val(offset), val(name), emit: vidarray
     
     script:
     """
-    ffmpeg -i $vid -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$vid
+    ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V1${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V1${params.cEXT}
+    ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V2${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V2${params.cEXT}
 
     """
 }

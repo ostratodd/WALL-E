@@ -5,7 +5,7 @@ import cv2 as cv
 import glob
 import argparse
 
-#Original cript written by Nico Nielsen taken from https://github.com/niconielsen32/ComputerVision/blob/master/stereoVisionCalibration/stereovision_calibration.py
+#Original script written by Nico Nielsen taken from https://github.com/niconielsen32/ComputerVision/blob/master/stereoVisionCalibration/stereovision_calibration.py
 ################ FIND CHESSBOARD CORNERS - OBJECT POINTS AND IMAGE POINTS #############################
 
 # Construct the argument parser and parse the arguments
@@ -58,7 +58,7 @@ objpoints = [] # 3d point in real world space
 imgpointsL = [] # 2d points in image plane.
 imgpointsR = [] # 2d points in image plane.
 
-
+print("Searching for image pairs in: " + dir_path + '/' + prefix + "_" + video1 + "*." + ext)
 imagesLeft = sorted(glob.glob(dir_path + '/' + prefix + "_" + video1 + '*.' + ext))
 imagesRight = sorted(glob.glob(dir_path + '/' + prefix + "_" + video2 + '*.' + ext))
 
