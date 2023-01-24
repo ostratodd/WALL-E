@@ -1,3 +1,2 @@
-date,country,location,clip,videoL,linkL,videoR,linkR,start,end,offset,name,PAIRmovement,checksize,squaresize,PAIRdistance,stereomap,framesize,mindist,singledist,border
-2022,Panama,Manglar,calibration,102338-1_L,1tHCvQCabL27Df10hMz5cKnLoFzpuLlMy,102338-2_R,1JHJ4mxCUODrc6rKKnAtCpMKDeavXtxCK,12900,15000,-33,2022bocas,2,9 6,22,18,2022bocas,640 480,15,30,35
-
+date,country,location,name,VL,linkL,VR,linkR,start,end,offset,framesize,checkdim,squaresize,L_move,L_mindist,L_dist,L_bord,R_move,R_mindist,R_dist,R_bord,P_move,P_dist,P_mindist
+2022,Panama,Manglar,2022bocas,102338-1_L,1tHCvQCabL27Df10hMz5cKnLoFzpuLlMy,102338-2_R,1JHJ4mxCUODrc6rKKnAtCpMKDeavXtxCK,13100,15000,-15,640 480,9 6,22,1,5,18,40,1,5,18,40,1,20,2

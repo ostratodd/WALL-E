@@ -11,8 +11,8 @@ params.DATA_DIR='data'
 /* Parameters for finding contours */
 params.black = 120
 params.minpulse = 2
-params.watchvideo = 1
-params.lines = 1
+params.watchvideo = 0
+params.lines = 0
 params.delay = 0
 params.HPP = 2  /* hot pixel noise filtering parameter >2 doesn't filter. 0.15 filter more aggressively */
 
@@ -62,8 +62,8 @@ process undistort {
  
     script:
     """   
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_L_CH_1 -w ${params.watchvideo} -fr ${framesize} -o ${name}${VL}_cl_${start}_${end}
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_R_CH_1 -w ${params.watchvideo} -fr ${framesize} -o ${name}${VR}_cl_${start}_${end}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_L_single -w ${params.watchvideo} -fr ${framesize} -o ${name}${VL}_cl_${start}_${end}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_R_single -w ${params.watchvideo} -fr ${framesize} -o ${name}${VR}_cl_${start}_${end}
 
     """
 }

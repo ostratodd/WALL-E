@@ -1,0 +1,1 @@
+/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/e1/dcfbb6280bb084c66b4bf2753b9759/2017hangman_L_single.p

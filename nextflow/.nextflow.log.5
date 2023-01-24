@@ -1,88 +1,134 @@
-Aug-08 12:27:22.662 [main] DEBUG nextflow.cli.Launcher - $> nextflow run prepare_video.nf
-Aug-08 12:27:22.774 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.5
-Aug-08 12:27:22.855 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
-Aug-08 12:27:22.886 [main] INFO  nextflow.cli.CmdRun - Launching `prepare_video.nf` [condescending_joliot] DSL2 - revision: 2b497f1363
-Aug-08 12:27:22.903 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.7.2,nf-azure@0.13.2,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
-Aug-08 12:27:22.905 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
-Aug-08 12:27:22.919 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
-Aug-08 12:27:22.920 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
-Aug-08 12:27:22.925 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
-Aug-08 12:27:22.937 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
-Aug-08 12:27:23.016 [main] DEBUG nextflow.Session - Session uuid: e78b69c7-b2ea-42c1-932f-96a059407f24
-Aug-08 12:27:23.016 [main] DEBUG nextflow.Session - Run name: condescending_joliot
-Aug-08 12:27:23.017 [main] DEBUG nextflow.Session - Executor pool size: 4
-Aug-08 12:27:23.066 [main] DEBUG nextflow.cli.CmdRun - 
-  Version: 22.04.5 build 5708
-  Created: 15-07-2022 16:09 UTC (09:09 PDT)
-  System: Mac OS X 12.5
-  Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 17.0.3+7-LTS
-  Encoding: UTF-8 (UTF-8)
-  Process: 66541@eemb-micro-room.eemb.ucsb.edu [128.111.226.149]
-  CPUs: 4 - Mem: 64 GB (8.7 GB) - Swap: 0 (0)
-Aug-08 12:27:23.080 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
-Aug-08 12:27:23.119 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
-Aug-08 12:27:23.133 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
-Aug-08 12:27:23.153 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
-Aug-08 12:27:23.168 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 5; maxThreads: 1000
-Aug-08 12:27:23.264 [main] DEBUG nextflow.Session - Session start invoked
-Aug-08 12:27:23.953 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Aug-08 12:27:24.087 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Aug-08 12:27:24.087 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Aug-08 12:27:24.093 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
-Aug-08 12:27:24.100 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=4; memory=64 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
-Aug-08 12:27:24.198 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Aug-08 12:27:24.198 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Aug-08 12:27:24.207 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Aug-08 12:27:24.207 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Aug-08 12:27:24.210 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: remove_fisheye, download_videos, convert_vid
-Aug-08 12:27:24.211 [main] DEBUG nextflow.Session - Ignite dataflow network (4)
-Aug-08 12:27:24.211 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > download_videos
-Aug-08 12:27:24.212 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > convert_vid
-Aug-08 12:27:24.213 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > remove_fisheye
-Aug-08 12:27:24.213 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
-Aug-08 12:27:24.213 [main] DEBUG nextflow.Session - Session await
-Aug-08 12:27:24.302 [Actor Thread 4] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::gdown; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-35d85b31e910d27e3494d6b680a96700
-Aug-08 12:27:24.363 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Aug-08 12:27:24.368 [Task submitter] INFO  nextflow.Session - [ec/de27fd] Submitted process > download_videos (1)
-Aug-08 12:27:28.716 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: download_videos (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/ec/de27fdb1226fc0ecffc02d31bc3c50]
-Aug-08 12:27:28.775 [Actor Thread 5] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::ffmpeg=4.4.1; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-fcdaabbf7f1c85016ae28a6afa1ae25c
-Aug-08 12:27:28.787 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Aug-08 12:27:28.787 [Task submitter] INFO  nextflow.Session - [db/7166d3] Submitted process > convert_vid (1)
-Aug-08 12:27:57.472 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: convert_vid (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/db/7166d374b8cf2d593a85701e12ad0d]
-Aug-08 12:27:57.476 [Actor Thread 3] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::opencv; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-c593350ba7c4ea77a7301c53459756fc
-Aug-08 12:27:57.486 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Aug-08 12:27:57.486 [Task submitter] INFO  nextflow.Session - [03/93857a] Submitted process > remove_fisheye (1)
-Aug-08 12:30:41.414 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: remove_fisheye (1); status: COMPLETED; exit: 1; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/03/93857a91e05c3e8e0e46e43d11d526]
-Aug-08 12:30:41.440 [Task monitor] ERROR nextflow.processor.TaskProcessor - Error executing process > 'remove_fisheye (1)'
+Jan-01 10:24:28.881 [main] DEBUG nextflow.cli.Launcher - $> nextflow analyze_pulses.nf --metadata data/bocas22_mfu_signals.csv -c data/bocas22_mfu_signals.csv
+Jan-01 10:24:29.051 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.10.3
+Jan-01 10:24:29.069 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.11.1,nf-azure@0.14.2,nf-codecommit@0.1.2,nf-console@1.0.4,nf-ga4gh@1.0.4,nf-google@1.4.5,nf-tower@1.5.6,nf-wave@0.5.2
+Jan-01 10:24:29.078 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Jan-01 10:24:29.079 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Jan-01 10:24:29.082 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Jan-01 10:24:29.107 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Jan-01 10:24:29.134 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/data/bocas22_mfu_signals.csv
+Jan-01 10:24:29.135 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/data/bocas22_mfu_signals.csv
+Jan-01 10:24:29.171 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Jan-01 10:24:29.424 [main] ERROR nextflow.cli.Launcher - Unable to parse config file: '/Users/oakley/Documents/GitHub/WALL-E/nextflow/data/bocas22_mfu_signals.csv'
 
-Caused by:
-  Process `remove_fisheye (1)` terminated with an error exit status (1)
+  Compile failed for sources FixedSetSources[name='/groovy/script/ScriptF4FC5806997E73035C602A3FB9955EA7/_nf_config_1d0d13a5']. Cause: org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+  /groovy/script/ScriptF4FC5806997E73035C602A3FB9955EA7/_nf_config_1d0d13a5: 1: Unexpected input: ',' @ line 1, column 5.
+     date,country,location,VL,linkL,VR,linkR,start,end,offset,name,stereomap,baseline,framesize
+         ^
+  
+  1 error
 
-Command executed:
+ch.grengine.except.CompileException: Compile failed for sources FixedSetSources[name='/groovy/script/ScriptF4FC5806997E73035C602A3FB9955EA7/_nf_config_1d0d13a5']. Cause: org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+/groovy/script/ScriptF4FC5806997E73035C602A3FB9955EA7/_nf_config_1d0d13a5: 1: Unexpected input: ',' @ line 1, column 5.
+   date,country,location,VL,linkL,VR,linkR,start,end,offset,name,stereomap,baseline,framesize
+       ^
 
-  remove_fisheye.py -v 161303-1.ASF.mkv
+1 error
 
-Command exit status:
-  1
+	at ch.grengine.code.groovy.DefaultGroovyCompiler.compile(DefaultGroovyCompiler.java:278)
+	at ch.grengine.load.DefaultTopCodeCache.getUpToDateCode(DefaultTopCodeCache.java:79)
+	at ch.grengine.load.LayeredClassLoader.loadMainClass(LayeredClassLoader.java:179)
+	at ch.grengine.engine.LayeredEngine.loadMainClass(LayeredEngine.java:199)
+	at ch.grengine.Grengine.loadMainClass(Grengine.java:692)
+	at ch.grengine.BaseGrengine.load(BaseGrengine.java:538)
+	at ch.grengine.BaseGrengine.load(BaseGrengine.java:420)
+	at ch.grengine.BaseGrengine$load.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:148)
+	at nextflow.config.ConfigParser.loadScript(ConfigParser.groovy:223)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
+	at nextflow.config.ConfigParser.parse(ConfigParser.groovy:304)
+	at nextflow.config.ConfigParser$parse$4.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at nextflow.config.ConfigBuilder.parse0(ConfigBuilder.groovy:436)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:194)
+	at nextflow.config.ConfigBuilder.merge0(ConfigBuilder.groovy:422)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:203)
+	at nextflow.config.ConfigBuilder.buildConfig0(ConfigBuilder.groovy:372)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:194)
+	at nextflow.config.ConfigBuilder.buildGivenFiles(ConfigBuilder.groovy:317)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
+	at nextflow.config.ConfigBuilder.buildConfigObject(ConfigBuilder.groovy:780)
+	at nextflow.config.ConfigBuilder.build(ConfigBuilder.groovy:793)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:307)
+	at nextflow.cli.Launcher.run(Launcher.groovy:487)
+	at nextflow.cli.Launcher.main(Launcher.groovy:646)
+Caused by: org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+/groovy/script/ScriptF4FC5806997E73035C602A3FB9955EA7/_nf_config_1d0d13a5: 1: Unexpected input: ',' @ line 1, column 5.
+   date,country,location,VL,linkL,VR,linkR,start,end,offset,name,stereomap,baseline,framesize
+       ^
 
-Command output:
-  Undistorting fish eye video and writing to undistort_161303-1.ASF.mkv
+1 error
 
-Command error:
-  Traceback (most recent call last):
-    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/bin/remove_fisheye.py", line 69, in <module>
-      uframe = undistort(frame)
-    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/bin/remove_fisheye.py", line 32, in undistort
-      dim1 = img_orig.shape[:2][::-1]  #dim1 is the dimension of input image to un-distort
-  AttributeError: 'NoneType' object has no attribute 'shape'
-
-Work dir:
-  /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/03/93857a91e05c3e8e0e46e43d11d526
-
-Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
-Aug-08 12:30:41.444 [Task monitor] DEBUG nextflow.Session - Session aborted -- Cause: Process `remove_fisheye (1)` terminated with an error exit status (1)
-Aug-08 12:30:41.447 [main] DEBUG nextflow.Session - Session await > all process finished
-Aug-08 12:30:41.462 [main] DEBUG nextflow.Session - Session await > all barriers passed
-Aug-08 12:30:41.470 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=2; failedCount=1; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=33s; failedDuration=2m 44s; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
-Aug-08 12:30:41.701 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
-Aug-08 12:30:41.716 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
+	at org.codehaus.groovy.control.ErrorCollector.failIfErrors(ErrorCollector.java:292)
+	at org.codehaus.groovy.control.ErrorCollector.addFatalError(ErrorCollector.java:148)
+	at org.apache.groovy.parser.antlr4.AstBuilder.collectSyntaxError(AstBuilder.java:4321)
+	at org.apache.groovy.parser.antlr4.AstBuilder.access$000(AstBuilder.java:176)
+	at org.apache.groovy.parser.antlr4.AstBuilder$1.syntaxError(AstBuilder.java:4332)
+	at groovyjarjarantlr4.v4.runtime.ProxyErrorListener.syntaxError(ProxyErrorListener.java:44)
+	at groovyjarjarantlr4.v4.runtime.Parser.notifyErrorListeners(Parser.java:543)
+	at groovyjarjarantlr4.v4.runtime.DefaultErrorStrategy.notifyErrorListeners(DefaultErrorStrategy.java:154)
+	at org.apache.groovy.parser.antlr4.internal.DescriptiveErrorStrategy.reportInputMismatch(DescriptiveErrorStrategy.java:103)
+	at org.apache.groovy.parser.antlr4.internal.DescriptiveErrorStrategy.recover(DescriptiveErrorStrategy.java:55)
+	at org.apache.groovy.parser.antlr4.internal.DescriptiveErrorStrategy.recoverInline(DescriptiveErrorStrategy.java:68)
+	at groovyjarjarantlr4.v4.runtime.Parser.match(Parser.java:213)
+	at org.apache.groovy.parser.antlr4.GroovyParser.compilationUnit(GroovyParser.java:362)
+	at org.apache.groovy.parser.antlr4.AstBuilder.buildCST(AstBuilder.java:250)
+	at org.apache.groovy.parser.antlr4.AstBuilder.buildCST(AstBuilder.java:228)
+	at org.apache.groovy.parser.antlr4.AstBuilder.buildAST(AstBuilder.java:269)
+	at org.apache.groovy.parser.antlr4.Antlr4ParserPlugin.buildAST(Antlr4ParserPlugin.java:58)
+	at org.codehaus.groovy.control.SourceUnit.buildAST(SourceUnit.java:256)
+	at java.base/java.util.Iterator.forEachRemaining(Iterator.java:133)
+	at java.base/java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:658)
+	at org.codehaus.groovy.control.CompilationUnit.buildASTs(CompilationUnit.java:666)
+	at org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:632)
+	at ch.grengine.code.groovy.DefaultGroovyCompiler.compile(DefaultGroovyCompiler.java:241)
+	... 75 common frames omitted

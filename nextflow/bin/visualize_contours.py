@@ -14,16 +14,26 @@ ap.add_argument("-f", "--file", required=True, type=str,
 	help="file name for pulse data made by find_contours.py")
 ap.add_argument("-o", "--outfile", required=False, default='', type=str,
 	help="file name for pulse data made by find_contours.py")
+ap.add_argument('--segments', action='store_true')
+ap.add_argument('--contours', dest='segments', action='store_false')
+ap.set_defaults(segments=False)
+
 args = vars(ap.parse_args())
 file = args["file"]
 outfile = args["outfile"]
+segments = args["segments"]
 
 table = pd.read_csv(file, delimiter = '\t')
 
+if segments :
+    colorby = 'pulse'
+else:
+    colorby = 'camera'
+
 #2d
 fig, axs = plt.subplots(ncols=2)
-sns.scatterplot(x='frame', y='cX', data=table, hue='camera', edgecolor = 'none', ax=axs[0])
-sns.scatterplot(x='frame', y='cY', data=table, hue='camera', edgecolor = 'none', ax=axs[1], legend=False)
+sns.scatterplot(x='frame', y='cX', data=table, hue=colorby, edgecolor = 'none', ax=axs[0])
+sns.scatterplot(x='frame', y='cY', data=table, hue=colorby, edgecolor = 'none', ax=axs[1], legend=False)
 
 ##3d
 #plt.figure(figsize=(6,5))

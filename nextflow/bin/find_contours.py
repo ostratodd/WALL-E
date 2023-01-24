@@ -164,7 +164,7 @@ while(cap.isOpened() and cap2.isOpened() ):
             cv2.putText(adjusted, str(frametext)+",X:"+str(cX), (30,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
             cv2.putText(adjusted2, str(frametext)+",X:"+str(cX2), (30,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
     #        cv2.putText(adjusted2, str(frametext), (30,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
-            cv2.imshow('video',adjusted)
+#            cv2.imshow('video',adjusted)
             cv2.imshow('video2',adjusted2)
 
             #move window when first opening
