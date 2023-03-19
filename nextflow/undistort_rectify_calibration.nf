@@ -14,7 +14,7 @@ params.watchvideo = 0
 workflow MAKE_STEREO_MAPS {
     stereo_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.name, row.VL, row.VR, row.start, row.end, row.offset, row.framesize, row.checkdim, row.squaresize, row.L_move, row.L_mindist, row.L_dist, row.L_bord, row.R_move, row.R_mindist, row.R_dist, row.R_bord,row.P_move, row.P_mindist, row.P_dist) }
+        | map { row-> tuple(row.name, row.VL, row.VR, row.start, row.end, row.offset, row.framesize, row.checkdim, row.squaresize, row.L_move, row.L_mindist, row.L_dist, row.L_bord, row.R_move, row.R_mindist, row.R_dist, row.R_bord,row.P_move, row.P_mindist, row.P_dist, row.P_border) }
 
     find_singles(stereo_ch)
     find_singles.out | calibrate
@@ -34,11 +34,11 @@ process undistort {
     conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist)
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border)
 
     output:
     path '*.mkv'
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), emit: vidarray
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border),  emit: vidarray
 
     script:
     """
@@ -60,11 +60,11 @@ process find_singles {
     conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist)
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border)
 
     output:
     file '*.png'
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), emit: vidarray
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border), emit: vidarray
 
     script:
     """
@@ -88,11 +88,11 @@ process calibrate {
 
     input:
     path pairs
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist)
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border)
 
     output:
     path '*.p'
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), emit: vidarray
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border),emit: vidarray
 
     script:
     """
@@ -109,11 +109,11 @@ process stereo_rectification {
     conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist)
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border)
 
     output:
     path '*.xml'
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), emit: vidarray
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border), emit: vidarray
 
     script:
     """
@@ -132,7 +132,7 @@ process rectify {
     conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
     
     input:
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist)
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border)
     
     output:
     path '*.mkv'
@@ -152,11 +152,11 @@ process find_pairs {
     conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist)
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border)
 
     output:
     path '*.png'
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), emit: vidarray
+    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), val(framesize), val(checkdim), val(squaresize), val(L_move), val(L_mindist), val(L_dist), val(L_bord), val(R_move), val(R_mindist),val(R_dist), val(R_bord),val(P_move), val(P_mindist),val(P_dist), val(P_border), emit: vidarray
 
     script:
     if( mode == 'internal' )
@@ -165,7 +165,7 @@ process find_pairs {
         if ls $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair_?_*.png 1> /dev/null 2>&1; then
             rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair_?_*.png
         fi
-        collect_stereo_pairs.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -m ${P_move} -c ${checkdim} -p $name -l ${params.watchvideo} -e ${P_dist} -n ${P_mindist}
+        collect_stereo_pairs.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -m ${P_move} -c ${checkdim} -p $name -l ${params.watchvideo} -e ${P_dist} -n ${P_mindist} -b ${P_border}
         """
     else if( mode == 'external' )
         """

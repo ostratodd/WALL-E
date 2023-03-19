@@ -9,6 +9,9 @@ import os, errno
 import glob
 import sys
 
+width = 640
+height = 480
+
 #Script to go through video to find chessboard photos in stereo videos. A movement threshold compares current to previous
 #location of board because if the board is moving quickly, unsynced l/r video causes much noise in calibration
 
@@ -22,7 +25,7 @@ ap.add_argument("-v2", "--video2", required=True, type=str,
 	help="filename for second video")
 ap.add_argument("-g", "--gamma", required=False, default=1,type=float,
 	help="value of gamma")
-ap.add_argument("-b", "--black", required=False, default=0, type=int,
+ap.add_argument("-t", "--threshold", required=False, default=0, type=int,
 	help="threshold below which is black")
 ap.add_argument("-w", "--white", required=False, default=255, type=int,
 	help="threshold above which is white")
@@ -44,13 +47,16 @@ ap.add_argument("--invert", required=False, default=0, type=int,
 	help="Invert black and white")
 ap.add_argument("-l", "--look", required=False, default=1, type=int,
 	help="Look at (watch) video while searching for frame pairs")
+ap.add_argument("-b", "--border", required=False, default=40, type=int,
+        help="Imposes a distance from the border of the frame to not select checkerboards that go out of view")
+
 args = vars(ap.parse_args())
 moveThresh = args["moveThresh"]
 edgeThresh = args["edgeThresh"]
 offset = args["offset"]
 delay = args["delay"]
 gamma = args["gamma"]
-black = args["black"]
+black = args["threshold"]
 white = args["white"]
 start = args["start"]
 prefix = args["prefix"]
@@ -61,6 +67,7 @@ chessboardSize = tuple(cb_size[0])
 invert = args["invert"]
 look = args["look"]
 mindist = args["nimdist"]
+border = args["border"]
 
 # termination criteria
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -182,6 +189,22 @@ while(cap.isOpened()):
             corndist = math.sqrt((X1-X2)**2 + (Y1-Y2)**2)
 
             if boards > 0 :
+
+              #find extreme corners to later check if they are too close to border
+              xarrayL = cornersL[:,0,0]
+              yarrayL = cornersL[:,0,1]
+              yminL = np.min(yarrayL)
+              xminL = np.min(xarrayL)
+              ymaxL = np.max(yarrayL)
+              xmaxL = np.max(xarrayL)
+
+              xarrayR = cornersR[:,0,0]
+              yarrayR = cornersR[:,0,1]
+              yminR = np.min(yarrayR)
+              xminR = np.min(xarrayR)
+              ymaxR = np.max(yarrayR)
+              xmaxR = np.max(xarrayR)
+
               difcornL = np.subtract(flatcornL, old_cornersL)
               difcornL = np.abs(difcornL)
               movementL = np.average(difcornL)
@@ -197,15 +220,26 @@ while(cap.isOpened()):
                         closest = find_closest(keepersX, X1)    #keepers is the X and Y value of one corner to keep only if far enough from previous keeper
                         closestY = find_closest(keepersY, Y1)
                         if np.abs(X1 - closest) > mindist or np.abs(Y1 - closestY) > mindist:
-                            if corndist > edgeThresh :
-                                #Add frame to printed video -- could add a toggle option here
-                                #cv2.putText(adjusted,str(frametext+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
-                                #cv2.putText(adjusted2,str(frametext+roffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
-                                cv2.imwrite(prefix + "_pair_L_" + str(frametext) + ".png", adjusted)
-                                cv2.imwrite(prefix + "_pair_R_" + str(frametext) + ".png", adjusted2)
-                                print("*** Meets edge proximity threshold " + str(corndist) + " Meets movement threshold. LEFT:" + str(movementL) + " RIGHT:" + str(movementR) + " writing images")
-                                keepersX.append(X1)
-                                keepersY.append(Y1)
+                            if corndist > edgeThresh :	#corndist is the average size of checkersquares, if large enough, means close enough to keep
+                                if xminL > border and xmaxL < (640-border) and yminL > border and ymaxL < (480-border) and xminR > border and xmaxR < (640-border) and yminR > border and ymaxR < (480-border):
+                                    #Add frame number to printed video -- could add a toggle option here
+                                    #cv2.putText(adjusted,str(frametext+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
+                                    #cv2.putText(adjusted2,str(frametext+roffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
+                                    cv2.imwrite(prefix + "_pair_L_" + str(frametext) + ".png", adjusted)
+                                    cv2.imwrite(prefix + "_pair_R_" + str(frametext) + ".png", adjusted2)
+                                    print(str(frametext) + "*** Meets edge proximity threshold " + str(corndist) + " Meets movement threshold. LEFT:" + str(movementL) + " RIGHT:" + str(movementR) + " Meets border threshold. Writing images")
+                                    keepersX.append(X1)
+                                    keepersY.append(Y1)
+                                else :
+                                    print(str(frametext) + ": Too close to border, ignoring. Border parameter set to " + str(border) )
+                                    if yminR < border or yminL < border:
+                                        print("\t\t yminR=" + str(yminR) + " yminL=" + str(yminL))
+                                    elif xminR < border or xminL < border:
+                                        print("\t*xminR=" + str(xminR) + " xminL=" + str(xminL))
+                                    elif (640-xmaxR) < border or (640-xmaxL) < border:
+                                        print("\t*xmaxR=" + str(640-xmaxR) + " xmaxL=" + str(640-xmaxL))
+                                    elif (480-ymaxR) < border or (480-ymaxL) < border:
+                                        print("\t*ymaxR=" + str(480-ymaxR) + " ymaxL=" + str(480-ymaxL))
                             else:
                                  print("Chessboard corners too close (board too distant) " + str(corndist) +  " SKIP")
                         else:
@@ -221,6 +255,7 @@ while(cap.isOpened()):
         if look == 1:
             cv2.putText(adjusted,str(frametext+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
             cv2.putText(adjusted2,str(frametext+roffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
+#            cv2.putText(adjusted2,str(xminR), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
 
             cv2.imshow('frame',adjusted)
             cv2.imshow('frame2',adjusted2)

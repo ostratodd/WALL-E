@@ -68,7 +68,7 @@ process undistort {
     """
 }
 process rectify {
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     publishDir "$params.VIDEO_DIR/rectified"
 
@@ -89,7 +89,7 @@ process rectify {
 process visualize_coordinates {
 
     publishDir "$params.DATA_DIR/plots"
-    conda = 'conda-forge::matplotlib=3.3.3 conda-forge::scipy=1.6.0 conda-forge::pandas=1.2.0 conda-forge::seaborn=0.12.1 conda-forge::numpy=1.19.4'
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4 conda-forge::scipy=1.6.0 conda-forge::pandas=1.2.0 conda-forge::seaborn=0.12.2'
 
     input :
     tuple file(f), val(name)
@@ -104,7 +104,7 @@ process visualize_coordinates {
     """
 }
 process parallax_depth {
-    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+    conda = 'conda-forge::matplotlib=3.3.3 conda-forge::pandas=1.2.0  conda-forge::seaborn=0.12.2  conda-forge::numpy=1.19.4'
     publishDir "$params.DATA_DIR/contours"
 
     input:
@@ -120,7 +120,7 @@ process parallax_depth {
     """
 }
 process segment_contours {
-    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+    conda = 'conda-forge::matplotlib=3.3.3 conda-forge::pandas=1.2.0  conda-forge::seaborn=0.12.2  conda-forge::numpy=1.24.2 conda-forge::scipy=1.10.1'
 
     publishDir "$params.DATA_DIR/contours"
 
@@ -140,7 +140,7 @@ process segment_contours {
 
 process visualize {
     publishDir "$params.DATA_DIR/plots"
-    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+    conda = 'conda-forge::matplotlib=3.3.3 conda-forge::pandas=1.2.0  conda-forge::seaborn=0.12.2  conda-forge::numpy'
 
     input :
     tuple file(f), val(name), val(baseline)
@@ -156,7 +156,7 @@ process visualize {
 }
 process visualize_segments {
     publishDir "$params.DATA_DIR/plots"
-    conda = 'conda-forge::matplotlib conda-forge::pandas conda-forge::seaborn conda-forge::numpy'
+    conda = 'conda-forge::matplotlib=3.3.3 conda-forge::pandas=1.2.0  conda-forge::seaborn=0.12.2  conda-forge::numpy'
 
     input :
     tuple file(f), val(name)
@@ -173,7 +173,7 @@ process visualize_segments {
 
 process find_contours {
 
-    conda = 'conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3'
+    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
     publishDir "$params.DATA_DIR/contours"
 
     input:

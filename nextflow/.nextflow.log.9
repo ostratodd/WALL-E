@@ -1,65 +1,284 @@
-Dec-31 16:42:38.990 [main] DEBUG nextflow.cli.Launcher - $> nextflow download_clip.nf --metadata data/bocas22_mfu_signals.csv -with-conda true
-Dec-31 16:42:39.155 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.10.3
-Dec-31 16:42:39.172 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.11.1,nf-azure@0.14.2,nf-codecommit@0.1.2,nf-console@1.0.4,nf-ga4gh@1.0.4,nf-google@1.4.5,nf-tower@1.5.6,nf-wave@0.5.2
-Dec-31 16:42:39.182 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
-Dec-31 16:42:39.183 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
-Dec-31 16:42:39.185 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
-Dec-31 16:42:39.210 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
-Dec-31 16:42:39.299 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
-Dec-31 16:42:39.316 [main] INFO  nextflow.cli.CmdRun - Launching `download_clip.nf` [disturbed_gautier] DSL2 - revision: 7e5c9bebef
-Dec-31 16:42:39.317 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
-Dec-31 16:42:39.317 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
-Dec-31 16:42:39.326 [main] DEBUG nextflow.secret.LocalSecretsProvider - Secrets store: /Users/oakley/.nextflow/secrets/store.json
-Dec-31 16:42:39.334 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@599f571f] - activable => nextflow.secret.LocalSecretsProvider@599f571f
-Dec-31 16:42:39.414 [main] DEBUG nextflow.Session - Session UUID: 976430ba-5a71-4848-96b5-0211d471e21d
-Dec-31 16:42:39.414 [main] DEBUG nextflow.Session - Run name: disturbed_gautier
-Dec-31 16:42:39.415 [main] DEBUG nextflow.Session - Executor pool size: 10
-Dec-31 16:42:39.425 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
-Dec-31 16:42:39.458 [main] DEBUG nextflow.cli.CmdRun - 
+Mar-18 21:51:21.792 [main] DEBUG nextflow.cli.Launcher - $> nextflow analyze_pulses.nf --metadata data/hangman_signals.csv -c data/params_hangman_pan.config -with-conda true
+Mar-18 21:51:21.865 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.10.3
+Mar-18 21:51:21.873 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.11.1,nf-azure@0.14.2,nf-codecommit@0.1.2,nf-console@1.0.4,nf-ga4gh@1.0.4,nf-google@1.4.5,nf-tower@1.5.6,nf-wave@0.5.2
+Mar-18 21:51:21.877 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Mar-18 21:51:21.877 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Mar-18 21:51:21.878 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Mar-18 21:51:21.883 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Mar-18 21:51:21.891 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/data/params_hangman_pan.config
+Mar-18 21:51:21.892 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/data/params_hangman_pan.config
+Mar-18 21:51:21.901 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-18 21:51:22.143 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+Mar-18 21:51:22.151 [main] INFO  nextflow.cli.CmdRun - Launching `analyze_pulses.nf` [sad_bell] DSL2 - revision: 49930e3f37
+Mar-18 21:51:22.151 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Mar-18 21:51:22.151 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Mar-18 21:51:22.155 [main] DEBUG nextflow.secret.LocalSecretsProvider - Secrets store: /Users/oakley/.nextflow/secrets/store.json
+Mar-18 21:51:22.156 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@455c1d8c] - activable => nextflow.secret.LocalSecretsProvider@455c1d8c
+Mar-18 21:51:22.182 [main] DEBUG nextflow.Session - Session UUID: 72ce94b6-12ae-4b0e-9873-f705a655c76e
+Mar-18 21:51:22.182 [main] DEBUG nextflow.Session - Run name: sad_bell
+Mar-18 21:51:22.182 [main] DEBUG nextflow.Session - Executor pool size: 10
+Mar-18 21:51:22.186 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Mar-18 21:51:22.197 [main] DEBUG nextflow.cli.CmdRun - 
   Version: 22.10.3 build 5834
   Created: 21-11-2022 21:37 UTC (13:37 PDT)
-  System: Mac OS X 10.16
-  Runtime: Groovy 3.0.13 on OpenJDK 64-Bit Server VM 14.0.2+12
+  System: Mac OS X 13.2.1
+  Runtime: Groovy 3.0.13 on OpenJDK 64-Bit Server VM 17.0.3+7-LTS
   Encoding: UTF-8 (UTF-8)
-  Process: 29806@gamera.eemb.ucsb.edu [128.111.226.15]
-  CPUs: 10 - Mem: 32 GB (161 MB) - Swap: 0 (0)
-Dec-31 16:42:39.475 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
-Dec-31 16:42:39.523 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
-Dec-31 16:42:39.532 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
-Dec-31 16:42:39.559 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
-Dec-31 16:42:39.567 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 11; maxThreads: 1000
-Dec-31 16:42:39.616 [main] DEBUG nextflow.Session - Session start
-Dec-31 16:42:40.652 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Dec-31 16:42:40.820 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Dec-31 16:42:40.820 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Dec-31 16:42:40.826 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
-Dec-31 16:42:40.830 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=10; memory=32 GB; capacity=10; pollInterval=100ms; dumpInterval=5m
-Dec-31 16:42:40.913 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Dec-31 16:42:40.913 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Dec-31 16:42:40.918 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Dec-31 16:42:40.918 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Dec-31 16:42:40.923 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: make_cfr, clip_video_pair, DOWNLOAD_RAW:download_videos, download_videos, DOWNLOAD_RAW:make_cfr, DOWNLOAD_RAW:clip_video_pair
-Dec-31 16:42:40.923 [main] DEBUG nextflow.Session - Igniting dataflow network (4)
-Dec-31 16:42:40.929 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > DOWNLOAD_RAW:download_videos
-Dec-31 16:42:40.930 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > DOWNLOAD_RAW:make_cfr
-Dec-31 16:42:40.930 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > DOWNLOAD_RAW:clip_video_pair
-Dec-31 16:42:40.930 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
-Dec-31 16:42:40.930 [main] DEBUG nextflow.Session - Session await
-Dec-31 16:42:41.056 [Actor Thread 11] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::gdown; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-35d85b31e910d27e3494d6b680a96700
-Dec-31 16:42:41.132 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Dec-31 16:42:41.135 [Task submitter] INFO  nextflow.Session - [fa/81385b] Submitted process > DOWNLOAD_RAW:download_videos (1)
-Dec-31 16:45:25.286 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: DOWNLOAD_RAW:download_videos (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/fa/81385b7c4bf0f56e8ad6f4a739342e]
-Dec-31 16:45:25.363 [Actor Thread 10] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::ffmpeg=4.3.1; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-b5f02bb71adf760304bf50069d78336d
-Dec-31 16:45:25.374 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Dec-31 16:45:25.375 [Task submitter] INFO  nextflow.Session - [6d/be4e63] Submitted process > DOWNLOAD_RAW:make_cfr (1)
-Dec-31 16:47:22.638 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: DOWNLOAD_RAW:make_cfr (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/6d/be4e63469803a62f50d0783992d3f3]
-Dec-31 16:47:22.687 [Actor Thread 8] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-c185fe4baf89519afaa336aee909e5f9
-Dec-31 16:47:22.698 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Dec-31 16:47:22.698 [Task submitter] INFO  nextflow.Session - [e6/a433b6] Submitted process > DOWNLOAD_RAW:clip_video_pair (1)
-Dec-31 16:47:26.014 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: DOWNLOAD_RAW:clip_video_pair (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/e6/a433b681cc60997ff59f0e000eb4f9]
-Dec-31 16:47:26.019 [main] DEBUG nextflow.Session - Session await > all processes finished
-Dec-31 16:47:26.023 [main] DEBUG nextflow.Session - Session await > all barriers passed
-Dec-31 16:47:26.028 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=3; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=4m 45s; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
-Dec-31 16:47:26.194 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
-Dec-31 16:47:26.232 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
-Dec-31 16:47:26.233 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
+  Process: 7674@gamera.eemb.ucsb.edu [128.111.226.15]
+  CPUs: 10 - Mem: 32 GB (2.2 GB) - Swap: 0 (0)
+Mar-18 21:51:22.202 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
+Mar-18 21:51:22.216 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Mar-18 21:51:22.220 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Mar-18 21:51:22.233 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Mar-18 21:51:22.236 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 11; maxThreads: 1000
+Mar-18 21:51:22.266 [main] DEBUG nextflow.Session - Session start
+Mar-18 21:51:22.530 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Mar-18 21:51:22.589 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 21:51:22.589 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 21:51:22.592 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Mar-18 21:51:22.594 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=10; memory=32 GB; capacity=10; pollInterval=100ms; dumpInterval=5m
+Mar-18 21:51:22.625 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 21:51:22.625 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 21:51:22.627 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 21:51:22.627 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 21:51:22.630 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 21:51:22.630 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 21:51:22.631 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 21:51:22.631 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 21:51:22.633 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 21:51:22.633 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 21:51:22.634 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 21:51:22.634 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 21:51:22.636 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 21:51:22.636 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 21:51:22.637 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: visualize_coordinates, find_contours, rectify, visualize, visualize_segments, undistort, parallax_depth, segment_contours
+Mar-18 21:51:22.637 [main] DEBUG nextflow.Session - Igniting dataflow network (9)
+Mar-18 21:51:22.639 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > undistort
+Mar-18 21:51:22.640 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > rectify
+Mar-18 21:51:22.640 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > find_contours
+Mar-18 21:51:22.640 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > segment_contours
+Mar-18 21:51:22.640 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > parallax_depth
+Mar-18 21:51:22.640 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > visualize
+Mar-18 21:51:22.640 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > visualize_segments
+Mar-18 21:51:22.640 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > visualize_coordinates
+Mar-18 21:51:22.640 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Mar-18 21:51:22.640 [main] DEBUG nextflow.Session - Session await
+Mar-18 21:51:22.678 [Actor Thread 4] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-c185fe4baf89519afaa336aee909e5f9
+Mar-18 21:51:22.706 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-18 21:51:22.707 [Task submitter] INFO  nextflow.Session - [f0/e2444a] Submitted process > undistort (1)
+Mar-18 21:51:25.745 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: undistort (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/f0/e2444a425b416b8819cd1304646ade]
+Mar-18 21:51:25.771 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-18 21:51:25.771 [Task submitter] INFO  nextflow.Session - [89/3b1fde] Submitted process > rectify (1)
+Mar-18 21:51:32.482 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: rectify (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/89/3b1fdebdcdc3df886d674636bd6f2d]
+Mar-18 21:51:32.494 [Actor Thread 11] INFO  nextflow.conda.CondaCache - Creating env using conda: conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3 [cache /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-569f435d103f2bc44931bea6a2a0c7b8]
+Mar-18 21:51:35.511 [Actor Thread 4] ERROR nextflow.processor.TaskProcessor - Error executing process > 'find_contours (1)'
+
+Caused by:
+  Failed to create Conda environment
+  command: conda create --mkdir --yes --quiet --prefix /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-569f435d103f2bc44931bea6a2a0c7b8 conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3
+  status : 1
+  message:
+    PackagesNotFoundError: The following packages are not available from current channels:
+    
+      - conda-forge::numpy=1.9.3
+      - conda-forge::opencv=3.4.1
+    
+    Current channels:
+    
+      - https://conda.anaconda.org/conda-forge/osx-arm64
+      - https://conda.anaconda.org/conda-forge/noarch
+    
+    To search for alternate channels that may provide the conda package you're
+    looking for, navigate to
+    
+        https://anaconda.org
+    
+    and use the search bar at the top of the page.
+
+
+java.lang.IllegalStateException: java.lang.IllegalStateException: Failed to create Conda environment
+  command: conda create --mkdir --yes --quiet --prefix /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-569f435d103f2bc44931bea6a2a0c7b8 conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3
+  status : 1
+  message:
+    PackagesNotFoundError: The following packages are not available from current channels:
+    
+      - conda-forge::numpy=1.9.3
+      - conda-forge::opencv=3.4.1
+    
+    Current channels:
+    
+      - https://conda.anaconda.org/conda-forge/osx-arm64
+      - https://conda.anaconda.org/conda-forge/noarch
+    
+    To search for alternate channels that may provide the conda package you're
+    looking for, navigate to
+    
+        https://anaconda.org
+    
+    and use the search bar at the top of the page.
+
+	at nextflow.conda.CondaCache.getCachePathFor(CondaCache.groovy:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:170)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.call(PogoMetaMethodSite.java:73)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at nextflow.processor.TaskRun.memoizedMethodPriv$getCondaEnv(TaskRun.groovy:585)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:362)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:61)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:176)
+	at nextflow.processor.TaskRun$_closure2.doCall(TaskRun.groovy)
+	at nextflow.processor.TaskRun$_closure2.doCall(TaskRun.groovy)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at groovy.lang.Closure.call(Closure.java:412)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.lambda$call$0(Memoize.java:137)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:137)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:113)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.call(Memoize.java:136)
+	at groovy.lang.Closure.call(Closure.java:406)
+	at java_util_concurrent_Callable$call.call(Unknown Source)
+	at nextflow.processor.TaskRun.getCondaEnv(TaskRun.groovy)
+	at nextflow.processor.TaskRun$getCondaEnv$5.call(Unknown Source)
+	at nextflow.processor.TaskProcessor.createTaskHashKey(TaskProcessor.groovy:2040)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
+	at nextflow.processor.TaskProcessor.invokeTask(TaskProcessor.groovy:599)
+	at nextflow.processor.InvokeTaskAdapter.call(InvokeTaskAdapter.groovy:53)
+	at groovyx.gpars.dataflow.operator.DataflowOperatorActor.startTask(DataflowOperatorActor.java:120)
+	at groovyx.gpars.dataflow.operator.ForkingDataflowOperatorActor.access$001(ForkingDataflowOperatorActor.java:35)
+	at groovyx.gpars.dataflow.operator.ForkingDataflowOperatorActor$1.run(ForkingDataflowOperatorActor.java:58)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.lang.IllegalStateException: Failed to create Conda environment
+  command: conda create --mkdir --yes --quiet --prefix /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-569f435d103f2bc44931bea6a2a0c7b8 conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3
+  status : 1
+  message:
+    PackagesNotFoundError: The following packages are not available from current channels:
+    
+      - conda-forge::numpy=1.9.3
+      - conda-forge::opencv=3.4.1
+    
+    Current channels:
+    
+      - https://conda.anaconda.org/conda-forge/osx-arm64
+      - https://conda.anaconda.org/conda-forge/noarch
+    
+    To search for alternate channels that may provide the conda package you're
+    looking for, navigate to
+    
+        https://anaconda.org
+    
+    and use the search bar at the top of the page.
+
+	at nextflow.conda.CondaCache.runCommand(CondaCache.groovy:313)
+	at nextflow.conda.CondaCache.createLocalCondaEnv0(CondaCache.groovy:285)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1268)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1029)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:1012)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:101)
+	at nextflow.conda.CondaCache$_createLocalCondaEnv_closure1.doCall(CondaCache.groovy:247)
+	at nextflow.conda.CondaCache$_createLocalCondaEnv_closure1.call(CondaCache.groovy)
+	at nextflow.file.FileMutex.lock(FileMutex.groovy:107)
+	at nextflow.conda.CondaCache.createLocalCondaEnv(CondaCache.groovy:247)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1268)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1029)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:1012)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:101)
+	at nextflow.conda.CondaCache$_getLazyImagePath_closure2.doCall(CondaCache.groovy:341)
+	at nextflow.conda.CondaCache$_getLazyImagePath_closure2.call(CondaCache.groovy)
+	at groovyx.gpars.dataflow.LazyDataflowVariable$1.run(LazyDataflowVariable.java:70)
+	... 3 common frames omitted
+Mar-18 21:51:35.512 [Actor Thread 4] DEBUG nextflow.Session - Session aborted -- Cause: java.lang.IllegalStateException: Failed to create Conda environment
+  command: conda create --mkdir --yes --quiet --prefix /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-569f435d103f2bc44931bea6a2a0c7b8 conda-forge::opencv=3.4.1 conda-forge::numpy=1.9.3
+  status : 1
+  message:
+    PackagesNotFoundError: The following packages are not available from current channels:
+    
+      - conda-forge::numpy=1.9.3
+      - conda-forge::opencv=3.4.1
+    
+    Current channels:
+    
+      - https://conda.anaconda.org/conda-forge/osx-arm64
+      - https://conda.anaconda.org/conda-forge/noarch
+    
+    To search for alternate channels that may provide the conda package you're
+    looking for, navigate to
+    
+        https://anaconda.org
+    
+    and use the search bar at the top of the page.
+
+Mar-18 21:51:35.517 [Actor Thread 4] DEBUG nextflow.Session - The following nodes are still active:
+[process] find_contours
+  status=ACTIVE
+  port 0: (queue) closed; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] segment_contours
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] parallax_depth
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] visualize
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] visualize_segments
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] visualize_coordinates
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+Mar-18 21:51:35.517 [main] DEBUG nextflow.Session - Session await > all processes finished
+Mar-18 21:51:35.517 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Mar-18 21:51:35.520 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=2; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=9.6s; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
+Mar-18 21:51:35.735 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Mar-18 21:51:35.754 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

@@ -1,95 +1,128 @@
-Jan-01 10:26:53.325 [main] DEBUG nextflow.cli.Launcher - $> nextflow analyze_pulses.nf --metadata data/bocas22_mfu_signals.csv -c data/params_bocas_mfu.config
-Jan-01 10:26:53.494 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.10.3
-Jan-01 10:26:53.511 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.11.1,nf-azure@0.14.2,nf-codecommit@0.1.2,nf-console@1.0.4,nf-ga4gh@1.0.4,nf-google@1.4.5,nf-tower@1.5.6,nf-wave@0.5.2
-Jan-01 10:26:53.521 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
-Jan-01 10:26:53.522 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
-Jan-01 10:26:53.524 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
-Jan-01 10:26:53.548 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
-Jan-01 10:26:53.576 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/data/params_bocas_mfu.config
-Jan-01 10:26:53.576 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/data/params_bocas_mfu.config
-Jan-01 10:26:53.611 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
-Jan-01 10:26:54.267 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
-Jan-01 10:26:54.289 [main] INFO  nextflow.cli.CmdRun - Launching `analyze_pulses.nf` [maniac_ride] DSL2 - revision: 29030845e2
-Jan-01 10:26:54.289 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
-Jan-01 10:26:54.289 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
-Jan-01 10:26:54.297 [main] DEBUG nextflow.secret.LocalSecretsProvider - Secrets store: /Users/oakley/.nextflow/secrets/store.json
-Jan-01 10:26:54.301 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@5460b754] - activable => nextflow.secret.LocalSecretsProvider@5460b754
-Jan-01 10:26:54.420 [main] DEBUG nextflow.Session - Session UUID: c12ad121-7f37-40aa-9f19-e748e5a343b4
-Jan-01 10:26:54.421 [main] DEBUG nextflow.Session - Run name: maniac_ride
-Jan-01 10:26:54.421 [main] DEBUG nextflow.Session - Executor pool size: 10
-Jan-01 10:26:54.431 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
-Jan-01 10:26:54.467 [main] DEBUG nextflow.cli.CmdRun - 
+Mar-18 22:04:43.725 [main] DEBUG nextflow.cli.Launcher - $> nextflow analyze_pulses.nf --metadata data/hangman_signals.csv -c data/params_hangman_pan.config -with-conda true
+Mar-18 22:04:43.905 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.10.3
+Mar-18 22:04:43.922 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.11.1,nf-azure@0.14.2,nf-codecommit@0.1.2,nf-console@1.0.4,nf-ga4gh@1.0.4,nf-google@1.4.5,nf-tower@1.5.6,nf-wave@0.5.2
+Mar-18 22:04:43.932 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Mar-18 22:04:43.932 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Mar-18 22:04:43.934 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Mar-18 22:04:43.960 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Mar-18 22:04:43.987 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/data/params_hangman_pan.config
+Mar-18 22:04:43.987 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/data/params_hangman_pan.config
+Mar-18 22:04:44.023 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-18 22:04:44.664 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+Mar-18 22:04:44.678 [main] INFO  nextflow.cli.CmdRun - Launching `analyze_pulses.nf` [angry_carson] DSL2 - revision: 42cf7bd8d9
+Mar-18 22:04:44.679 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Mar-18 22:04:44.679 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Mar-18 22:04:44.688 [main] DEBUG nextflow.secret.LocalSecretsProvider - Secrets store: /Users/oakley/.nextflow/secrets/store.json
+Mar-18 22:04:44.691 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@5460b754] - activable => nextflow.secret.LocalSecretsProvider@5460b754
+Mar-18 22:04:44.810 [main] DEBUG nextflow.Session - Session UUID: 3b06fff8-9d10-4b94-ba18-963d52caba37
+Mar-18 22:04:44.810 [main] DEBUG nextflow.Session - Run name: angry_carson
+Mar-18 22:04:44.810 [main] DEBUG nextflow.Session - Executor pool size: 10
+Mar-18 22:04:44.820 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Mar-18 22:04:44.852 [main] DEBUG nextflow.cli.CmdRun - 
   Version: 22.10.3 build 5834
   Created: 21-11-2022 21:37 UTC (13:37 PDT)
   System: Mac OS X 10.16
   Runtime: Groovy 3.0.13 on OpenJDK 64-Bit Server VM 14.0.2+12
   Encoding: UTF-8 (UTF-8)
-  Process: 39809@gamera.eemb.ucsb.edu [128.111.226.15]
-  CPUs: 10 - Mem: 32 GB (128.8 MB) - Swap: 0 (0)
-Jan-01 10:26:54.483 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
-Jan-01 10:26:54.504 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
-Jan-01 10:26:54.512 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
-Jan-01 10:26:54.550 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
-Jan-01 10:26:54.563 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 11; maxThreads: 1000
-Jan-01 10:26:54.616 [main] DEBUG nextflow.Session - Session start
-Jan-01 10:26:55.441 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Jan-01 10:26:55.621 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Jan-01 10:26:55.621 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Jan-01 10:26:55.628 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
-Jan-01 10:26:55.632 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=10; memory=32 GB; capacity=10; pollInterval=100ms; dumpInterval=5m
-Jan-01 10:26:55.727 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Jan-01 10:26:55.727 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Jan-01 10:26:55.738 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Jan-01 10:26:55.738 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Jan-01 10:26:55.749 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Jan-01 10:26:55.749 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Jan-01 10:26:55.756 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Jan-01 10:26:55.757 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Jan-01 10:26:55.762 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Jan-01 10:26:55.762 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Jan-01 10:26:55.765 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Jan-01 10:26:55.766 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Jan-01 10:26:55.770 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Jan-01 10:26:55.771 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Jan-01 10:26:55.773 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: visualize_coordinates, find_contours, rectify, visualize, visualize_segments, undistort, parallax_depth, segment_contours
-Jan-01 10:26:55.773 [main] DEBUG nextflow.Session - Igniting dataflow network (9)
-Jan-01 10:26:55.777 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > undistort
-Jan-01 10:26:55.778 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > rectify
-Jan-01 10:26:55.778 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > find_contours
-Jan-01 10:26:55.779 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > segment_contours
-Jan-01 10:26:55.780 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > parallax_depth
-Jan-01 10:26:55.784 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > visualize
-Jan-01 10:26:55.786 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > visualize_segments
-Jan-01 10:26:55.786 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > visualize_coordinates
-Jan-01 10:26:55.787 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
-Jan-01 10:26:55.787 [main] DEBUG nextflow.Session - Session await
-Jan-01 10:26:55.975 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Jan-01 10:26:55.977 [Task submitter] INFO  nextflow.Session - [87/d7cbb6] Submitted process > undistort (1)
-Jan-01 10:26:57.690 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: undistort (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/87/d7cbb6e1fe9f6b9bf8d912aa1761f3]
-Jan-01 10:26:57.784 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Jan-01 10:26:57.786 [Task submitter] INFO  nextflow.Session - [ab/7b924f] Submitted process > rectify (1)
-Jan-01 10:27:00.777 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: rectify (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/ab/7b924fb986d8eb6398de34acb6032a]
-Jan-01 10:27:00.831 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Jan-01 10:27:00.831 [Task submitter] INFO  nextflow.Session - [73/d37133] Submitted process > find_contours (1)
-Jan-01 10:27:02.833 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: find_contours (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/73/d37133410cdc3ffd7128c4c5386c74]
-Jan-01 10:27:02.869 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Jan-01 10:27:02.869 [Task submitter] INFO  nextflow.Session - [d3/f1a3ba] Submitted process > visualize (1)
-Jan-01 10:27:02.948 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Jan-01 10:27:02.948 [Task submitter] INFO  nextflow.Session - [f8/94bcb0] Submitted process > segment_contours (1)
-Jan-01 10:27:05.190 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 5; name: visualize (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/d3/f1a3bad8dbbf1b146d004deb235ec7]
-Jan-01 10:27:05.566 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 4; name: segment_contours (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/f8/94bcb04abc3520a31201ff93917bb5]
-Jan-01 10:27:05.585 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Jan-01 10:27:05.586 [Task submitter] INFO  nextflow.Session - [ad/94960c] Submitted process > visualize_segments (1)
-Jan-01 10:27:05.615 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Jan-01 10:27:05.615 [Task submitter] INFO  nextflow.Session - [86/8ccb97] Submitted process > parallax_depth (1)
-Jan-01 10:27:06.401 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 7; name: parallax_depth (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/86/8ccb97a384a8f9ca90cce1a63b2e83]
-Jan-01 10:27:06.427 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Jan-01 10:27:06.427 [Task submitter] INFO  nextflow.Session - [3a/fa17f9] Submitted process > visualize_coordinates (1)
-Jan-01 10:27:07.152 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 6; name: visualize_segments (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/ad/94960cf5b241928e957ad1e2fd8bf2]
-Jan-01 10:27:08.095 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 8; name: visualize_coordinates (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/3a/fa17f9a631cea0628c00679240fa07]
-Jan-01 10:27:08.099 [main] DEBUG nextflow.Session - Session await > all processes finished
-Jan-01 10:27:08.100 [main] DEBUG nextflow.Session - Session await > all barriers passed
-Jan-01 10:27:08.107 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=8; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=15s; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=2; peakCpus=2; peakMemory=0; ]
-Jan-01 10:27:08.212 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
-Jan-01 10:27:08.257 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
-Jan-01 10:27:08.258 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
+  Process: 13428@gamera.eemb.ucsb.edu [128.111.226.15]
+  CPUs: 10 - Mem: 32 GB (511.3 MB) - Swap: 0 (0)
+Mar-18 22:04:44.865 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
+Mar-18 22:04:44.885 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Mar-18 22:04:44.893 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Mar-18 22:04:44.936 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Mar-18 22:04:44.947 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 11; maxThreads: 1000
+Mar-18 22:04:44.991 [main] DEBUG nextflow.Session - Session start
+Mar-18 22:04:45.781 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Mar-18 22:04:45.933 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 22:04:45.933 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 22:04:45.939 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Mar-18 22:04:45.945 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=10; memory=32 GB; capacity=10; pollInterval=100ms; dumpInterval=5m
+Mar-18 22:04:46.036 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 22:04:46.036 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 22:04:46.051 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 22:04:46.051 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 22:04:46.061 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 22:04:46.061 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 22:04:46.072 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 22:04:46.073 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 22:04:46.079 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 22:04:46.079 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 22:04:46.085 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 22:04:46.085 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 22:04:46.092 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Mar-18 22:04:46.092 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-18 22:04:46.095 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: visualize_coordinates, find_contours, rectify, visualize, visualize_segments, undistort, parallax_depth, segment_contours
+Mar-18 22:04:46.096 [main] DEBUG nextflow.Session - Igniting dataflow network (9)
+Mar-18 22:04:46.101 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > undistort
+Mar-18 22:04:46.102 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > rectify
+Mar-18 22:04:46.106 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > find_contours
+Mar-18 22:04:46.110 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > segment_contours
+Mar-18 22:04:46.112 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > parallax_depth
+Mar-18 22:04:46.112 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > visualize
+Mar-18 22:04:46.113 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > visualize_segments
+Mar-18 22:04:46.113 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > visualize_coordinates
+Mar-18 22:04:46.114 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Mar-18 22:04:46.117 [main] DEBUG nextflow.Session - Session await
+Mar-18 22:04:46.235 [Actor Thread 10] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-c185fe4baf89519afaa336aee909e5f9
+Mar-18 22:04:46.296 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-18 22:04:46.299 [Task submitter] INFO  nextflow.Session - [f0/d15fdd] Submitted process > undistort (1)
+Mar-18 22:04:49.425 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: undistort (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/f0/d15fdd058fa6524d322e61cff31ffb]
+Mar-18 22:04:49.522 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-18 22:04:49.524 [Task submitter] INFO  nextflow.Session - [a4/0e9851] Submitted process > rectify (1)
+Mar-18 22:04:56.150 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: rectify (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/a4/0e98517ff3c286f58b9d09b04ea57d]
+Mar-18 22:04:56.205 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-18 22:04:56.206 [Task submitter] INFO  nextflow.Session - [8c/e8f74b] Submitted process > find_contours (1)
+Mar-18 22:04:57.604 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: find_contours (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/8c/e8f74bfd25fb37c98d437230e32b9f]
+Mar-18 22:04:57.626 [Actor Thread 10] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::matplotlib=3.3.3 conda-forge::pandas=1.2.0  conda-forge::seaborn=0.12.2  conda-forge::numpy; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-263504ba593e2e4078924fd52adf7894
+Mar-18 22:04:57.634 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-18 22:04:57.634 [Task submitter] INFO  nextflow.Session - [2e/c70221] Submitted process > visualize (1)
+Mar-18 22:04:57.711 [Actor Thread 5] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::matplotlib=3.3.3 conda-forge::pandas=1.2.0  conda-forge::seaborn=0.12.2  conda-forge::numpy=1.19.4 conda-forge::scipy=1.6.0; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e
+Mar-18 22:04:57.719 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-18 22:04:57.720 [Task submitter] INFO  nextflow.Session - [a1/c677ef] Submitted process > segment_contours (1)
+Mar-18 22:04:58.628 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 4; name: segment_contours (1); status: COMPLETED; exit: 1; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/a1/c677ef4d8345f7fe268f5e3a24c293]
+Mar-18 22:04:58.639 [Task monitor] ERROR nextflow.processor.TaskProcessor - Error executing process > 'segment_contours (1)'
+
+Caused by:
+  Process `segment_contours (1)` terminated with an error exit status (1)
+
+Command executed:
+
+  segment_pulses.py -f contours_hanpan1.tab -n hanpan1 -HPP 0.5 -HPD 2 -XMAX 10 -YMAX 10 -SRMAX 5 -PDMIN 5 -PSD 500 -PFD 500 -XD 250
+
+Command exit status:
+  1
+
+Command output:
+  (empty)
+
+Command error:
+  Traceback (most recent call last):
+    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/bin/segment_pulses.py", line 8, in <module>
+      from scipy.optimize import linear_sum_assignment
+    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/optimize/__init__.py", line 400, in <module>
+      from .optimize import *
+    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/optimize/optimize.py", line 36, in <module>
+      from ._numdiff import approx_derivative
+    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/optimize/_numdiff.py", line 6, in <module>
+      from scipy.sparse.linalg import LinearOperator
+    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/sparse/linalg/__init__.py", line 115, in <module>
+      from .matfuncs import *
+    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/sparse/linalg/matfuncs.py", line 15, in <module>
+      import scipy.special
+    File "/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/special/__init__.py", line 633, in <module>
+      from . import _ufuncs
+  ImportError: dlopen(/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/special/_ufuncs.cpython-39-darwin.so, 0x0002): Library not loaded: @rpath/libgcc_s.2.dylib
+    Referenced from: <472302C0-9F36-3259-A8CA-C518C6E2E697> /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/special/_ufuncs.cpython-39-darwin.so
+    Reason: tried: '/Users/runner/miniforge3/conda-bld/scipy_1609457861629/_build_env/lib/libgcc_s.2.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/runner/miniforge3/conda-bld/scipy_1609457861629/_build_env/lib/libgcc_s.2.dylib' (no such file), '/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/special/../../../../libgcc_s.2.dylib' (no such file), '/Users/runner/miniforge3/conda-bld/scipy_1609457861629/_build_env/lib/libgcc_s.2.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/runner/miniforge3/conda-bld/scipy_1609457861629/_build_env/lib/libgcc_s.2.dylib' (no such file), '/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/special/../../../../libgcc_s.2.dylib' (no such file), '/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/bin/../lib/libgcc_s.2.dylib' (no such file), '/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/bin/../lib/libgcc_s.2.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS@rpath/libgcc_s.2.dylib' (no such file), '/Users/runner/miniforge3/conda-bld/scipy_1609457861629/_build_env/lib/libgcc_s.2.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/runner/miniforge3/conda-bld/scipy_1609457861629/_build_env/lib/libgcc_s.2.dylib' (no such file), '/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/special/../../../../libgcc_s.2.dylib' (no such file), '/Users/runner/miniforge3/conda-bld/scipy_1609457861629/_build_env/lib/libgcc_s.2.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/runner/miniforge3/conda-bld/scipy_1609457861629/_build_env/lib/libgcc_s.2.dylib' (no such file), '/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/lib/python3.9/site-packages/scipy/special/../../../../libgcc_s.2.dylib' (no such file), '/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/bin/../lib/libgcc_s.2.dylib' (no such file), '/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6455e680b5abef9ba440bfc00e29923e/bin/../lib/libgcc_s.2.dylib' (no such file), '/usr/local/lib/libgcc_s.2.dylib' (no such file), '/usr/lib/libgcc_s.2.dylib' (no such file, not in dyld cache)
+
+Work dir:
+  /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/a1/c677ef4d8345f7fe268f5e3a24c293
+
+Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
+Mar-18 22:04:58.647 [Task monitor] DEBUG nextflow.Session - Session aborted -- Cause: Process `segment_contours (1)` terminated with an error exit status (1)
+Mar-18 22:04:58.669 [main] DEBUG nextflow.Session - Session await > all processes finished
+Mar-18 22:04:58.669 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Mar-18 22:04:58.673 [main] WARN  n.processor.TaskPollingMonitor - Killing running tasks (1)
+Mar-18 22:04:58.692 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=3; failedCount=1; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=1; succeedDuration=10.9s; failedDuration=812ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=2; peakCpus=2; peakMemory=0; ]
+Mar-18 22:04:58.880 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Mar-18 22:04:58.912 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

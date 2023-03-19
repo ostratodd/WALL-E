@@ -32,7 +32,7 @@ ap.add_argument("--invert", required=False, default=0, type=int,
 ap.add_argument("-l", "--look", required=False, default=1, type=int,
 	help="Look at (watch) video while searching for frame pairs")
 ap.add_argument("-b", "--border", required=False, default=40, type=int,
-	help="Look at (watch) video while searching for frame pairs")
+	help="Imposes a distance from the border of the frame to not select checkerboards that go out of view")
 args = vars(ap.parse_args())
 moveThresh = args["moveThresh"]
 mindist = args["nimdist"]
