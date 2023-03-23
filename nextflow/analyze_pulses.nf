@@ -7,7 +7,9 @@ params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 params.DATA_DIR='data'
 
-
+/*****The following parameters are set at defaults, but do not work for all videos. To change these, it's easiest to use
+	an input file ******/
+	
 /* Parameters for finding contours */
 params.black = 120
 params.minpulse = 2
@@ -17,7 +19,7 @@ params.delay = 0
 params.HPP = 2  /* hot pixel noise filtering parameter >2 doesn't filter. 0.15 filter more aggressively */
 
 /* Parameters for visualizing contours */
-params.mindis = 20
+params.mindis = 20	
 
 /* Parameters for segmenting pulses across frames into single pulses */
 params.XMAX = 10

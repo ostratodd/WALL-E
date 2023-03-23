@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 import argparse
 import matplotlib.pyplot as plt
+import numpy as np
+
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -67,7 +69,7 @@ coords = []
 tab = "\t"
 
 #Header
-header = ("pname\tlname\trname\tstart\tend\tduration\tdisparity\td2cam\tlrd\theight")
+header = ("pname\tlname\trname\tstart\tend\tduration\tdisparity\td2cam\tlrd\theight\tmaxI\tmeanI\tmeanArea")
 print(header)
 writefile.write(header + '\n')
 
@@ -80,7 +82,10 @@ for index, row in sorted.iterrows():
             disparity = abs(sorted.iloc[index]['modex'] - sorted.iloc[index+1]['modex'])
             z = distance(sorted.iloc[index]['modex'], sorted.iloc[index+1]['modex'], sorted.iloc[index]['modey'], F, D)
             coords.append(z)
-            out = tab.join([sorted.iloc[index]['spulse'],sorted.iloc[index]['pulse'],sorted.iloc[index+1]['pulse'],str(startp),str(endp),str(round((endp-startp)/FPS,2)),str(disparity),str(z[0]),str(z[1]),str(z[2])])
+            maxI = max(sorted.iloc[index]['maxI'], sorted.iloc[index + 1]['maxI'] ) 
+            meanI =    np.mean([sorted.iloc[index]['meanI'], sorted.iloc[index + 1]['meanI']])
+            meanArea = np.mean([sorted.iloc[index]['meanArea'], sorted.iloc[index + 1]['meanArea']] ) 
+            out = tab.join([sorted.iloc[index]['spulse'],sorted.iloc[index]['pulse'],sorted.iloc[index+1]['pulse'],str(startp),str(endp),str(round((endp-startp)/FPS,2)),str(disparity),str(z[0]),str(z[1]),str(z[2]), str(maxI), str(meanI),str(meanArea)])
             print(out)
             writefile.write(out + '\n')
         else:

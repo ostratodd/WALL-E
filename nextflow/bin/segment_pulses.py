@@ -47,7 +47,7 @@ PSD = args["PSD"]
 PFD = args["PFD"]
 XD = args["XD"]
 
-FS = 3 	#FrameSkip how many frames can be skipped and still be a pulse
+FS = 3 	#FrameSkip how many frames can be skipped and still be the same pulse
 
 	#Parameters for weighting differences between frame start, frame end, and y for distance matrix to match pulses
 SFW = 1
@@ -204,8 +204,9 @@ pulse_names = denoised['pulse'].unique()
 pulserows = []
 for rezy in pulse_names :
     df_frames = denoised[denoised['pulse']==rezy]
-    pulserows.append([df_frames['camera'].mode()[0], rezy, df_frames['frame'].min(), df_frames['frame'].max(), df_frames['cX'].min(), df_frames['cX'].max(), df_frames['cX'].mode()[0], df_frames['cY'].min(), df_frames['cY'].max(), df_frames['cY'].mode()[0]])
-df_pulse_sums = pd.DataFrame(pulserows, columns=['camera','pulse','start', 'finish', 'minx', 'maxx', 'modex', 'miny', 'maxy', 'modey'])
+    pulserows.append([df_frames['camera'].mode()[0], rezy, df_frames['frame'].min(), df_frames['frame'].max(), df_frames['cX'].min(), df_frames['cX'].max(), 
+df_frames['cX'].mode()[0], df_frames['cY'].min(), df_frames['cY'].max(), df_frames['cY'].mode()[0], df_frames['maxI'].max(),df_frames['meanI'].mean(), df_frames['area'].mean()])
+df_pulse_sums = pd.DataFrame(pulserows, columns=['camera','pulse','start', 'finish', 'minx', 'maxx', 'modex', 'miny', 'maxy', 'modey','maxI', 'meanI','meanArea'])
 
 #Add empty column for spulse (stereo pulse)
 df_pulse_sums['spulse'] = 'none'
