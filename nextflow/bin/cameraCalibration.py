@@ -5,6 +5,7 @@ import cv2 as cv
 import glob
 import pickle
 import argparse
+import math
 
 #program derived from Nico Nielsen at https://raw.githubusercontent.com/niconielsen32/ComputerVision/master/cameraCalibration.py
 
@@ -29,6 +30,8 @@ ap.add_argument ('-fr', '--frameSize', nargs=2, type=int, action = 'append', req
         help="need to specify frame size of video e.g. -c 640 480")
 ap.add_argument("-sq", "--squareSize", required=True, type=int,
         help="Size of an individual square of the checkerboard in mm")
+ap.add_argument("-f", "--far", required=False, type=float, default = 0,
+        help="how Far Camera distance or distance board is from camera. Usually implemented in collect_single_checkers.py")
 args = vars(ap.parse_args())
 delay = args["delay"]
 watch = args["watch"]
@@ -41,6 +44,7 @@ frameSize = tuple(frameSize[0])
 ext = args["extension"]
 squareSize = args["squareSize"]
 dir_path = args["path"]
+edgeThresh = args["far"]
 
 size_of_chessboard_squares_mm = squareSize
 
@@ -74,15 +78,28 @@ for image in images:
     # If found, add object points, image points (after refining them)
     if ret == True:
 
-        objpoints.append(objp)
-        corners2 = cv.cornerSubPix(gray, corners, (11,11), (-1,-1), criteria)
-        imgpoints.append(corners)
 
-        if watch == 1 :
-            # Draw and display the corners
-            cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
-            cv.imshow('img', img)
-            cv.waitKey(delay)
+        #won't be used if using frames chosen from collect_single_checkers.py but sometimes might what to refine at this step
+	#convert first 2 corners to x,y coordinates to find distance from previously stored
+        X1 = float(corners[0][0][0])
+        Y1 = float(corners[0][0][1])
+        X2 = float(corners[1][0][0])
+        Y2 = float(corners[1][0][1])
+        #distance between corners is sq size, so smaller squares far away
+        corndist = math.sqrt((X1-X2)**2 + (Y1-Y2)**2)
+        maxThresh = 10000000	#can be used to remove boards very close to camera, which usually isn't necessary
+        if corndist > edgeThresh and corndist < maxThresh:
+            objpoints.append(objp)
+            corners2 = cv.cornerSubPix(gray, corners, (11,11), (-1,-1), criteria)
+            imgpoints.append(corners)
+
+            if watch == 1 :
+                # Draw and display the corners
+                cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
+                cv.imshow('img', img)
+                cv.waitKey(delay)
+        else:
+            print("Board too far away. corndist " + str(corndist) + " exceeded edgeThresh of " + str(edgeThresh))
 cv.destroyAllWindows()
 
 

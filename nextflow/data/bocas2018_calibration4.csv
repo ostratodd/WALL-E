@@ -1,0 +1,2 @@
+date,country,location,VL,linkL,VR,linkR,start,end,offset,name,framesize,checkdim,squaresize,L_move,L_mindist,L_dist,L_bord,R_move,R_mindist,R_dist,R_bord,P_move,P_dist,P_mindist,P_border
+2018,Panama,Bocas,9-28concatleft,1zPJ2RcCTVuud1uT0NRv9il0qIaHYwLx0,9-28concatright,1qxT1OgKK6qj-eXcMcLPK1gRaTCEuundk,26500,27100,-45,2018bocas,640 480,8 6,21,6,1,10,20,6,1,10,20,5,20,1,40

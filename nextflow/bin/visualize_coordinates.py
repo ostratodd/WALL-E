@@ -68,20 +68,23 @@ df_table = df_table[df_table.disparity > mindis]
 
 print(df_table)
 
+
 xco = df_table['d2cam'].tolist()
 yco = df_table['lrd'].tolist()
 zco = df_table['height'].tolist()
 names = df_table['pname'].tolist()
 markercolor = df_table['start'].tolist()
+    
+# get fourth variable
+wco = df_table['meanArea'].tolist()
 
-#3d
-plt.figure(figsize=(6,5))
-axes = plt.axes(projection='3d')
-print(type(axes))
-axes.scatter3D(xco, yco, zco, s=10, c = 'blue')
+# 3d
+fig = plt.figure(figsize=(6,5))
+axes = fig.add_subplot(111, projection='3d')
+axes.scatter3D(xco, yco, zco, s=wco, color='black', depthshade=False)
 if label == 1:
     for i in range(len(xco)):
-        axes.text(xco[i],yco[i],zco[i], '%s' % (str(names[i])), size=10, zorder=1, color='k') 
+        axes.text(xco[i], yco[i], zco[i], '%s' % (str(names[i])), size=10, zorder=1, color='k')
 
 
 if setaxes == 1:

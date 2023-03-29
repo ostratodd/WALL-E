@@ -1,2 +1,5 @@
 date,country,location,VL,linkL,VR,linkR,start,end,offset,name,framesize,checkdim,squaresize,L_move,L_mindist,L_dist,L_bord,R_move,R_mindist,R_dist,R_bord,P_move,P_dist,P_mindist,P_border
-2018,Panama,Bocas,stri_left_test_2_L,1cPYCwxypsYVGdKokI4QwtVyrRvs3xbkc,right_test_2_R,1DYM9MTgIajZnfz_Wo3QM0_fUMYq7Vnxq,52200,54000,-4,2018bocas,640 480,8 6,21,2,2,17,35,5,4,18.3,26,5,20,1,40
+9/27/18,Panama,Bocas,docktest_L,1cPYCwxypsYVGdKokI4QwtVyrRvs3xbkc,docktest_R,1DYM9MTgIajZnfz_Wo3QM0_fUMYq7Vnxq,52200,54000,-4,2018bocas,640 480,8 6,21,2,2,17,35,5,4,18.3,26,5,20,1,40
+9/27/18,Panama,Bocas,grainy_L,1AEM0nqhCg_bBEDJhE54Pw53ENQIlU6td,grainy_R,1pVno1Iw1GLYbwYa_qh-5sAPH4laqZAbT,10900,12600,-15,2018bocas,640 480,8 6,21,6,2,20,30,6,3,20,40,5,20,1,40
+9/28/18,Panama,Bocas,glare_L,1zPJ2RcCTVuud1uT0NRv9il0qIaHYwLx0,glare_R,1qxT1OgKK6qj-eXcMcLPK1gRaTCEuundk,26500,27100,-45,2018bocas,640 480,8 6,21,6,1,10,20,6,1,10,20,5,20,1,40
+9/26/18,Panama,Bocas,flashlight_L,1H-OV6voJEaSmt7FIArt6FlHj6bIZxbxU,flashlight_R,1dC29XypGyTrTdLZFIaKH_x0Xb-r4zOqt,9900,10500,-13,2018bocas,640 480,8 6,21,6,2,20,30,6,1,18,25,5,20,1,40
