@@ -77,6 +77,18 @@ def find_closest(input_list, input_value):
   i = (np.abs(arr - input_value)).argmin()
   return arr[i]
 
+# Define a function to find the closest point to a given point in a list of points
+def find_closest_point(point, point_list):
+    closest_point = None
+    min_distance = float('inf')
+    for p in point_list:
+        distance = np.linalg.norm(np.array(point) - np.array(p))
+        if distance < min_distance:
+            min_distance = distance
+            closest_point = p
+    return closest_point
+
+
 def adjust_clip(image, black=0, white=255):
 	# build a lookup table mapping the pixel values [0, 255] to
 	# set values below black to 0 and above white to 255
@@ -124,18 +136,12 @@ cap2.set(1,roffset);
 global i
 i = 1
 
-#********************* Define board
-
 ## Arrays to store object points and image points from all the images.
-difcornL = [] #will be difference of corners from last reading
-old_cornersL = [] #Keep corners from previous time chessboard was found
-difcornR = [] #will be difference of corners from last reading
-old_cornersR = [] #Keep corners from previous time chessboard was found
-
-## Arrays to store object points and image points from all the images.
-keepersX = [0,0] #keep clips when x or y is far enough from closest previous keeper
-keepersY = [0,0] #keep clips when x or y is far enough from closest previous keeper
-
+#keepersX = [0,0] #keep clips when x or y is far enough from closest previous keeper
+#keepersY = [0,0] #keep clips when x or y is far enough from closest previous keeper
+keeperCentersR = [0,0]
+keeperCentersL = [0,0]
+keeperDists = [0]
 
 #**********************
 boards=0	#count chessboards
@@ -181,15 +187,22 @@ while(cap.isOpened()):
 
             cornersR = cv2.cornerSubPix(adjusted, cornersR, (11,11), (-1,-1), criteria)
             flatcornR = cornersR.reshape([1, totcorners]) #Need to calculate array size based on checkerboard size
+            #Trying new way to calculate checker distances
+            dist_sum = 0
+            for i in range(len(cornersR) - 1):
+                 for j in range(i + 1, len(cornersR)):
+                      dist_sum += np.linalg.norm(cornersR[i] - cornersR[j])
 
-            X1 = float(cornersL[0][0][0])	#convert first 2 corners to x,y coordinates to find distance
-            Y1 = float(cornersL[0][0][1])
-            X2 = float(cornersL[1][0][0])
-            Y2 = float(cornersL[1][0][1])
-            corndist = math.sqrt((X1-X2)**2 + (Y1-Y2)**2)
+            # Calculate the average distance between each of the corners
+            corndist = dist_sum / ((len(cornersR) - 1) * len(cornersR) / 2)
+#            print("New e: " + str(corndist))
+
+            #Now calculate the center of each chess board to determine movement
+            # Calculate the center of all the corners
+            centerR = np.mean(cornersR, axis=0)
+            centerL = np.mean(cornersL, axis=0)
 
             if boards > 0 :
-
               #find extreme corners to later check if they are too close to border
               xarrayL = cornersL[:,0,0]
               yarrayL = cornersL[:,0,1]
@@ -205,21 +218,29 @@ while(cap.isOpened()):
               ymaxR = np.max(yarrayR)
               xmaxR = np.max(xarrayR)
 
-              difcornL = np.subtract(flatcornL, old_cornersL)
-              difcornL = np.abs(difcornL)
-              movementL = np.average(difcornL)
+              X1 = float(cornersL[0][0][0])	#convert first 2 corners to x,y coordinates to find proximity to saved boards -- could improve by using center
+              Y1 = float(cornersL[0][0][1])
+              X2 = float(cornersL[1][0][0])
+              Y2 = float(cornersL[1][0][1])
 
-              difcornR = np.subtract(flatcornR, old_cornersR)
-              difcornR = np.abs(difcornR)
-              movementR = np.average(difcornR)
+              #compare the new center of the board to the old center of the board to estimate movement
+              newL = np.abs(np.subtract(centerL, old_centerL))
+              newR = np.abs(np.subtract(centerR, old_centerR))
 
-              #check distance between corners to exclude boards far away in view, which seem inaccurate
+              movementL = np.linalg.norm(centerL - old_centerL)
+              movementR = np.linalg.norm(centerR - old_centerR)
 
-              if movementL and movementR < moveThresh: #means board in camera view did not move much from previous capture
+              #divide movement by rough estimate of distance of board from cam to allow more movement for closer boards 100* is arbitrary scale
+              movementL = 100 * (movementL/corndist)
+              movementR = 100 * (movementR/corndist)
 
-                        closest = find_closest(keepersX, X1)    #keepers is the X and Y value of one corner to keep only if far enough from previous keeper
-                        closestY = find_closest(keepersY, Y1)
-                        if np.abs(X1 - closest) > mindist or np.abs(Y1 - closestY) > mindist:
+              if movementL < moveThresh and movementR < moveThresh: #means board in camera view did not move much from previous capture
+                        closeCenterR = find_closest_point(centerR,keeperCentersR)
+                        closeCenterL = find_closest_point(centerL,keeperCentersL)
+                        closestR = np.linalg.norm(centerR - closeCenterR)
+                        closestL = np.linalg.norm(centerL - closeCenterL)
+ 
+                        if closestL > mindist and closestR > mindist:
                             if corndist > edgeThresh :	#corndist is the average size of checkersquares, if large enough, means close enough to keep
                                 if xminL > border and xmaxL < (640-border) and yminL > border and ymaxL < (480-border) and xminR > border and xmaxR < (640-border) and yminR > border and ymaxR < (480-border):
                                     #Add frame number to printed video -- could add a toggle option here
@@ -227,11 +248,11 @@ while(cap.isOpened()):
                                     #cv2.putText(adjusted2,str(frametext+roffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
                                     cv2.imwrite(prefix + "_pair_L_" + str(frametext) + ".png", adjusted)
                                     cv2.imwrite(prefix + "_pair_R_" + str(frametext) + ".png", adjusted2)
-                                    print(str(frametext) + "*** Meets edge proximity threshold " + str(corndist) + " Meets movement threshold. LEFT:" + str(movementL) + " RIGHT:" + str(movementR) + " Meets border threshold. Writing images")
-                                    keepersX.append(X1)
-                                    keepersY.append(Y1)
+                                    print(str(frametext) + "***\t -e:" + str(round(corndist,2)) + "\t-n [" + str(mindist) + "]\t-m \tL:" + str(round(movementL,2)) + " R:" + str(round(movementR,2)) + "\t-b++ ["+str(border)+"]"  )
+                                    keeperCentersR.append(centerR)
+                                    keeperCentersL.append(centerL)
                                 else :
-                                    print(str(frametext) + ": Too close to border, ignoring. Border parameter set to " + str(border) )
+                                    print(str(frametext) + "\t -e++:" + str(round(corndist,2)) + "\t-n [" + str(mindist) + "]\t-m \tL:" + str(round(movementL,2)) + " R:" + str(round(movementR,2)) + "\t-b++ ["+str(border)+"]"  )
                                     if yminR < border or yminL < border:
                                         print("\t\t yminR=" + str(yminR) + " yminL=" + str(yminL))
                                     elif xminR < border or xminL < border:
@@ -241,15 +262,16 @@ while(cap.isOpened()):
                                     elif (480-ymaxR) < border or (480-ymaxL) < border:
                                         print("\t*ymaxR=" + str(480-ymaxR) + " ymaxL=" + str(480-ymaxL))
                             else:
-                                 print("Chessboard corners too close (board too distant) " + str(corndist) +  " SKIP")
+                                 print(str(frametext) + "\t -e++:" + str(round(corndist,2)) + "\t-n [" + str(mindist) + "]\t-m \tL:" + str(round(movementL,2)) + " R:" + str(round(movementR,2)) + "\t-b ["+str(border)+"]"  )
                         else:
-                            print(str(frametext) + ": mindist (-n) of " + str(mindist) + " not exceeded. Too close to existing board. X,Y: " + str(round(np.abs(X1-closest),3)) + "," + str(round(np.abs(Y1-closestY),3)) )
+                            print(str(frametext) + "\t -e:" + str(round(corndist,2)) + "\t-n++ [" + str(mindist) + "]\t-m \tL:" + str(round(movementL,2)) + " R:" + str(round(movementR,2)) + "\t-b ["+str(border)+"]"  )
               else :
-                print("Exceeds movement threshold moveThresh = " + str(moveThresh) + " LEFT:" + str(movementL) + " RIGHT:" + str(movementR) + " SKIP")
+                print(str(frametext) + "\t -e:" + str(round(corndist,2)) + "\t-n [" + str(mindist) + "]\t-m++ \tL:" + str(round(movementL,2)) + " R:" + str(round(movementR,2)) + "\t-b ["+str(border)+"]"  )
 
             boards = boards + 1
-            old_cornersL = flatcornL
-            old_cornersR = flatcornR
+            #save center of board to compare next frame for movement
+            old_centerL = centerL
+            old_centerR = centerR
 
 #***********
         if look == 1:

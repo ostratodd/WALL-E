@@ -5,6 +5,10 @@ nextflow.enable.dsl=2
 /* Downloads from Google Drive link, converts to constant frame rate (30 fps)
    and clips files according to metadata input */
 
+params.redownload = false
+params.recfr = false
+params.reclip = true
+
 /* File parameters */
 params.metadata = "$baseDir/data/metadata.csv"
 params.cEXT = '.mkv'
@@ -42,9 +46,21 @@ process clip_video_pair {
 
     script:
 
-    """
-    clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_$name$V1${params.cEXT} -v2 $baseDir/${params.VIDEO_DIR}/cfr_$name$V2${params.cEXT} -s $start -e $end -o $offset -w ${params.watch}
-    """
+    script: 
+    if (params.reclip) {
+         """
+         clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_$name$V1${params.cEXT} -v2 $baseDir/${params.VIDEO_DIR}/cfr_$name$V2${params.cEXT} -s $start -e $end -o $offset -w ${params.watch}
+         """
+    }else{
+         """
+         if ls $baseDir/${params.VIDEO_DIR}/clips/${name}${V1}_cl_${start}_${end}_undis.mkv 1> /dev/null 2>&1; then
+             cp $baseDir/${params.VIDEO_DIR}/clips/${name}${V1}_cl_${start}_${end}_undis.mkv ./
+             cp $baseDir/${params.VIDEO_DIR}/clips/${name}${V2}_cl_${start}_${end}_undis.mkv ./
+         else
+             clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_$name$V1${params.cEXT} -v2 $baseDir/${params.VIDEO_DIR}/cfr_$name$V2${params.cEXT} -s $start -e $end -o $offset -w ${params.watch}
+         fi
+         """
+    }
 }
 
 process download_videos {
@@ -61,12 +77,19 @@ process download_videos {
     tuple val(videoL), val(videoR), val(start), val(end), val(offset), val(name), emit: vidarray
 
     script:
-
-    """
-    gdown $linkL -O $name$videoL${params.cEXT}
-    gdown $linkR -O $name$videoR${params.cEXT}
-
-    """
+    if (params.redownload) {
+         """
+             gdown $linkL -O $name$videoL${params.cEXT}
+             gdown $linkR -O $name$videoR${params.cEXT}
+         """
+    }else{
+         """
+         if ls $baseDir/${params.VIDEO_DIR}/${name}${videoL}${params.cEXT} 1> /dev/null 2>&1; then
+             cp $baseDir/${params.VIDEO_DIR}/${name}${videoL}${params.cEXT} ./
+             cp $baseDir/${params.VIDEO_DIR}/${name}${videoR}${params.cEXT} ./
+         fi
+         """
+    }
 }
 process make_cfr {
     publishDir "$params.VIDEO_DIR"
@@ -80,11 +103,24 @@ process make_cfr {
     path '*.mkv'
     tuple val(V1), val(V2), val(start), val(end), val(offset), val(name), emit: vidarray
     
-    script:
-    """
-    ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V1${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V1${params.cEXT}
-    ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V2${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V2${params.cEXT}
 
-    """
+    script:
+    if (params.recfr) {
+         """
+         ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V1${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V1${params.cEXT}
+         ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V2${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V2${params.cEXT}
+         """
+    }else{
+         """
+         if ls $baseDir/${params.VIDEO_DIR}/cfr_$name$V1${params.cEXT} 1> /dev/null 2>&1; then
+             cp $baseDir/${params.VIDEO_DIR}/cfr_$name$V1${params.cEXT} ./
+             cp $baseDir/${params.VIDEO_DIR}/cfr_$name$V2${params.cEXT} ./
+         else
+             ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V1${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V1${params.cEXT}
+             ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V2${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V2${params.cEXT}
+         fi
+         """
+    }
+
 }
 
