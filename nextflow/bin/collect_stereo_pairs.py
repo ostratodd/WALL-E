@@ -72,11 +72,6 @@ border = args["border"]
 # termination criteria
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
-def find_closest(input_list, input_value):
-  arr = np.asarray(input_list)
-  i = (np.abs(arr - input_value)).argmin()
-  return arr[i]
-
 # Define a function to find the closest point to a given point in a list of points
 def find_closest_point(point, point_list):
     closest_point = None
@@ -136,10 +131,8 @@ cap2.set(1,roffset);
 global i
 i = 1
 
-## Arrays to store object points and image points from all the images.
-#keepersX = [0,0] #keep clips when x or y is far enough from closest previous keeper
-#keepersY = [0,0] #keep clips when x or y is far enough from closest previous keeper
-keeperCentersR = [0,0]
+## Arrays to store object points and image points from all the images. This allows only keeping distinct new boards
+keeperCentersR = [0,0]	
 keeperCentersL = [0,0]
 keeperDists = [0]
 
@@ -183,10 +176,10 @@ while(cap.isOpened()):
             totcorners = 2 * (chessboardSize[0] * chessboardSize[1])
 
             cornersL = cv2.cornerSubPix(adjusted, cornersL, (11,11), (-1,-1), criteria)
-            flatcornL = cornersL.reshape([1, totcorners]) #Need to calculate array size based on checkerboard size
+            #flatcornL = cornersL.reshape([1, totcorners]) #Need to calculate array size based on checkerboard size
 
             cornersR = cv2.cornerSubPix(adjusted, cornersR, (11,11), (-1,-1), criteria)
-            flatcornR = cornersR.reshape([1, totcorners]) #Need to calculate array size based on checkerboard size
+            #flatcornR = cornersR.reshape([1, totcorners]) #Need to calculate array size based on checkerboard size
             #Trying new way to calculate checker distances
             dist_sum = 0
             for i in range(len(cornersR) - 1):
@@ -224,8 +217,8 @@ while(cap.isOpened()):
               Y2 = float(cornersL[1][0][1])
 
               #compare the new center of the board to the old center of the board to estimate movement
-              newL = np.abs(np.subtract(centerL, old_centerL))
-              newR = np.abs(np.subtract(centerR, old_centerR))
+#              newL = np.abs(np.subtract(centerL, old_centerL))
+#              newR = np.abs(np.subtract(centerR, old_centerR))
 
               movementL = np.linalg.norm(centerL - old_centerL)
               movementR = np.linalg.norm(centerR - old_centerR)
