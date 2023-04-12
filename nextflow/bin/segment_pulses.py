@@ -73,7 +73,7 @@ for index, row in sorted.iterrows():
         difY = abs(int(row['cY']) - sorted.iloc[index-1]['cY']) 	#difference in y-value for sorted rows
         difF = abs(int(row['frame']) - sorted.iloc[index-1]['frame']) 	#difference in frame number
         #print below to help debug
-        #print("\tindex:" + str(index) + " frame:" + str(row['frame']) + " difF:" + str(difF) + " difX:" + str(difX) + " difY:" + str(difY) + " olddiff:" + str(oldDifF))
+        #print("\tindex:" + str(index) + " cam: " + row['camera'] + " frame:" + str(row['frame']) + " difF:" + str(difF) + " difX:" + str(difX) + " difY:" + str(difY) + " olddiff:" + str(oldDifF))
 
 	#here, merge into a pulse if x and y are close enough or
         #    if difF is zero, multiple contours are on same frame, so automatically keep to sort later
@@ -84,7 +84,7 @@ for index, row in sorted.iterrows():
                 #curpulse = curpulse.append(sorted.iloc[index]) #append data row to current pulse
                 #print(curpulse)
             else :				#create new pulse
-                #print("\tCreating new pulse")
+                #print("\n\n\tCreating new pulse")
                 curpulse = pd.concat([curpulse, pd.DataFrame(sorted.iloc[index-1]).transpose()], axis=0) #append data row to current pulse
                 curpulse = pd.concat([curpulse, pd.DataFrame(sorted.iloc[index]).transpose()], axis=0)
                 #curpulse = curpulse.append(sorted.iloc[index-1])
@@ -116,45 +116,67 @@ pulses = pulses.reset_index(drop=True)	#need to re-index df to use index later i
 
 
 #Debug to see before dividing muliple pulses spanning same frames
-#print("PULSES BEFORE DIVIDING*****")
-#print(pulses.to_string())
-#print("PULSES BEFORE DIVIDING*****")
+print("PULSES BEFORE DIVIDING*****")
+print(pulses.to_string())
+print("PULSES BEFORE DIVIDING*****")
 
 #*****************
-#Next need to divide muliple pulses that span the same frames and are therefore in same pulse
+#Next need to divide muliple pulses that span the same frames and are therefore incorectly merged into the same pulse
 pulseN = 1 						#start pulse numbering over again to rename
 finalpulses = pd.DataFrame(columns=table.columns)	#create a new dataframe for the final pulses
 
 for index, row in pulses.iterrows():
+    print("****Index = " + str(index) )
     if index > 0:
         difX = abs(int(row['cX']) - pulses.iloc[index-1]['cX']) 
         difY = abs(int(row['cY']) - pulses.iloc[index-1]['cY']) 
         #print below to help debug
-        print("\tindex:" + str(index) + " frame:" + str(row['frame']) + " Cam:" + row['camera'] + " difF:" + str(difF) + " difX:" + str(difX) + " difY:" + str(difY) + " olddiff:" + str(oldDifF))
+        #print("\tindex:" + str(index) + " frame:" + str(row['frame']) + " Cam:" + row['camera'] + " difF:" + str(difF) + " difX:" + str(difX) + " difY:" + str(difY) + " olddiff:" + str(oldDifF))
         if (difX < XMAX and difY < YMAX): 
             if len(curpulse.index) > 0 :
                 print("    Close enough in x and y. Adding in same pulse")
                 curpulse = pd.concat([curpulse, pd.DataFrame(pulses.iloc[index]).transpose()], axis=0) #append data row to current pulse
                 #curpulse = curpulse.append(pulses.iloc[index]) #append data row to current pulse
+                #print(curpulse)
             else :
-                print("    Close enough in x and y. Adding in new pulse")
+                print(" \n\nClose enough in x and y. Adding in new pulse")
                 curpulse = pd.concat([curpulse, pd.DataFrame(pulses.iloc[index-1]).transpose()], axis=0) #append data row to current pulse
                 curpulse = pd.concat([curpulse, pd.DataFrame(pulses.iloc[index]).transpose()], axis=0) #append data row to current pulse
-#                curpulse = curpulse.append(pulses.iloc[index-1])
-#                curpulse = curpulse.append(pulses.iloc[index])
         else :
             print("    ****Pulse too distant in  x or y -- while dividing pulses")
             if len(curpulse.index) > 0:
                 #add column data to curpulse with an identifier for this pulse
                 pname = ["p" + str(pulseN)] * len(curpulse.index)
+                print("Current pulse name: " + str(pname))
                 curpulse['pulse'] = pname
                 finalpulses = pd.concat([finalpulses, curpulse], ignore_index=True)
-#                finalpulses = finalpulses.append(curpulse, ignore_index=True) #add current pulse into df with all pulses
+#                print("Building finalpulses here...")
+#                print(finalpulses.to_string())
+#                print("\n\n\n")
                 curpulse.drop(curpulse.index[:], inplace=True)	#reset to start new pulse
                 pulseN = pulseN + 1
+
     oldRow = pulses.iloc[index]
 
+#There will be one final pulse here that needs to be added to finalpulses at the end of the loop
+print("    ****Adding last pulse -- while dividing pulses")
+if len(curpulse.index) > 0:
+    #add column data to curpulse with an identifier for this pulse
+    pname = ["p" + str(pulseN)] * len(curpulse.index)     
+    print("Current pulse name: " + str(pname))
+    curpulse['pulse'] = pname
+    finalpulses = pd.concat([finalpulses, curpulse], ignore_index=True)
+    curpulse.drop(curpulse.index[:], inplace=True)  #reset to start new pulse
+    pulseN = pulseN + 1
+
+
 finalpulses = finalpulses.sort_values(['pulse', 'frame', 'camera', 'cX', 'cY'])
+
+#Uncomment to see final pulses in a dataframe
+print("\n\n\nFINAL PULSES DF ")
+print(finalpulses.to_string())
+print("\n\n\n")
+
 
 xmode = finalpulses.mode()['cX'][0]					#find most common X-axis value
 uframes = len(pd.unique(finalpulses['frame']))				#count total number of unique frames
