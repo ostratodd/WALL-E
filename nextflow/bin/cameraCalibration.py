@@ -49,7 +49,7 @@ edgeThresh = args["far"]
 size_of_chessboard_squares_mm = squareSize
 
 # termination criteria
-criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 60, 0.001)
 
 
 # prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(6,5,0)
@@ -77,8 +77,6 @@ for image in images:
 
     # If found, add object points, image points (after refining them)
     if ret == True:
-
-
         #won't be used if using frames chosen from collect_single_checkers.py but sometimes might what to refine at this step
 	#convert first 2 corners to x,y coordinates to find distance from previously stored
         X1 = float(corners[0][0][0])
@@ -87,8 +85,7 @@ for image in images:
         Y2 = float(corners[1][0][1])
         #distance between corners is sq size, so smaller squares far away
         corndist = math.sqrt((X1-X2)**2 + (Y1-Y2)**2)
-        maxThresh = 10000000	#can be used to remove boards very close to camera, which usually isn't necessary
-        if corndist > edgeThresh and corndist < maxThresh:
+        if corndist > edgeThresh:
             objpoints.append(objp)
             corners2 = cv.cornerSubPix(gray, corners, (11,11), (-1,-1), criteria)
             imgpoints.append(corners)
@@ -103,15 +100,13 @@ for image in images:
 cv.destroyAllWindows()
 
 
-
-
 ############## CALIBRATION #######################################################
 
 ret, cameraMatrix, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, frameSize, None, None)
 
-#print("Camera calibrated: ", ret)
+print("Camera calibrated: ", ret)
 print("Camera Matrix\n", cameraMatrix)
-#print("Distortion\n", dist)
+print("Distortion\n", dist)
 
 ###SAVE parameters to files###
 calib_result_pickle = {}

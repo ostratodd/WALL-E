@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,8 +27,10 @@ ap.add_argument("-e", "--edgeThresh", required=False, default=90, type=float,
         help="edge threshold is estimate for distance from camera of checkerboard (exclude far away ones)")
 ap.add_argument("-l", "--look", required=False, default=0, type=int,
         help="Look at (watch) graphs of data while selecting")
-ap.add_argument("-b", "--border", required=False, default=40, type=int,
+ap.add_argument("-b", "--border", required=False, default=0, type=float,
         help="Imposes a distance from the border of the frame to not select checkerboards that go out of view")
+ap.add_argument("-m", "--multiplier", required=False, default=1, type=float,
+        help="A factor to weight the distance from camera relative to the x-y camera values. Usually will be <1 to diversify x-y positions more")
 
 args = vars(ap.parse_args())
 edgeThresh = args["edgeThresh"]
@@ -36,7 +40,7 @@ number = args["number"]
 border = args["border"]
 look = args["look"]
 filein = args["filein"]
-
+mult = args["multiplier"]
 
 
 def plot_3d(df):
@@ -68,6 +72,9 @@ if look ==1:
 
 df = df_close
 
+#multiply distance from camera by mult to weight that parameter relative to x-y for selection of points
+df['dist'] = df['dist'] * mult
+
 #********Delete previous files
 # Get a list of all the file paths that ends with .txt from in specified directory
 oldfiles = prefix + "_single_*.png"
@@ -88,7 +95,9 @@ dists = np.linalg.norm(points[:,np.newaxis,:] - points[np.newaxis,:,:], axis=2)
 # Calculate the average distance between each pair of points
 corndist = np.sum(np.triu(dists, k=1)) / (len(df) * (len(df) - 1) / 2)
 
-# Select the representative sample
+# Set random seed for reproducibility
+np.random.seed(1234)
+
 num_samples = number
 sampled_indices = []
 remaining_indices = set(range(len(df)))

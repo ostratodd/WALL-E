@@ -73,7 +73,7 @@ while(cap.isOpened()):
                       dist_sum += np.linalg.norm(corners[i] - corners[j])
             corndist = dist_sum / ((len(corners) - 1) * len(corners) / 2)
 
-            #find extreme corners to later check if they are too close to border
+            #find extreme corners to have opportunity to later check if they are too close to border
             xarray = corners[:,0,0]	
             yarray = corners[:,0,1]
             ymin = np.min(yarray)
@@ -101,6 +101,7 @@ while(cap.isOpened()):
                 cv2.drawChessboardCorners(adjusted, chessboardSize, corners, ret)
 #***********
         if look == 1:
+            frame_num = int(cap.get(cv2.CAP_PROP_POS_FRAMES))
             cv2.putText(adjusted,str(frame_num+loffset), (35,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,180,10))
 
             cv2.imshow('frame',adjusted)

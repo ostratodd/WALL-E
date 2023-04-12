@@ -7,16 +7,20 @@ params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 params.DATA_DIR='data'
 
-/*****The following parameters are set at defaults, but do not work for all videos. To change these, it's easiest to use
-	an input file ******/
+/*****The following parameters are set at defaults, but do not work for all videos. To change these, it is s easiest to use an input file ******/
 	
+/*Camera parameters*/
+params.framesize = "640 480"
+params.baseline		/*distance between cameras */
+
+
 /* Parameters for finding contours */
 params.black = 120
 params.minpulse = 2
 params.watchvideo = 0
 params.lines = 0
 params.delay = 0
-params.HPP = 2  /* hot pixel noise filtering parameter >2 doesn't filter. 0.15 filter more aggressively */
+params.HPP = 2  /* hot pixel noise filtering parameter >2 does not filter. 0.15 filter more aggressively */
 
 /* Parameters for visualizing contours */
 params.mindis = 20	
@@ -38,7 +42,7 @@ workflow {
 
     pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.VL, row.VR, row.start, row.end, row.name, row.stereomap, row.framesize, row.baseline) }
+        | map { row-> tuple(row.VL, row.VR, row.start, row.end, row.name, row.stereomap) }
 
     undistort(pairs_ch)
     rectify(undistort.out.uvidarray)
@@ -56,16 +60,16 @@ process undistort {
     conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
-    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), val(framesize), val(baseline)
+    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap)
     
     output:
     path '*.mkv'
-    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), val(framesize), val(baseline), emit: uvidarray
+    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), emit: uvidarray
  
     script:
     """   
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_L_single -w ${params.watchvideo} -fr ${framesize} -o ${name}${VL}_cl_${start}_${end}
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_R_single -w ${params.watchvideo} -fr ${framesize} -o ${name}${VR}_cl_${start}_${end}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_L_single -w ${params.watchvideo} -fr ${params.framesize} -o ${name}${VL}_cl_${start}_${end}
+    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${stereomap}_R_single -w ${params.watchvideo} -fr ${params.framesize} -o ${name}${VR}_cl_${start}_${end}
 
     """
 }
@@ -75,11 +79,11 @@ process rectify {
     publishDir "$params.VIDEO_DIR/rectified"
 
     input:
-    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), val(framesize), val(baseline)
+    tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap)
 
     output:
     path('*.mkv')
-    tuple file('*L.mkv'), file('*R.mkv'), val(name), val(baseline), emit: rvidarray
+    tuple file('*L.mkv'), file('*R.mkv'), val(name), emit: rvidarray
 
     script:
     """
@@ -110,14 +114,14 @@ process parallax_depth {
     publishDir "$params.DATA_DIR/contours"
 
     input:
-    tuple file(f), val(name), val(baseline)
+    tuple file(f), val(name)
 
     output:
     tuple file('coordinates_*.tab'), val(name)
 
     script:
     """
-    parallax_depth.py -f $f -o $name -d $baseline -F ${params.FOCAL} -ALPHA ${params.ALPHA} -frame_width ${params.frame_width} -frame_height ${params.frame_height} -rate ${params.FPS} 
+    parallax_depth.py -f $f -o $name -d ${params.baseline} -F ${params.FOCAL} -ALPHA ${params.ALPHA} -frame_width ${params.frame_width} -frame_height ${params.frame_height} -rate ${params.FPS} 
 
     """
 }
@@ -127,11 +131,11 @@ process segment_contours {
     publishDir "$params.DATA_DIR/contours"
 
     input:
-    tuple file(f), val(name), val(baseline)
+    tuple file(f), val(name)
     
     output:
     tuple file('segmented_*.tab'), val(name)
-    tuple file('stereo_*.tab'), val(name), val(baseline), emit: stereo
+    tuple file('stereo_*.tab'), val(name), emit: stereo
 
     script:
     """
@@ -145,7 +149,7 @@ process visualize {
     conda = 'conda-forge::matplotlib=3.3.3 conda-forge::pandas=1.2.0  conda-forge::seaborn=0.12.2  conda-forge::numpy'
 
     input :
-    tuple file(f), val(name), val(baseline)
+    tuple file(f), val(name)
 
     output :
     file('*.pdf')
@@ -179,10 +183,10 @@ process find_contours {
     publishDir "$params.DATA_DIR/contours"
 
     input:
-    tuple val(VL), val(VR), val(name), val(baseline)
+    tuple val(VL), val(VR), val(name)
     
     output:
-    tuple file('*.tab'), val(name), val(baseline)
+    tuple file('*.tab'), val(name)
 
     script:
     """

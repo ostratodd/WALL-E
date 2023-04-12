@@ -5,8 +5,8 @@ nextflow.enable.dsl=2
 /* Downloads from Google Drive link, converts to constant frame rate (30 fps)
    and clips files according to metadata input */
 
-params.redownload = false
-params.recfr = false
+params.redownload = true
+params.recfr = true
 params.reclip = true
 
 /* File parameters */

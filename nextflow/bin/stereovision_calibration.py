@@ -38,10 +38,13 @@ frameSize = args["frameSize"]
 frameSize = tuple(frameSize[0])
 ext = args["extension"]
 
-#should add these to command line
-frameSize = (640,480)
-size_of_chessboard_squares_mm = squareSize
 
+
+
+#should add these to command line
+#frameSize = (640,480)
+size_of_chessboard_squares_mm = squareSize
+look = 1
 
 # termination criteria
 criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -86,20 +89,22 @@ for imgLeft, imgRight in zip(imagesLeft, imagesRight):
         cornersR = cv.cornerSubPix(grayR, cornersR, (11,11), (-1,-1), criteria)
         imgpointsR.append(cornersR)
 
-        # Draw and display the corners
-        cv.drawChessboardCorners(imgL, chessboardSize, cornersL, retL)
-        cv.imshow('img left', imgL)
-        cv.drawChessboardCorners(imgR, chessboardSize, cornersR, retR)
-        cv.imshow('img right', imgR)
-        cv.moveWindow('img left', 0, 0)
-        cv.moveWindow('img right', 642, 0)
-        cv.waitKey(1000)
+        if look==1:
+             # Draw and display the corners
+             cv.drawChessboardCorners(imgL, chessboardSize, cornersL, retL)
+             cv.imshow('img left', imgL)
+             cv.drawChessboardCorners(imgR, chessboardSize, cornersR, retR)
+             cv.imshow('img right', imgR)
+             cv.moveWindow('img left', 0, 0)
+             cv.moveWindow('img right', 642, 0)
+             cv.waitKey(1000)
     else:
-        cv.imshow('img left', imgL)
-        cv.imshow('img right', imgR)
-        cv.moveWindow('img left', 0, 0)
-        cv.moveWindow('img right', 642, 0)
-        cv.waitKey(1000)
+        if look==1:
+             cv.imshow('img left', imgL)
+             cv.imshow('img right', imgR)
+             cv.moveWindow('img left', 0, 0)
+             cv.moveWindow('img right', 642, 0)
+             cv.waitKey(1000)
 
 cv.destroyAllWindows()
 
