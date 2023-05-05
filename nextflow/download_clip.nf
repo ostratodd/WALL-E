@@ -5,10 +5,6 @@ nextflow.enable.dsl=2
 /* Downloads from Google Drive link, converts to constant frame rate (30 fps)
    and clips files according to metadata input */
 
-params.redownload = true
-params.recfr = true
-params.reclip = true
-
 /* File parameters */
 params.metadata = "$baseDir/data/metadata.csv"
 params.cEXT = '.mkv'
@@ -22,7 +18,7 @@ workflow DOWNLOAD_RAW {
 
     Channel.fromPath(params.metadata) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.VL, row.linkL, row.VR, row.linkR, row.start, row.end, row.offset, row.name) } \
+        | map { row-> tuple(row.VL, row.linkL, row.VR, row.linkR, row.start, row.end, row.offset, row.name, row.redownload, row.recfr, row.reclip) } \
         | download_videos 
         download_videos.out.vidarray | make_cfr 
         make_cfr.out.vidarray | clip_video_pair
@@ -39,15 +35,13 @@ process clip_video_pair {
     conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
 
     input:
-    tuple val(V1), val(V2), val(start), val(end), val(offset), val(name)
+    tuple val(V1), val(V2), val(start), val(end), val(offset), val(name), val(redownload), val(recfr), val(reclip)
 
     output:
     path '*.mkv'
 
-    script:
-
     script: 
-    if (params.reclip) {
+    if (reclip) {
          """
          clip2vids.py -v1 $baseDir/${params.VIDEO_DIR}/cfr_$name$V1${params.cEXT} -v2 $baseDir/${params.VIDEO_DIR}/cfr_$name$V2${params.cEXT} -s $start -e $end -o $offset -w ${params.watch}
          """
@@ -70,14 +64,14 @@ process download_videos {
     conda = 'conda-forge::gdown'
 
     input:
-    tuple val(videoL), val(linkL), val(videoR), val(linkR), val(start), val(end), val(offset), val(name)
+    tuple val(videoL), val(linkL), val(videoR), val(linkR), val(start), val(end), val(offset), val(name), val(redownload), val(recfr), val(reclip)
 
     output:
     path '*.mkv'
-    tuple val(videoL), val(videoR), val(start), val(end), val(offset), val(name), emit: vidarray
+    tuple val(videoL), val(videoR), val(start), val(end), val(offset), val(name), val(redownload), val(recfr), val(reclip), emit: vidarray
 
     script:
-    if (params.redownload) {
+    if (redownload) {
          """
              gdown $linkL -O $name$videoL${params.cEXT}
              gdown $linkR -O $name$videoR${params.cEXT}
@@ -97,15 +91,15 @@ process make_cfr {
     conda = 'conda-forge::ffmpeg=4.3.1'
 
     input:
-    tuple val(V1), val(V2), val(start), val(end), val(offset), val(name)
+    tuple val(V1), val(V2), val(start), val(end), val(offset), val(name), val(redownload), val(recfr), val(reclip)
 
     output:
     path '*.mkv'
-    tuple val(V1), val(V2), val(start), val(end), val(offset), val(name), emit: vidarray
+    tuple val(V1), val(V2), val(start), val(end), val(offset), val(name), val(redownload), val(recfr), val(reclip), emit: vidarray
     
 
     script:
-    if (params.recfr) {
+    if (recfr) {
          """
          ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V1${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V1${params.cEXT}
          ffmpeg -i $baseDir/${params.VIDEO_DIR}/$name$V2${params.cEXT} -f matroska -vcodec libx264 -an -framerate ${params.fps} cfr_$name$V2${params.cEXT}

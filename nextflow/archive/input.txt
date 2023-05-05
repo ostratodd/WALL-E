@@ -1,0 +1,2 @@
+param.param1 = 'test1'
+param.param2 = 'test2'

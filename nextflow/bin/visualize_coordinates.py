@@ -57,7 +57,6 @@ outfile = args["outfile"]
 mindis = args["mindis"]
 label = args["label"]
 setaxes = args["setaxes"]
-label = args["label"]
 
 table = pd.read_csv(file, delimiter = '\t')
 

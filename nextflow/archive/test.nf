@@ -1,37 +1,38 @@
-workflow{
-params.index = "$baseDir/data/index.csv"
+#!/usr/bin/env nextflow
 
-pairs_ch = Channel.fromPath(params.index, checkIfExists:true) \
+nextflow.enable.dsl=2
+
+params.metadata = "$baseDir/data/metadata.csv"
+params.cEXT = '.mkv'
+params.VIDEO_DIR='video_data'
+params.DATA_DIR='data'
+params.AN_DIR="$baseDir/analyses/southwater2019/"
+
+workflow {
+
+    pairs_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
         | splitCsv(header:true) \
-        | map { row-> tuple(row.start, row.end) }
+        | map { row-> tuple(row.VL, row.VR, row.start, row.end, row.name, row.stereomap, row.paramfile) }
 
-foo(pairs_ch) | bar | view
+
+     pfile = params.AN_DIR + 'params_southwater2019_pan1.config'
+     myfile = file(pfile)
+     print myfile.text
+
+
+    getParameters(pairs_ch)
 }
 
-process bar {
-    input:
-        val(start)
-        val(end)
+process getParameters {
 
-    output:
-        stdout
+     input:
+     tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), val(paramfile)
 
-    script:
-        """
-        echo $start $end
-        """
+     output:
+     tuple val(VL), val(VR), val(start), val(end), val(name), val(stereomap), emit: uvidarray
+
+     """
+     echo "HELLO"
+     """
 }
 
-process foo {
-    input:
-        tuple val(start), val(end)
-
-    output:
-        val(start)
-        val(end)
-
-    script:
-        """
-        echo "some junk"
-        """
-}
