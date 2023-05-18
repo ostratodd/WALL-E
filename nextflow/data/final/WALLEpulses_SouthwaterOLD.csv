@@ -1,0 +1,116 @@
+species,name,phase,pulse,pulsesN,PD (s),II (s),ID (vertical; cm),ID (horizontal; cm),notes,start,end,d2cam,lrd,height,maxI,meanI,meanArea
+Photeros annecohenae,Pan1,?,1,9,0.23,,,,only on right camera,48,55,,102,22.5,175,151.08,7.75
+Photeros annecohenae,Pan1,h,2,9,0.27,0.4,,,,67,75,627.87,247.5,85,189,154.97,22.62
+Photeros annecohenae,Pan1,h,3,9,0.27,0.37,,,,86,94,705.48,244.38,151.68,195,149.76,11.39
+Photeros annecohenae,Pan1,h,4,9,0.27,0.23,,,,101,109,697.64,225,195.83,191,154.19,12.36
+Photeros annecohenae,Pan1,h,5,9,0.13,0.37,,,,120,124,697.64,195.83,252.78,186,153.8,18.25
+Photeros annecohenae,Pan1,h,6,9,0.13,0.37,,,,135,139,682.47,146.74,305.71,183,152.22,17.25
+Photeros annecohenae,Pan1,h,7,9,0.07,0.43,,,only on left camera,152,154,,79,257,179,151.8,8
+Photeros annecohenae,Pan1,h,8,9,0.2,0.43,,,only on left camera,167,173,,49.43,282.57,157.43,141.9,3.14
+Photeros annecohenae,Pan1,h,9,9,0.07,0.3,,,only on left camera,182,184,,19,317,143,135.6,1.5
+Photeros annecohenae,Pan2,?,1,8,0.3,,,,,161,170,660.92,315.79,65.79,191,154.94,25.5
+Photeros annecohenae,Pan2,h,2,8,0.17,0.33,,,,180,185,697.64,305.56,126.39,182,155.52,22.75
+Photeros annecohenae,Pan2,h,3,8,0.3,0.33,,,,195,204,689.97,296.7,182.69,186,155.76,16.88
+Photeros annecohenae,Pan2,h,4,8,0.17,0.33,,,,214,219,689.97,281.59,252.75,184,153.88,20.5
+Photeros annecohenae,Pan2,h,5,8,0.17,0.33,,,,229,234,721.7,272.99,336.21,182,154.69,15.75
+Photeros annecohenae,Pan2,h,6,8,0.17,0.33,,,,244,249,775.15,243.83,422.84,179,152.32,7.5
+Photeros annecohenae,Pan2,h,7,8,0.17,0.33,,,,259,264,815.42,215.91,491.88,175,145.17,10
+Photeros annecohenae,Pan2,h,8,8,0.1,0.33,,,only on right camera,274,277,,26,331,149,138.6,1.5
+Photeros annecohenae,Pan3,?,1,6,0.3,,,,,18,27,475.66,248.11,69.13,185,156.86,46.62
+Photeros annecohenae,Pan3,h,2,6,0.3,0.33,,,,37,46,523.23,226.04,137.5,190,156.86,30.75
+Photeros annecohenae,Pan3,h,3,6,0.3,0.2,,,,52,61,550.77,206.14,194.08,190,155.11,21.81
+Photeros annecohenae,Pan3,h,4,6,0.27,0.33,,,,71,79,532.1,175.85,241.53,182,156.85,31.71
+Photeros annecohenae,Pan3,h,5,6,0.27,0.23,,,,86,94,523.23,152.08,307.29,185,150.87,20.98
+Photeros annecohenae,Pan3,h,6,6,0.23,0.3,,,only on left camera,103,110,,120.5,360,164.5,144.8,25.25
+Photeros annecohenae,Pan4,s,1,10,0.47,,,,,48,62,848.48,533.78,37.16,180,152.19,11.89
+Photeros annecohenae,Pan4,s,2,10,0.33,1.53,,,,108,118,597.98,409.52,29.76,194,153.62,37.23
+Photeros annecohenae,Pan4,h,3,10,0.2,0.3,,,,127,133,675.13,418.01,98.12,187,154.41,33.46
+Photeros annecohenae,Pan4,h,4,10,0.23,0.4,,,,145,152,689.97,405.22,173.08,185,155.53,25.62
+Photeros annecohenae,Pan4,h,5,10,0.23,0.4,,,,164,171,756.48,394.58,254.52,183,151.54,14.62
+Photeros annecohenae,Pan4,h,6,10,0.23,0.27,,,,179,186,784.84,364.06,312.5,187,152.84,13.12
+Photeros annecohenae,Pan4,h,7,10,0.1,0.4,,,,198,201,775.15,330.25,368.83,184,153.36,19.25
+Photeros annecohenae,Pan4,h,8,10,0.1,0.4,,,,213,216,794.78,291.14,436.71,178,149.96,12
+Photeros annecohenae,Pan4,h,9,10,0.1,0.4,,,,228,231,837.17,258.33,516.67,170,143.93,9
+Photeros annecohenae,Pan4,h,10,10,0.1,0.4,,,only on left camera,243,246,,126,336,147,140.6,1.5
+Photeros annecohenae,Pan5,s,1,11,0.47,,,,,65,79,1902.65,746.21,401.52,187,152.63,24.37
+Photeros annecohenae,Pan5,s,2,11,0.33,1.03,,,,110,120,1902.65,598.48,386.36,190,151.96,13.1
+Photeros annecohenae,Pan5,s,3,11,0.23,0.9,,,,147,154,1569.69,443.75,296.88,187,155.25,16.95
+Photeros annecohenae,Pan5,h,4,11,0.23,0.4,,,,166,173,1652.3,440.79,361.84,184,154.49,9.32
+Photeros annecohenae,Pan5,h,5,11,0.2,0.43,,,,186,192,1569.69,362.5,393.75,184,153.47,7.96
+Photeros annecohenae,Pan5,h,6,11,0.13,0.5,,,,207,211,1569.69,309.38,443.75,177,150.69,9.5
+Photeros annecohenae,Pan5,h,7,11,0.13,0.5,,,,226,230,1569.69,281.25,503.12,171,148.39,5.25
+Photeros annecohenae,Pan5,h,8,11,0.1,0.5,,,,245,248,1569.69,250,562.5,169,145.6,4.5
+Photeros annecohenae,Pan5,h,9,11,0.17,0.43,,,,261,266,1531.4,195.12,609.76,147,132.88,0.5
+Photeros annecohenae,Pan5,h,10,11,0.1,0.43,,,only on left camera,279,282,,50,214,165,149.83,2
+Photeros annecohenae,Pan5,h,11,11,0.1,0.53,,,only on left camera,298,301,,37,230,147,135.5,1
+Photeros annecohenae,Pan6,s,1,8,0.23,,,,only on right camera,58,65,,135.5,22,171,146.62,3
+Photeros annecohenae,Pan6,s,2,8,0.33,0.53,,,,81,91,627.87,311.25,47.5,182,155.59,35.7
+Photeros annecohenae,Pan6,h,3,8,0.33,0.3,,,,100,110,527.62,280.46,89.29,187,154.85,23.8
+Photeros annecohenae,Pan6,h,4,8,0.23,0.27,,,,118,125,514.65,250,162.91,188,159.01,41.45
+Photeros annecohenae,Pan6,h,5,8,0.23,0.4,,,,137,144,555.64,212.39,233.41,185,158.61,28.75
+Photeros annecohenae,Pan6,h,6,8,0.23,0.4,,,Segmentation confused by conflicting signal p12 should go with p23. Using data from p12 here,156,163,,68,250,166,146.75,11
+Photeros annecohenae,Pan6,h,7,8,0.1,0.4,,,,175,178,603.72,206.73,378.61,180,153.11,29.25
+Photeros annecohenae,Pan6,h,8,8,0.1,0.5,,,,193,196,647.29,199.74,463.92,180,150,21.25
+Photeros annecohenae,Pan7,?,1,11,0.33,,,,,29,39,1141.59,1040.91,111.36,189,157.31,73.39
+Photeros annecohenae,Pan7,h,2,11,0.23,0.63,,,,58,65,1082.54,965.52,142.24,187,156.26,52.82
+Photeros annecohenae,Pan7,h,3,11,0.23,0.4,,,,77,84,1029.3,889.34,186.48,185,154.07,40.96
+Photeros annecohenae,Pan7,h,4,11,0.27,0.37,,,,95,103,1064.19,891.95,260.59,189,153.46,28.62
+Photeros annecohenae,Pan7,h,5,11,0.23,0.37,,,,114,121,1064.19,870.76,336.86,191,153.8,19.3
+Photeros annecohenae,Pan7,h,6,11,0.23,0.4,,,,133,140,1184.67,903.3,445.76,184,149.14,12.21
+Photeros annecohenae,Pan7,h,7,11,0.2,0.4,,,,152,158,1121.2,808.04,500,186,150.57,13.43
+Photeros annecohenae,Pan7,h,8,11,0.13,0.4,,,,170,174,1184.67,801.89,606.13,177,148.16,7.5
+Photeros annecohenae,Pan7,h,9,11,0.23,0.37,,,only on right camera,185,192,,278.5,282.5,158.88,143.37,1.75
+Photeros annecohenae,Pan7,h,10,11,0.13,0.4,,,,204,208,1255.75,802.5,747.5,172,142.75,3.5
+Photeros annecohenae,Pan7,h,11,11,0.1,0.5,,,only on right camera,223,226,,268,330,139,131,1
+Photeros annecohenae,Pan8,s,1,10,0.5,,,,,20,35,472.09,445.49,22.56,186,151.64,51.73
+Photeros annecohenae,Pan8,s,2,10,0.23,1.3,,,only on right camera,74,81,,435.5,24,177.5,149.92,37
+Photeros annecohenae,Pan8,s,3,10,0.23,0.37,,,,92,99,465.09,483.33,64.82,185,152.31,60.43
+Photeros annecohenae,Pan8,h,4,10,0.27,0.37,,,,110,118,545.98,475,125,182,153.85,46.86
+Photeros annecohenae,Pan8,h,5,10,0.27,0.37,,,,129,137,581.36,493.06,185.18,179,146.99,22.12
+Photeros annecohenae,Pan8,h,6,10,0.13,0.37,,,,148,152,570.79,487.5,247.73,184,150.49,27.5
+Photeros annecohenae,Pan8,h,7,10,0.13,0.5,,,,167,171,560.6,468.75,299.11,168,140.54,9.25
+Photeros annecohenae,Pan8,h,8,10,0.1,0.53,,,only on right camera,187,190,,283,305,154,133.83,2
+Photeros annecohenae,Pan8,h,9,10,0.1,0.4,,,only on right camera,202,205,,265,355,137,128.83,2
+Photeros annecohenae,Pan8,h,10,10,0.07,0.53,,,only on right camera,221,223,,230,388,152,137.08,6.5
+Photeros annecohenae,Pan9,?,1,4,0.47,,,,,32,46,232.55,143.98,15.74,190,157.95,100.22
+Photeros annecohenae,Pan9,h,2,4,0.33,0.17,,,,51,61,230.84,135.11,76.29,185,155.98,88.59
+Photeros annecohenae,Pan9,h,3,4,0.37,0.27,,,,69,80,313.94,125.62,155,190,154.28,71.77
+Photeros annecohenae,Pan9,h,4,4,0.23,0.27,,,only on left camera,88,95,,136,311,181.5,158.96,57.75
+Photeros annecohenae,Pan10,?,1,7,0.47,,,,,21,35,1846.69,1470.59,231.62,187,147.73,28.99
+Photeros annecohenae,Pan10,h,2,7,0.33,0.6,,,"PFD off, but changing wreaks havoc. using p10 here",53,63,,351.91,69.64,173.09,147.7,21.59
+Photeros annecohenae,Pan10,h,3,7,0.27,0.53,,,,79,87,1846.69,1301.47,297.79,194,154.33,22.93
+Photeros annecohenae,Pan10,h,4,7,0.2,0.37,,,,98,104,1744.1,1173.61,350.69,186,152.21,8.79
+Photeros annecohenae,Pan10,h,5,7,0.17,0.53,,,,120,125,1652.3,1075.66,414.47,189,152.67,12.75
+Photeros annecohenae,Pan10,h,6,7,0.3,0.33,,,,135,144,1609.93,1009.62,500,184,145.81,6.25
+Photeros annecohenae,Pan10,h,7,7,0.13,0.47,,,,158,162,1609.93,919.87,592.95,183,150.63,13
+Photeros annecohenae,Pan11,?,1,12,0.07,,,,only on left camera,87,89,,425,22,172,153.31,3
+Photeros annecohenae,Pan11,h,2,12,0.2,0.43,,,,102,108,981.05,750,95.7,185,154.91,52.57
+Photeros annecohenae,Pan11,h,3,12,0.23,0.4,,,,120,127,837.17,563.33,133.33,189,156.72,42.82
+Photeros annecohenae,Pan11,?,4,12,0.23,0.27,,,,135,142,996.63,563.49,208.33,187,156.17,29.04
+Photeros annecohenae,Pan11,h,5,12,0.23,0.4,,,,154,161,996.63,490.08,246.03,182,153.59,17.62
+Photeros annecohenae,Pan11,h,6,12,0.23,0.4,,,,173,180,951.32,439.39,287.88,185,154.06,10.61
+Photeros annecohenae,Pan11,?,7,12,0.2,0.4,,,,192,198,965.96,392.31,355.77,179,152.37,17.54
+Photeros annecohenae,Pan11,h,8,12,0.23,0.4,,,,210,217,981.05,320.31,427.73,180,147.06,6.61
+Photeros annecohenae,Pan11,?,9,12,0.1,0.4,,,,229,232,1012.7,294.36,495.97,182,155.31,11.5
+Photeros annecohenae,Pan11,h,10,12,0.1,0.53,,,,248,251,1012.7,243.95,538.31,168,147.95,4.75
+Photeros annecohenae,Pan11,h,11,12,0.1,0.4,,,,263,266,1064.19,233.05,608.05,173,144.3,3.75
+Photeros annecohenae,Pan11,?,12,12,0.1,0.53,,,only on right camera,282,285,,25,317,160,140.5,3
+Photeros annecohenae,Pan12,?,1,6,0.23,,,,,50,57,518.9,215.91,74.38,185,153.2,24.12
+Photeros annecohenae,Pan12,h,2,6,0.23,0.4,,,,69,76,494.39,199.8,121.06,184,148.67,19.93
+Photeros annecohenae,Pan12,h,3,6,0.23,0.27,,,,84,91,494.39,191.93,177.16,185,152.84,22.21
+Photeros annecohenae,Pan12,h,4,6,0.1,0.4,,,,103,106,541.27,170.26,247.84,180,157.58,28
+Photeros annecohenae,Pan12,h,5,6,0.1,0.4,,,,118,121,627.87,148.75,312.5,171,149.44,8
+Photeros annecohenae,Pan12,h,6,6,0.07,0.4,,,only on left camera,133,135,,90,264,151,135,2.5
+Photeros annecohenae,Pan13,?,1,5,0.47,,,,,49,63,427.12,385.2,39.97,190,156.06,95.76
+Photeros annecohenae,Pan13,h,2,5,0.4,0.3,,,,72,84,475.66,364.58,108.9,187,156.04,61.84
+Photeros annecohenae,Pan13,h,3,5,0.47,0.23,,,,91,105,445.3,283.69,155.14,185,151.4,57.46
+Photeros annecohenae,Pan13,h,4,5,0.27,0.27,,,,113,121,494.39,269.68,232.28,184,158.16,52.66
+Photeros annecohenae,Pan13,h,5,5,0.27,0.37,,,,132,140,502.3,268,325,192,157.31,34
+Photeros annecohenae,Pan14,?,1,6,0.5,,,,,67,82,1102,210.53,133.77,190,150.1,16.72
+Photeros annecohenae,Pan14,s,2,6,0.2,,,,,113,119,1207.45,240.38,151.44,189,152.9,14.21
+Photeros annecohenae,Pan14,h,3,6,0.23,,,,,131,138,1281.38,265.31,186.22,185,151.91,7.11
+Photeros annecohenae,Pan14,h,4,6,0.1,,,,,154,157,1255.75,255,212.5,176,150.55,9.75
+Photeros annecohenae,Pan14,h,5,6,0.1,,,,,173,176,1255.75,230,257.5,179,148.92,6.75
+Photeros annecohenae,Pan14,h,6,6,0.2,,,,,188,194,1255.75,220,315,169,144.39,2.61
+Photeros annecohenae,Pan15,,,,,,,,,,,,,,,,
+Photeros annecohenae,Pan15,,,,,,,,,,,,,,,,

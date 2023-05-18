@@ -1,2 +1,2 @@
 date,country,location,VL,linkL,VR,linkR,start,end,offset,name,stereomap,baseline,redownload,recfr,reclip,contourBlack,contourMinpulse,segXMAX,segYMAX,segHPD,segPDMIN,segHPP,pairPSD,pairPFD,pairSRMAX,pairXD,vizMindis
-10/16/19,Belize,Southwater,185538-1_L,1ouXtTiRl70z-hTEcg29FIZlk4pjJUWMQ,185539-2_R,1M_Xkw3Z1Vn96DXFrIDNgjVNV5Wkf-Jhz,29620,29720,-13,southpan9,2019southwater,125,FALSE,FALSE,FALSE,130,0.1,7,7,2,4,10,4,4,11,300,20
+10/16/19,Belize,Southwater,185538-1_L,1ouXtTiRl70z-hTEcg29FIZlk4pjJUWMQ,185539-2_R,1M_Xkw3Z1Vn96DXFrIDNgjVNV5Wkf-Jhz,29620,29720,-13,southpan9,2019southwater,125,FALSE,FALSE,FALSE,130,0.1,40,7,2,4,10,4,4,12,300,20
