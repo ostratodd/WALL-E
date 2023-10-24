@@ -22,7 +22,7 @@ ap.add_argument ('-c', '--cb_size', nargs=2, type=int, action = 'append', requir
         help="need to specify checkerboard size e.g. -c 8 6")
 ap.add_argument ('-fr', '--frameSize', nargs=2, type=int, action = 'append', required=True,
         help="need to specify frame size of video e.g. -c 640 480")
-ap.add_argument("-sq", "--squareSize", required=True, type=int,
+ap.add_argument("-sq", "--squareSize", required=True, type=float,
 	help="Size of an individual square of the checkerboard in mm")
 ap.add_argument("-e", "--extension", required=False, default="png", type=str,
 	help="extension of files. Default = png")
@@ -38,11 +38,6 @@ frameSize = args["frameSize"]
 frameSize = tuple(frameSize[0])
 ext = args["extension"]
 
-
-
-
-#should add these to command line
-#frameSize = (640,480)
 size_of_chessboard_squares_mm = squareSize
 look = 1
 
@@ -96,14 +91,14 @@ for imgLeft, imgRight in zip(imagesLeft, imagesRight):
              cv.drawChessboardCorners(imgR, chessboardSize, cornersR, retR)
              cv.imshow('img right', imgR)
              cv.moveWindow('img left', 0, 0)
-             cv.moveWindow('img right', 642, 0)
+             cv.moveWindow('img right', 925, 0)
              cv.waitKey(1000)
     else:
         if look==1:
              cv.imshow('img left', imgL)
              cv.imshow('img right', imgR)
              cv.moveWindow('img left', 0, 0)
-             cv.moveWindow('img right', 642, 0)
+             cv.moveWindow('img right', 925, 0)
              cv.waitKey(1000)
 
 cv.destroyAllWindows()

@@ -2,7 +2,9 @@
 
 nextflow.enable.dsl=2
 
-mode = "internal"
+mode = "internal" 		/* internal mode collects frame images from video */
+/* mode = "external"*/
+
 
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
@@ -103,7 +105,7 @@ process select_pairs {
          """
     }else{
          """
-         cp $baseDir/${params.VIDEO_DIR}/pairs/${name}_pairs.png ./
+         cp $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair*.png ./
          """
     }
 }
@@ -187,26 +189,18 @@ process calibrate {
 
     script:
     
-    if (params.recalc_left) {  
+    if(params.recalc_frames) {
          """
          cameraCalibration.py -c ${params.checkdim} -fr ${params.framesize} -sq ${params.squaresize} -w ${params.watchvideo} -pre ${name}_L_single -p $baseDir/${params.VIDEO_DIR}/pairs
-         """
-    }else{
-         """
-         cp $baseDir/${params.DATA_DIR}/stereo_maps/${name}_L_single.p ./
-         """
-    }
-    if (params.recalc_right) {  
-         """
          cameraCalibration.py -c ${params.checkdim} -fr ${params.framesize} -sq ${params.squaresize} -w ${params.watchvideo} -pre ${name}_R_single -p $baseDir/${params.VIDEO_DIR}/pairs
          """
     }else{
          """
+         cp $baseDir/${params.DATA_DIR}/stereo_maps/${name}_L_single.p ./
          cp $baseDir/${params.DATA_DIR}/stereo_maps/${name}_R_single.p ./
          """
     }
 }
-
 
 process stereo_rectification {
     publishDir "$params.DATA_DIR/stereo_maps"
@@ -244,7 +238,7 @@ process rectify {
     
     script:
     """
-    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereoMap.xml -l 1 -pre ${name}
+    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereoMap.xml -l 1 -pre ${name} -fr ${params.framesize}
 
     """
    

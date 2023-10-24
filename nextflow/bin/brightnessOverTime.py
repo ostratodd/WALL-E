@@ -4,6 +4,7 @@ import numpy as np
 import cv2
 import argparse
 import time
+import os
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -36,8 +37,17 @@ dir_path = args["path"]
 video1 = args["file"]
 out = args["out"]
 
+# Check if dir_path exists
+if os.path.exists(dir_path):
+    # Combine dir_path and video1 to get the complete file path
+    video_path = os.path.join(dir_path, video1)
+    out_path = os.path.join(dir_path, out)
+else:
+    print("The specified directory path does not exist.")
 
-f= open(out,"w+")
+
+f= open(out_path,"w+")
+video1 = video_path
 
 def adjust_clip(image, black=0, white=255):
 	# build a lookup table mapping the pixel values [0, 255] to

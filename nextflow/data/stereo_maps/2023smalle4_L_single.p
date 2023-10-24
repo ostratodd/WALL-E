@@ -1,0 +1,1 @@
+/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/5d/f44ce98735ae0c19ab652e18c512b8/2023smalle4_L_single.p

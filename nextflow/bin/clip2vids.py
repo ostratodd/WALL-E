@@ -5,6 +5,7 @@ import cv2
 import argparse
 import time
 import ntpath
+import sys
 
 def path_leaf(path):			#function to extract basename from video filenames
     head, tail = ntpath.split(path)
@@ -44,13 +45,23 @@ endframe = end - start
 cap = cv2.VideoCapture(video1)
 cap2 = cv2.VideoCapture(video2)
 
+frame_widthL = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_heightL = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+frame_widthR = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_heightR = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+if frame_widthL != frame_widthR or frame_heightL != frame_heightR:
+    print("ERROR: frame sizes not the same in videos to clip")
+    sys.exit()
+else:
+    frameSize = (frame_widthL, frame_heightL)
+
 #Offsets by xframe, frame frames
 loffset = start
 cap.set(1,loffset);
 roffset=start+offset
 cap2.set(1,roffset);
-
-frameSize = (640, 480)
 
 
 #should check here to make sure video files contains 3 letter extension
@@ -74,7 +85,7 @@ while(cap.isOpened()):
 
         #move window when first opening
         if frametext == 1:
-            cv2.moveWindow('right camera',642, 0)
+            cv2.moveWindow('right camera',750, 0)
             cv2.moveWindow('left camera',0, 0)
     time.sleep(delay)
 

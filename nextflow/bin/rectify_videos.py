@@ -23,6 +23,8 @@ ap.add_argument("-l", "--lines", required=False, default=0, type=int,
         help="whether (1) or not (0) to add horizontal lines to check SR. Default = 0")
 ap.add_argument("-d", "--delay", required=False, default=0, type=float,
         help="delay time between frames for slo-mo")
+ap.add_argument ('-fr', '--frameSize', nargs=2, type=int, action = 'append', required=True,
+        help="need to specify frame size of video e.g. -fr 640 480")
 ap.add_argument("-pre", "--prefix", required=False, default='./', type=str,
         help="prefix name for rectified videos L and R")
 args = vars(ap.parse_args())
@@ -34,6 +36,8 @@ lines = args["lines"]
 video1 = args["video1"]
 video2 = args["video2"]
 prefix = args["prefix"]
+frameSize = args["frameSize"]
+frameSize = tuple(frameSize[0])
 
 
 # Camera parameters to undistort and rectify images
@@ -52,7 +56,6 @@ cap_left = cv2.VideoCapture(video1)
 cap_right = cv2.VideoCapture(video2)
 
 #open a file to write to
-frameSize = (640,480)
 out_l = cv2.VideoWriter(prefix + '_rectifiedL' + '.mkv',cv2.VideoWriter_fourcc('h','2','6','4'), 30, frameSize)
 out_r = cv2.VideoWriter(prefix + '_rectifiedR' + '.mkv',cv2.VideoWriter_fourcc('h','2','6','4'), 30, frameSize)
 
@@ -81,7 +84,7 @@ while(cap_right.isOpened() and cap_left.isOpened()):
                 frame_left[line * 50, :] = 255
                 frame_right[line * 50, :] = 255
           cv2.imshow("frame right", frame_right) 
-          cv2.moveWindow("frame right",642, 150)
+          cv2.moveWindow("frame right",1000, 150)
           cv2.imshow("frame left", frame_left)
           cv2.moveWindow("frame left",1, 150)
 
