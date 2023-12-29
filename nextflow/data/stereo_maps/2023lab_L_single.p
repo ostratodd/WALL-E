@@ -1,0 +1,1 @@
+/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/30/1f2a875d24daa51c2ce08dd653eba4/2023lab_L_single.p

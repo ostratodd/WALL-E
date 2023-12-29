@@ -73,7 +73,7 @@ process rectify {
 
     script:
     """
-    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l ${params.lines} -w ${params.watchvideo} -pre ${name}
+    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${stereomap}_stereoMap.xml -l ${params.lines} -w ${params.watchvideo} -pre ${name} -fr ${params.framesize}
     """
 }
 
@@ -90,7 +90,7 @@ process find_contours {
 
     script:
     """
-    find_contours.py -v1 $VL -v2 $VR -b ${contourBlack} -m ${contourMinpulse} -f ${name} -l ${params.watchvideo} -d ${params.delay}
+    find_contours.py -v1 $VL -v2 $VR -b ${params.black} -m ${params.minpulse} -f ${name} -l ${params.watchvideo} -d ${params.delay}
 
     """
 }

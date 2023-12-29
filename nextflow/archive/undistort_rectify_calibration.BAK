@@ -2,43 +2,17 @@
 
 nextflow.enable.dsl=2
 
-mode = "internal"
+mode = "internal" 		/* internal mode collects frame images from video */
+/* mode = "external"*/
 
-params.metadata = "$baseDir/data/metadata.csv"
+
 params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 params.DATA_DIR='data'
 
 params.watchvideo = 0
 
-/*************To skip recalculating change these parameters ******************/
-/* These parameters decide whether (1) or not (0) to recalculate various steps of the process or use previous files instead */
-params.reid_frames = true		/* search through entire video and record the position and stats of visable checkerboards */
-params.refind_frames = true		/* use previous csv data file to copy frames again to pairs directory */
-params.recalc_left = true		/* recalculate undistort parameters for left camera versus using file, which must be in expected location */
-params.recalc_right = true		/* recalculate undistort parameters for right camera versus using file, which must be in expected file location */
-
-params.reid_pairs = true		/* search through entire video pair and record the position and stats of visable checkerboards */
-params.refind_pairs = true		/* use previous csv data file to copy frames again to pairs directory */
-params.recalc_pairs = true		/* recalculate stereoMap parameters versus using file, which if used must be in expected location */
-
-/* Camera and checkerboard parameters */
-params.checkdim = "8 6"
-params.framesize = "640 480"
-params.squaresize = 21
-
-/* Parameters for finding undistortion parameters for left camera video from checkerboards */
-params.L_n = 50			/* Number of checkerboard frames to keep */
-params.L_dist = 100		/* Distance threshold for checkerboards (remove those too far from camera) higher value are CLOSER to camera */
-
-/* Parameters for finding undistortion parameters for right camera video from checkerboards */
-params.R_n = 50			/* Number of checkerboard frames to keep */
-params.R_dist = 100		/* Distance threshold for checkerboards (remove those too far from camera) higher value are CLOSER to camera */
-
-/* Parameters for finding rectification parameters from checkerboards in paired camera views */
-params.P_n = 40			/* Number of checkerboard frame pairs to keep */
-params.P_dist = 80		/* Distance threshold for checkerboards (remove those too far from camera) higher value are CLOSER to camera */
-params.P_move = 5		/* Movement threshold value (remove frames that moved position from previous frame). Higher values allow more movement */
+/*Must include config file with parameters */
 
 workflow MAKE_STEREO_MAPS {
     stereo_ch = Channel.fromPath(params.metadata, checkIfExists:true) \
@@ -100,6 +74,8 @@ process select_frames {
    script:
     if (params.refind_frames) {
          """
+         rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_L_single*.png
+         rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_R_single*.png
          select_frames.py -p ${name}_L -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -f $baseDir/${params.VIDEO_DIR}/data/${name}_frames_L.csv -e ${params.L_dist} -n ${params.L_n} -l ${params.watchvideo}
          select_frames.py -p ${name}_R -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -f $baseDir/${params.VIDEO_DIR}/data/${name}_frames_R.csv -e ${params.R_dist} -n ${params.R_n} -l ${params.watchvideo}
          """
@@ -125,13 +101,14 @@ process select_pairs {
     tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), emit: vidarray
 
     script:
-    if(refind_pairs) {
+    if(params.refind_pairs) {
          """
+         rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair*.png
          select_pairs.py -p ${name} -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.VIDEO_DIR}/data/${name}_pairs.csv -e ${params.P_dist} -n ${params.P_n} -m ${params.P_move} -l ${params.watchvideo}
          """
     }else{
          """
-         cp $baseDir/${params.VIDEO_DIR}/pairs/${name}_pairs.png ./
+         cp $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair*.png ./
          """
     }
 }
@@ -155,8 +132,8 @@ process find_all_singles {
          if ls $baseDir/${params.VIDEO_DIR}/data/${name}_frames_L.csv 1> /dev/null 2>&1; then
              rm $baseDir/${params.VIDEO_DIR}/data/${name}_frames_L.csv
          fi
-         if ls $baseDir/${params.VIDEO_DIR}/pairs/${name}_frames_R.csv 1> /dev/null 2>&1; then
-             rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_frames_L.csv
+         if ls $baseDir/${params.VIDEO_DIR}/data/${name}_frames_R.csv 1> /dev/null 2>&1; then
+             rm $baseDir/${params.VIDEO_DIR}/data/${name}_frames_R.csv
          fi
          id_all_checkerframes.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -o ${name}_frames_R.csv -c ${params.checkdim} -l ${params.watchvideo}
          id_all_checkerframes.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -o ${name}_frames_L.csv -c ${params.checkdim} -l ${params.watchvideo}
@@ -215,26 +192,18 @@ process calibrate {
 
     script:
     
-    if (params.recalc_left) {  
+    if(params.recalc_left) {
          """
          cameraCalibration.py -c ${params.checkdim} -fr ${params.framesize} -sq ${params.squaresize} -w ${params.watchvideo} -pre ${name}_L_single -p $baseDir/${params.VIDEO_DIR}/pairs
-         """
-    }else{
-         """
-         cp $baseDir/${params.DATA_DIR}/stereo_maps/${name}_L_single.p ./
-         """
-    }
-    if (params.recalc_right) {  
-         """
          cameraCalibration.py -c ${params.checkdim} -fr ${params.framesize} -sq ${params.squaresize} -w ${params.watchvideo} -pre ${name}_R_single -p $baseDir/${params.VIDEO_DIR}/pairs
          """
     }else{
          """
+         cp $baseDir/${params.DATA_DIR}/stereo_maps/${name}_L_single.p ./
          cp $baseDir/${params.DATA_DIR}/stereo_maps/${name}_R_single.p ./
          """
     }
 }
-
 
 process stereo_rectification {
     publishDir "$params.DATA_DIR/stereo_maps"
@@ -272,7 +241,7 @@ process rectify {
     
     script:
     """
-    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereoMap.xml -l 1 -pre ${name}
+    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereoMap.xml -l 1 -pre ${name} -fr ${params.framesize}
 
     """
    
