@@ -10,7 +10,7 @@ params.cEXT = '.mkv'
 params.VIDEO_DIR='video_data'
 params.DATA_DIR='data'
 
-params.watchvideo = 0
+params.watchvideo = 1
 
 /*Must include config file with parameters */
 
@@ -74,6 +74,7 @@ process select_frames {
    script:
     if (params.refind_frames) {
          """
+#*****NEED TO CHECK IF THESE FILES EXIST AND IF SO TO DELETE, BUT IF NOT TO SKIP THIS STEP, OTHERWISE IT WILL CRASH
          rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_L_single*.png
          rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_R_single*.png
          select_frames.py -p ${name}_L -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -f $baseDir/${params.VIDEO_DIR}/data/${name}_frames_L.csv -e ${params.L_dist} -n ${params.L_n} -l ${params.watchvideo}
@@ -103,7 +104,8 @@ process select_pairs {
     script:
     if(params.refind_pairs) {
          """
-         rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair*.png
+#NEED TO CHECK IF FILES ARE PRESENT BEFORE DELETING, BUT MUST DELETE TO RE-DO ANALYSIS WITH NEW PARAMETERS
+#         rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair*.png
          select_pairs.py -p ${name} -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.VIDEO_DIR}/data/${name}_pairs.csv -e ${params.P_dist} -n ${params.P_n} -m ${params.P_move} -l ${params.watchvideo}
          """
     }else{

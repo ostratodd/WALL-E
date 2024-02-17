@@ -90,7 +90,7 @@ process find_contours {
 
     script:
     """
-    find_contours.py -v1 $VL -v2 $VR -b ${params.black} -m ${params.minpulse} -f ${name} -l ${params.watchvideo} -d ${params.delay}
+    find_contours.py -v1 $VL -v2 $VR -b ${contourBlack} -m ${contourMinpulse} -f ${name} -l ${params.watchvideo} -d ${params.delay}
 
     """
 }
