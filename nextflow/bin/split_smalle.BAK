@@ -11,21 +11,14 @@ ap.add_argument("-p", "--path", required=False, default='.',
         help="path to video file not including filename. Default is ./")
 ap.add_argument("-v", "--video", required=True, type=str,
         help="file name for first video")
-ap.add_argument("-V1", "--leftvideo", required=True, type=str,
-        help="file name for left video output")
-ap.add_argument("-V2", "--rightvideo", required=True, type=str,
-        help="file name for first video")
 ap.add_argument("-s", "--start", required=False, default=1, type=int,
         help="frame to start at default = 1")
-ap.add_argument("-e", "--end", required=False, default=0, type=int,
-        help="last frame for clip")
+ap.add_argument("-d", "--delay", required=False, default=0, type=float,
+        help="delay time between frames for slo-mo")
 args = vars(ap.parse_args())
 start = args["start"]
-endframe = args["end"]
 dir_path = args["path"]
 video = args["video"]
-leftvideo = args["leftvideo"]
-rightvideo = args["rightvideo"]
 
 
 # Open the input video
@@ -39,18 +32,15 @@ frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 # Calculate the width of the left and right halves
 half_width = frame_width // 2
 
-new_filename_l = leftvideo + "_cl_" + str(start) + "_" + str(endframe) + ".mkv"
-new_filename_r = rightvideo + "_cl_" + str(start) + "_" + str(endframe) + ".mkv"
+# Define the codec and create VideoWriter objects
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # You can change the codec if needed
+left_output_path = 'left_half_video.mp4'
+right_output_path = 'right_half_video.mp4'
+left_out = cv2.VideoWriter(left_output_path, fourcc, 30.0, (half_width, frame_height))
+right_out = cv2.VideoWriter(right_output_path, fourcc, 30.0, (half_width, frame_height))
 
-print("New file name:" + new_filename_l)
-
-out_l = cv2.VideoWriter(new_filename_l,cv2.VideoWriter_fourcc('H','2','6','4'), 30, (half_width, frame_height))
-out_r = cv2.VideoWriter(new_filename_r,cv2.VideoWriter_fourcc('H','2','6','4'), 30, (half_width, frame_height))
-
-frametext=0
 # Process each frame
 while cap.isOpened():
-    frametext=frametext+1
     ret, frame = cap.read()
     if not ret:
         break
@@ -60,16 +50,11 @@ while cap.isOpened():
     right_half = frame[:, half_width:]
     
     # Write the halves to their respective video files
-    out_l.write(left_half)
-    out_r.write(right_half)
-
-    if endframe > 0:
-        if frametext == endframe:
-            break
-
+    left_out.write(left_half)
+    right_out.write(right_half)
 
 # Release everything
 cap.release()
-out_l.release()
-out_r.release()
+left_out.release()
+right_out.release()
 cv2.destroyAllWindows()

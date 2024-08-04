@@ -1,85 +1,143 @@
-Mar-22 18:44:13.329 [main] DEBUG nextflow.cli.Launcher - $> nextflow undistort_rectify_calibration.nf --metadata data/bocas2018_calibration.csv -with-conda true
-Mar-22 18:44:13.446 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.10.3
-Mar-22 18:44:13.456 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.11.1,nf-azure@0.14.2,nf-codecommit@0.1.2,nf-console@1.0.4,nf-ga4gh@1.0.4,nf-google@1.4.5,nf-tower@1.5.6,nf-wave@0.5.2
-Mar-22 18:44:13.461 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
-Mar-22 18:44:13.461 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
-Mar-22 18:44:13.462 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
-Mar-22 18:44:13.468 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
-Mar-22 18:44:13.500 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
-Mar-22 18:44:13.511 [main] INFO  nextflow.cli.CmdRun - Launching `undistort_rectify_calibration.nf` [stoic_bohr] DSL2 - revision: d2f9ccdd55
-Mar-22 18:44:13.511 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
-Mar-22 18:44:13.511 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
-Mar-22 18:44:13.516 [main] DEBUG nextflow.secret.LocalSecretsProvider - Secrets store: /Users/oakley/.nextflow/secrets/store.json
-Mar-22 18:44:13.519 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@2b87581] - activable => nextflow.secret.LocalSecretsProvider@2b87581
-Mar-22 18:44:13.556 [main] DEBUG nextflow.Session - Session UUID: 64f89bfb-85e6-4307-8f54-647aa42e4128
-Mar-22 18:44:13.556 [main] DEBUG nextflow.Session - Run name: stoic_bohr
-Mar-22 18:44:13.556 [main] DEBUG nextflow.Session - Executor pool size: 10
-Mar-22 18:44:13.561 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
-Mar-22 18:44:13.577 [main] DEBUG nextflow.cli.CmdRun - 
+Aug-03 16:06:42.622 [main] DEBUG nextflow.cli.Launcher - $> nextflow undistort_rectify_calibration.nf --metadata analyses/bocas2024/bocas2024_calibration.csv -c analyses/bocas2024/params_bocas2024_cal.config -with-conda true
+Aug-03 16:06:42.752 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.10.3
+Aug-03 16:06:42.759 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/oakley/.nextflow/plugins; core-plugins: nf-amazon@1.11.1,nf-azure@0.14.2,nf-codecommit@0.1.2,nf-console@1.0.4,nf-ga4gh@1.0.4,nf-google@1.4.5,nf-tower@1.5.6,nf-wave@0.5.2
+Aug-03 16:06:42.763 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-03 16:06:42.764 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-03 16:06:42.765 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Aug-03 16:06:42.770 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-03 16:06:42.778 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/analyses/bocas2024/params_bocas2024_cal.config
+Aug-03 16:06:42.779 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/oakley/Documents/GitHub/WALL-E/nextflow/analyses/bocas2024/params_bocas2024_cal.config
+Aug-03 16:06:42.788 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Aug-03 16:06:43.019 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+Aug-03 16:06:43.026 [main] INFO  nextflow.cli.CmdRun - Launching `undistort_rectify_calibration.nf` [gloomy_bose] DSL2 - revision: c9bc321703
+Aug-03 16:06:43.026 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Aug-03 16:06:43.026 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Aug-03 16:06:43.030 [main] DEBUG nextflow.secret.LocalSecretsProvider - Secrets store: /Users/oakley/.nextflow/secrets/store.json
+Aug-03 16:06:43.031 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@a9f023e] - activable => nextflow.secret.LocalSecretsProvider@a9f023e
+Aug-03 16:06:43.056 [main] DEBUG nextflow.Session - Session UUID: 821464d2-f285-41ba-9305-a2a91406f042
+Aug-03 16:06:43.056 [main] DEBUG nextflow.Session - Run name: gloomy_bose
+Aug-03 16:06:43.056 [main] DEBUG nextflow.Session - Executor pool size: 10
+Aug-03 16:06:43.060 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Aug-03 16:06:43.071 [main] DEBUG nextflow.cli.CmdRun - 
   Version: 22.10.3 build 5834
   Created: 21-11-2022 21:37 UTC (13:37 PDT)
-  System: Mac OS X 13.2.1
+  System: Mac OS X 14.5
   Runtime: Groovy 3.0.13 on OpenJDK 64-Bit Server VM 17.0.3+7-LTS
   Encoding: UTF-8 (UTF-8)
-  Process: 87401@gamera.eemb.ucsb.edu [fe80:0:0:0:cc91:cbff:fe7e:4cee%4]
-  CPUs: 10 - Mem: 32 GB (477.2 MB) - Swap: 0 (0)
-Mar-22 18:44:13.584 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
-Mar-22 18:44:13.610 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
-Mar-22 18:44:13.615 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
-Mar-22 18:44:13.625 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
-Mar-22 18:44:13.629 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 11; maxThreads: 1000
-Mar-22 18:44:13.662 [main] DEBUG nextflow.Session - Session start
-Mar-22 18:44:14.364 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Mar-22 18:44:14.456 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Mar-22 18:44:14.456 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Mar-22 18:44:14.459 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
-Mar-22 18:44:14.462 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=10; memory=32 GB; capacity=10; pollInterval=100ms; dumpInterval=5m
-Mar-22 18:44:14.504 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Mar-22 18:44:14.504 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Mar-22 18:44:14.506 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Mar-22 18:44:14.506 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Mar-22 18:44:14.509 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Mar-22 18:44:14.509 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Mar-22 18:44:14.512 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Mar-22 18:44:14.512 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Mar-22 18:44:14.514 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Mar-22 18:44:14.514 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Mar-22 18:44:14.516 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: MAKE_STEREO_MAPS:find_singles, rectify, MAKE_STEREO_MAPS:rectify, find_singles, MAKE_STEREO_MAPS:stereo_rectification, MAKE_STEREO_MAPS:calibrate, calibrate, stereo_rectification, MAKE_STEREO_MAPS:undistort, find_pairs, MAKE_STEREO_MAPS:find_pairs, undistort
-Mar-22 18:44:14.516 [main] DEBUG nextflow.Session - Igniting dataflow network (7)
-Mar-22 18:44:14.519 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:find_singles
-Mar-22 18:44:14.520 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:calibrate
-Mar-22 18:44:14.520 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:undistort
-Mar-22 18:44:14.520 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:find_pairs
-Mar-22 18:44:14.520 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:stereo_rectification
-Mar-22 18:44:14.520 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:rectify
-Mar-22 18:44:14.520 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
-Mar-22 18:44:14.520 [main] DEBUG nextflow.Session - Session await
-Mar-22 18:44:14.565 [Actor Thread 9] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-c185fe4baf89519afaa336aee909e5f9
-Mar-22 18:44:14.596 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Mar-22 18:44:14.597 [Task submitter] INFO  nextflow.Session - [52/f690ab] Submitted process > MAKE_STEREO_MAPS:find_singles (1)
-Mar-22 18:49:14.575 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
-~> TaskHandler[id: 1; name: MAKE_STEREO_MAPS:find_singles (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/52/f690ab1f960eb0e0ebb26ad2165cbf]
-Mar-22 18:50:21.145 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: MAKE_STEREO_MAPS:find_singles (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/52/f690ab1f960eb0e0ebb26ad2165cbf]
-Mar-22 18:50:21.196 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Mar-22 18:50:21.197 [Task submitter] INFO  nextflow.Session - [82/19df3d] Submitted process > MAKE_STEREO_MAPS:calibrate (1)
-Mar-22 18:50:56.113 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: MAKE_STEREO_MAPS:calibrate (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/82/19df3d8a569521c9c3857da1cf77b7]
-Mar-22 18:50:56.133 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Mar-22 18:50:56.134 [Task submitter] INFO  nextflow.Session - [de/920280] Submitted process > MAKE_STEREO_MAPS:undistort (1)
-Mar-22 18:51:09.486 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: MAKE_STEREO_MAPS:undistort (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/de/920280c002ca5269d7fb1afa09491c]
-Mar-22 18:51:09.499 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Mar-22 18:51:09.499 [Task submitter] INFO  nextflow.Session - [cb/eca9e7] Submitted process > MAKE_STEREO_MAPS:find_pairs (1)
-Mar-22 18:54:14.609 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
-~> TaskHandler[id: 4; name: MAKE_STEREO_MAPS:find_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/cb/eca9e70e8217c377606f5a6f5914e6]
-Mar-22 18:55:47.506 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 4; name: MAKE_STEREO_MAPS:find_pairs (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/cb/eca9e70e8217c377606f5a6f5914e6]
-Mar-22 18:55:47.522 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Mar-22 18:55:47.522 [Task submitter] INFO  nextflow.Session - [ec/7426f6] Submitted process > MAKE_STEREO_MAPS:stereo_rectification (1)
-Mar-22 18:56:04.611 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 5; name: MAKE_STEREO_MAPS:stereo_rectification (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/ec/7426f6f3ce340839b4af7a281c1e56]
-Mar-22 18:56:04.626 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Mar-22 18:56:04.627 [Task submitter] INFO  nextflow.Session - [95/e5ddf0] Submitted process > MAKE_STEREO_MAPS:rectify (1)
-Mar-22 18:56:11.903 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 6; name: MAKE_STEREO_MAPS:rectify (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/95/e5ddf04db69a04dbb53186421fcb5e]
-Mar-22 18:56:11.905 [main] DEBUG nextflow.Session - Session await > all processes finished
-Mar-22 18:56:11.906 [main] DEBUG nextflow.Session - Session await > all barriers passed
-Mar-22 18:56:11.909 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=6; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=11m 57s; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
-Mar-22 18:56:11.976 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
-Mar-22 18:56:11.988 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
-Mar-22 18:56:11.988 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
+  Process: 41521@gamera.eemb.ucsb.edu [128.111.226.15]
+  CPUs: 10 - Mem: 32 GB (862 MB) - Swap: 0 (0)
+Aug-03 16:06:43.081 [main] DEBUG nextflow.Session - Work-dir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work [Mac OS X]
+Aug-03 16:06:43.090 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Aug-03 16:06:43.098 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Aug-03 16:06:43.111 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Aug-03 16:06:43.115 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 11; maxThreads: 1000
+Aug-03 16:06:43.142 [main] DEBUG nextflow.Session - Session start
+Aug-03 16:06:43.494 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Aug-03 16:06:43.558 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-03 16:06:43.558 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-03 16:06:43.560 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Aug-03 16:06:43.562 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=10; memory=32 GB; capacity=10; pollInterval=100ms; dumpInterval=5m
+Aug-03 16:06:43.591 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-03 16:06:43.591 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-03 16:06:43.594 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-03 16:06:43.594 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-03 16:06:43.596 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-03 16:06:43.596 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-03 16:06:43.597 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-03 16:06:43.597 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-03 16:06:43.599 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-03 16:06:43.599 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-03 16:06:43.601 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-03 16:06:43.601 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-03 16:06:43.602 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-03 16:06:43.602 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-03 16:06:43.603 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: MAKE_STEREO_MAPS:rectify, MAKE_STEREO_MAPS:calibrate, stereo_rectification, MAKE_STEREO_MAPS:find_all_pairs, select_pairs, find_all_singles, MAKE_STEREO_MAPS:select_pairs, MAKE_STEREO_MAPS:find_all_singles, select_frames, rectify, MAKE_STEREO_MAPS:select_frames, MAKE_STEREO_MAPS:stereo_rectification, calibrate, MAKE_STEREO_MAPS:undistort, undistort, find_all_pairs
+Aug-03 16:06:43.604 [main] DEBUG nextflow.Session - Igniting dataflow network (9)
+Aug-03 16:06:43.606 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:find_all_singles
+Aug-03 16:06:43.606 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:select_frames
+Aug-03 16:06:43.606 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:calibrate
+Aug-03 16:06:43.607 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:undistort
+Aug-03 16:06:43.607 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:find_all_pairs
+Aug-03 16:06:43.607 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:select_pairs
+Aug-03 16:06:43.607 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:stereo_rectification
+Aug-03 16:06:43.607 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MAKE_STEREO_MAPS:rectify
+Aug-03 16:06:43.607 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Aug-03 16:06:43.607 [main] DEBUG nextflow.Session - Session await
+Aug-03 16:06:43.645 [Actor Thread 9] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-c185fe4baf89519afaa336aee909e5f9
+Aug-03 16:06:43.672 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-03 16:06:43.673 [Task submitter] INFO  nextflow.Session - [4e/fc8428] Submitted process > MAKE_STEREO_MAPS:find_all_singles (1)
+Aug-03 16:06:44.172 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: MAKE_STEREO_MAPS:find_all_singles (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/4e/fc84288a72c010a1f95b1d69cbb877]
+Aug-03 16:06:44.212 [Actor Thread 10] DEBUG nextflow.conda.CondaCache - conda found local env for environment=conda-forge::matplotlib=3.3.3 conda-forge::pandas=1.2.0  conda-forge::opencv=4.5.0  conda-forge::numpy=1.19.4; path=/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/conda/env-6e8114c9054cc1aba1e7e357d990283b
+Aug-03 16:06:44.216 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-03 16:06:44.217 [Task submitter] INFO  nextflow.Session - [58/ebd74d] Submitted process > MAKE_STEREO_MAPS:select_frames (1)
+Aug-03 16:08:04.464 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: MAKE_STEREO_MAPS:select_frames (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/58/ebd74de065a1d6535c6cd602449df0]
+Aug-03 16:08:04.500 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-03 16:08:04.500 [Task submitter] INFO  nextflow.Session - [4d/620126] Submitted process > MAKE_STEREO_MAPS:calibrate (1)
+Aug-03 16:08:29.228 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: MAKE_STEREO_MAPS:calibrate (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/4d/6201269aedcbdc8c18906dd1e0043c]
+Aug-03 16:08:29.247 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-03 16:08:29.248 [Task submitter] INFO  nextflow.Session - [d1/69db2c] Submitted process > MAKE_STEREO_MAPS:undistort (1)
+Aug-03 16:11:43.717 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 4; name: MAKE_STEREO_MAPS:undistort (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/d1/69db2c2f95054c0951ca01d0b0312e]
+Aug-03 16:15:58.200 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 4; name: MAKE_STEREO_MAPS:undistort (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/d1/69db2c2f95054c0951ca01d0b0312e]
+Aug-03 16:15:58.215 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-03 16:15:58.215 [Task submitter] INFO  nextflow.Session - [62/f46e48] Submitted process > MAKE_STEREO_MAPS:find_all_pairs (1)
+Aug-03 16:16:43.770 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 16:21:43.875 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 16:26:43.940 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 16:31:44.035 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 16:36:44.125 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 16:41:44.127 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 16:46:44.163 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 16:51:44.232 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 16:56:44.302 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 17:01:44.383 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 17:06:44.446 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 17:10:37.863 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 5; name: MAKE_STEREO_MAPS:find_all_pairs (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/62/f46e48d352c92fd015fc3e40bf6c82]
+Aug-03 17:10:37.886 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-03 17:10:37.887 [Task submitter] INFO  nextflow.Session - [55/888b1e] Submitted process > MAKE_STEREO_MAPS:select_pairs (1)
+Aug-03 17:11:44.532 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:16:44.604 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:21:44.647 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:26:44.722 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:31:44.826 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:36:44.860 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:41:44.897 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:46:44.903 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:51:44.950 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:56:45.043 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:58:16.618 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 6; name: MAKE_STEREO_MAPS:select_pairs (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/55/888b1eb22dda84f2b9d2fd1e34c535]
+Aug-03 17:58:16.642 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-03 17:58:16.643 [Task submitter] INFO  nextflow.Session - [0d/514059] Submitted process > MAKE_STEREO_MAPS:stereo_rectification (1)
+Aug-03 17:58:51.998 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 7; name: MAKE_STEREO_MAPS:stereo_rectification (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/0d/51405936868633c19b7120ea312db5]
+Aug-03 17:58:52.012 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-03 17:58:52.012 [Task submitter] INFO  nextflow.Session - [7d/b383a6] Submitted process > MAKE_STEREO_MAPS:rectify (1)
+Aug-03 18:01:45.139 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor local > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[id: 8; name: MAKE_STEREO_MAPS:rectify (1); status: RUNNING; exit: -; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/7d/b383a64d95710cf16889a9fec23ba5]
+Aug-03 18:05:29.555 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 8; name: MAKE_STEREO_MAPS:rectify (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/oakley/Documents/GitHub/WALL-E/nextflow/work/7d/b383a64d95710cf16889a9fec23ba5]
+Aug-03 18:05:29.558 [main] DEBUG nextflow.Session - Session await > all processes finished
+Aug-03 18:05:29.559 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Aug-03 18:05:29.561 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=8; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=1h 58m 45s; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
+Aug-03 18:05:29.797 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Aug-03 18:05:29.812 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
+Aug-03 18:05:29.812 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

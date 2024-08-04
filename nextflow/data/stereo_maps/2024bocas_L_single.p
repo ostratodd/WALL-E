@@ -1,0 +1,1 @@
+/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/4d/6201269aedcbdc8c18906dd1e0043c/2024bocas_L_single.p
