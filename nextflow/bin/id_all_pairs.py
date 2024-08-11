@@ -8,11 +8,8 @@ import os, errno
 import glob
 import sys
 
-width = 640
-height = 480
-
 #Script to go through video to find chessboard photos in stereo videos. A movement threshold compares current to previous
-#location of board because if the board is moving quickly, unsynced l/r video causes much noise in calibration
+#location of board because if the board is moving quickly, unsynced l/r video causes much noise in calibration, mainly in WALLE
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -46,6 +43,18 @@ criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
 cap = cv2.VideoCapture(video1)
 cap2 = cv2.VideoCapture(video2)
+
+# Get the width and height of the video frames
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+# Get the total number of frames in each video
+total_frames1 = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+total_frames2 = int(cap2.get(cv2.CAP_PROP_FRAME_COUNT))
+total_frames = min(total_frames1, total_frames2)
+
+print(f"Total Frames in this Video: {total_frames} ")
+
 
 #Offsets by xframe, frame frames
 loffset = start
@@ -147,6 +156,10 @@ while(cap.isOpened()):
             key = cv2.waitKey(1)
             if key == ord('q'):
                 break
+        if frametext % 50 == 0:
+            progress = (frametext / total_frames) * 100
+            print(f"Processed {frametext} frames out of {total_frames} ({progress:.2f}%)")
+
     else:
         break
 

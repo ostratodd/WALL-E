@@ -1,0 +1,1 @@
+/Users/oakley/Documents/GitHub/WALL-E/nextflow/work/e2/e189aca87e23b4bf58cfe610e2e1d3/2024bocas_stereomap.pkl
