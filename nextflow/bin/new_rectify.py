@@ -12,13 +12,15 @@ ap.add_argument("-p", "--path", required=False, default='.',
 ap.add_argument("-pp", "--picklepath", required=False, default='.',
         help="path to pickle calibration files default is ./")
 ap.add_argument("-pre", "--prefix", required=False, default='',
-        help="prefix for the name of the image files before the required CH")
-ap.add_argument("-sq", "--squareSize", required=True, type=float,
-        help="Size of an individual square of the checkerboard in mm")
-ap.add_argument("-e", "--extension", required=False, default="png", type=str,
-        help="extension of files. Default = png")
-ap.add_argument("-l", "--look", required=False, default=0, type=int,
-        help="Look at (view) images 1=yes 0=no.vDefault = 0")
+        help="prefix for the name of stereofile made by pickle")
+ap.add_argument("-w", "--watch", required=False, default=1, type=int,
+        help="whether (1) or not (0) to watch video while writing. Default = 1")
+ap.add_argument("-l", "--lines", required=False, default=0, type=int,
+        help="whether (1) or not (0) to add horizontal lines to check SR. Default = 0")
+ap.add_argument("-v1", "--video1", required=True, type=str,
+        help="file name for first video")
+ap.add_argument("-v2", "--video2", required=True, type=str,
+        help="filename for second video")
 args = vars(ap.parse_args())
 dir_path = args["path"]
 if not dir_path.endswith('/'):
@@ -27,9 +29,10 @@ p_path = args["picklepath"]
 if not p_path.endswith('/'):
     p_path += '/'
 prefix = args["prefix"]
-squareSize = args["squareSize"]
-ext = args["extension"]
-look = args["look"]
+watch = args["watch"]
+lines = args["lines"]
+video1 = args["video1"]
+video2 = args["video2"]
 
 picklefile = p_path + prefix + "_stereomap.pkl"
 
@@ -56,13 +59,15 @@ def rectify_video(input_video_left, input_video_right, output_video_left, output
     cap_left = cv2.VideoCapture(input_video_left)
     cap_right = cv2.VideoCapture(input_video_right)
 
+
     # Get video properties
     frame_width = int(cap_left.get(cv2.CAP_PROP_FRAME_WIDTH))
     frame_height = int(cap_left.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = cap_left.get(cv2.CAP_PROP_FPS)
 
     # Define the codec and create VideoWriter objects
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+
+    fourcc = cv2.VideoWriter_fourcc('h','2','6','4')
     out_left = cv2.VideoWriter(output_video_left, fourcc, fps, (frame_width, frame_height))
     out_right = cv2.VideoWriter(output_video_right, fourcc, fps, (frame_width, frame_height))
 
@@ -81,16 +86,34 @@ def rectify_video(input_video_left, input_video_right, output_video_left, output
         out_left.write(rectified_left)
         out_right.write(rectified_right)
 
+        #If watch variable is true
+        # Show the frames
+        if watch == 1:
+          if lines == 1:
+            for line in range(0, int(rectified_left.shape[0] / 50)):
+                rectified_left[line * 50, :] = 255
+                rectified_right[line * 50, :] = 255
+          cv2.imshow("frame right", rectified_right)
+          cv2.moveWindow("frame right",900, 150)
+          cv2.imshow("frame left", rectified_left)
+          cv2.moveWindow("frame left",1, 150)
+
+       # Hit "q" to close the window
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
     cap_left.release()
     cap_right.release()
     out_left.release()
     out_right.release()
 
 # Specify the input and output video files
-input_video_left = 'video_data/clips/cfr_2024bocassmalle4calL_cl_1_5400.mkv'
-input_video_right = 'video_data/clips/cfr_2024bocassmalle4calR_cl_1_5400.mkv'
-output_video_left = 'rectified_left.avi'
-output_video_right = 'rectified_right.avi'
+input_video_left = video1
+input_video_right = video2
+
+#open a file to write to 
+output_video_left = prefix + '_rectifiedL' + '.mkv'
+output_video_right = prefix + '_rectifiedR' + '.mkv'
 
 # Rectify and save the videos
 rectify_video(input_video_left, input_video_right, output_video_left, output_video_right)

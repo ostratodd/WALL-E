@@ -24,6 +24,7 @@ workflow MAKE_STEREO_MAPS {
     select_frames.out.vidarray | find_all_pairs
     find_all_pairs.out | select_pairs
     select_pairs.out | new_calibrate
+    new_calibrate.out.vidarray | new_rectify
 }
 
 workflow {
@@ -57,7 +58,7 @@ process find_all_singles {
          """
     }else{
          """
-         echo "Using existing csv file containing frame numbers with checkerboards for individual frames because reid_frames=0 in config file"
+         echo "MESSAGE: Using existing csv file containing frame numbers with checkerboards for individual frames because reid_frames=0 in config file"
          cp $baseDir/${params.VIDEO_DIR}/data/${name}_frames_L.csv ./
          cp $baseDir/${params.VIDEO_DIR}/data/${name}_frames_R.csv ./
          """
@@ -88,7 +89,7 @@ process select_frames {
          """
     }else{
          """
-         echo "Using existing frames in png because refind_frames=0 in config file"
+         echo "MESSAGE: Used the same  paired checkerboard frame images (png)  because reid_pairs = 1 in params file"
          cp $baseDir/${params.VIDEO_DIR}/pairs/${name}_L_single*.png ./
          cp $baseDir/${params.VIDEO_DIR}/pairs/${name}_R_single*.png ./
          """
@@ -120,7 +121,7 @@ process find_all_pairs {
     }else{
          """
          cp $baseDir/${params.VIDEO_DIR}/data/${name}_pairs.csv ./
-         echo "Using existing csv file containing frame numbers with checkerboards"
+         echo "MESSAGE: Used existing csv file containing frame numbers with paired checkerboards because reid_pairs = 1 in params file"
          """
     }
 }
@@ -141,7 +142,7 @@ process select_pairs {
     script:
     if(params.refind_pairs) {
          """
-         echo "Processing ${name} with re-find pairs. This takes TIME with long videos."
+         echo "MESSAGE: Processing ${name} with re-find pairs. This takes TIME with long videos."
 #NEED TO CHECK IF FILES ARE PRESENT BEFORE DELETING, BUT MUST DELETE TO RE-DO ANALYSIS WITH NEW PARAMETERS
 #         rm $baseDir/${params.VIDEO_DIR}/pairs/${name}_pair*.png
          select_pairs.py -p ${name} -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.VIDEO_DIR}/data/${name}_pairs.csv -e ${params.P_dist} -n ${params.P_n} -m ${params.P_move} -l ${params.watchvideo}
@@ -154,33 +155,6 @@ process select_pairs {
          """
     }
 }
-
-process undistort {
-    publishDir "$params.VIDEO_DIR/clips"
-
-    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
-
-    input:
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset)
-
-    output:
-    path '*.mkv'
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset),  emit: vidarray
-
-    script:
-    """
-    if ls $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv 1> /dev/null 2>&1; then
-        rm $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv
-    fi
-    if ls $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv 1> /dev/null 2>&1; then
-        rm $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv
-    fi
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_L_single -w ${params.watchvideo} -fr ${params.framesize} -o ${name}${VL}_cl_${start}_${end}
-    denoiseCamera.py -v $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -p $baseDir/${params.DATA_DIR}/stereo_maps/ -pre ${name}_R_single -w ${params.watchvideo} -fr ${params.framesize} -o ${name}${VR}_cl_${start}_${end}
-
-    """
-}
-
 
 process new_calibrate {
     publishDir "$params.DATA_DIR/stereo_maps"
@@ -203,34 +177,12 @@ process new_calibrate {
          """
     }else{
          """
-         cp $baseDir/${params.DATA_DIR}/stereo_maps/${name}.pkl ./
+         cp $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereomap.pkl ./
          """
     }
 }
 
-process stereo_rectification {
-    publishDir "$params.DATA_DIR/stereo_maps"
-
-    conda = 'conda-forge::opencv=4.5.0 conda-forge::numpy=1.19.4'
-
-    input:
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset)
-
-    output:
-    path '*.xml'
-    tuple val(name), val(VL), val(VR), val(start), val(end), val(offset), emit: vidarray
-
-    script:
-    """
-    if ls $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereoMap.xml 1> /dev/null 2>&1; then
-        rm $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereoMap.xml
-    fi
-
-    stereovision_calibration.py -v1 pair_L -v2 pair_R -pre $name -p $baseDir/${params.VIDEO_DIR}/pairs -c ${params.checkdim} -fr ${params.framesize} -sq ${params.squaresize}
-    """
-
-}
-process rectify {
+process new_rectify {
 
     publishDir "$params.VIDEO_DIR/rectified"
     
@@ -244,7 +196,7 @@ process rectify {
     
     script:
     """
-    rectify_videos.py -v1 $baseDir/${params.VIDEO_DIR}/clips/${name}${VL}_cl_${start}_${end}_undis.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/${name}${VR}_cl_${start}_${end}_undis.mkv -f $baseDir/${params.DATA_DIR}/stereo_maps/${name}_stereoMap.xml -l 1 -pre ${name} -fr ${params.framesize}
+    new_rectify.py -pp $baseDir/${params.DATA_DIR}/stereo_maps -v1 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VL}_cl_${start}_${end}.mkv -v2 $baseDir/${params.VIDEO_DIR}/clips/cfr_${name}${VR}_cl_${start}_${end}.mkv -l 1 -pre ${name} -w ${params.watchvideo}
 
     """
    
