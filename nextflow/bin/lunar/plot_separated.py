@@ -13,6 +13,9 @@ args = ap.parse_args()
 # Read the CSV file
 df = pd.read_csv(args.file, delimiter='\t')
 
+# Filter out rows where 'tank' is 'noise'
+df = df[df['tank'] != 'noise']
+
 # Define custom color palette for left and right tanks
 custom_palette = {
     'left_tank1': '#1f77b4',  # light blue
