@@ -59,6 +59,12 @@ args = ap.parse_args()
 # Read the CSV file
 df = pd.read_csv(args.file, delimiter='\t')
 
+# Check for the 'glare' column and remove rows where glare is 'yes'
+if 'glare' in df.columns:
+    glare_rows_count = df[df['glare'] == 'yes'].shape[0]
+    df = df[df['glare'] != 'yes']
+    print(f"Removed {glare_rows_count} rows labeled as glare.")
+
 # Add the 'camera' column
 df['camera'] = df['cX'].apply(determine_camera)
 
