@@ -1,0 +1,159 @@
+import cv2
+import numpy as np
+import os
+from tqdm.notebook import tqdm
+
+def stereo_calibrate_from_video(video_path, checkerboard_size, square_size, output_file="stereo_calibration.npz"):
+    """
+    Performs stereo calibration using a clipped video.
+
+    Parameters:
+    - video_path (str): Path to the input video.
+    - checkerboard_size (tuple): (rows, cols) of the checkerboard pattern.
+    - square_size (float): Size of a single square in real-world units (e.g., mm).
+    - output_file (str): Filename to save the calibration parameters.
+
+    Returns:
+    - Saves stereo calibration parameters to a .npz file.
+    """
+
+    if not os.path.exists(video_path):
+        raise FileNotFoundError(f"File not found: {video_path}")
+
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        raise IOError("Error opening video file.")
+
+    # ✅ Get total frames for progress tracking
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    print(f"[INFO] Total frames in video: {total_frames}")
+
+    ret, frame = cap.read()
+    if not ret:
+        raise ValueError("Failed to read first frame from video.")
+
+    frame_height, frame_width, _ = frame.shape
+    half_width = frame_width // 2  # Split left/right views
+
+    # ✅ Store a reference frame for calibration if needed
+    gray_left_full = cv2.cvtColor(frame[:, :half_width], cv2.COLOR_BGR2GRAY)
+
+    # Object points in real-world space
+    objp = np.zeros((checkerboard_size[0] * checkerboard_size[1], 3), np.float32)
+    objp[:, :2] = np.mgrid[0:checkerboard_size[1], 0:checkerboard_size[0]].T.reshape(-1, 2)
+    objp *= square_size  # Scale based on real-world units
+
+    # Lists to store points
+    objpoints, imgpoints_left, imgpoints_right = [], [], []
+
+    frame_count = 0
+    detected_frames = 0
+    last_detected_frame = -30  # Ensure first frame gets processed
+    frame_skip = 5  # ✅ Process every 5th frame
+    scale_factor = 0.5  # ✅ Resize for faster detection
+
+    # ✅ Add a progress bar for Jupyter
+    with tqdm(total=total_frames, desc="Processing Video", unit="frame") as pbar:
+
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                break  # End of video
+
+            frame_count += 1
+            pbar.update(1)  # ✅ Update progress bar
+
+            # ✅ Skip frames to speed up processing
+            if frame_count % frame_skip != 0:
+                continue
+
+            left_img_full = frame[:, :half_width]
+            right_img_full = frame[:, half_width:]
+
+            # Resize for faster checkerboard detection
+            left_img_resized = cv2.resize(left_img_full, None, fx=scale_factor, fy=scale_factor)
+            right_img_resized = cv2.resize(right_img_full, None, fx=scale_factor, fy=scale_factor)
+
+            # Convert to grayscale
+            gray_left_resized = cv2.cvtColor(left_img_resized, cv2.COLOR_BGR2GRAY)
+            gray_right_resized = cv2.cvtColor(right_img_resized, cv2.COLOR_BGR2GRAY)
+
+            # Find checkerboard corners
+            ret_left, corners_left_resized = cv2.findChessboardCorners(gray_left_resized, checkerboard_size, None)
+            ret_right, corners_right_resized = cv2.findChessboardCorners(gray_right_resized, checkerboard_size, None)
+
+            if ret_left and ret_right:
+                # ✅ Only process new checkerboard detections
+                if frame_count - last_detected_frame < 30:
+                    continue
+
+                detected_frames += 1
+                last_detected_frame = frame_count  # Update last detected frame index
+
+                objpoints.append(objp)
+
+                # ✅ Scale back corner positions to full resolution
+                corners_left = corners_left_resized / scale_factor
+                corners_right = corners_right_resized / scale_factor
+
+                # Refine corners at full resolution
+                criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+                gray_left_full = cv2.cvtColor(left_img_full, cv2.COLOR_BGR2GRAY)
+                gray_right_full = cv2.cvtColor(right_img_full, cv2.COLOR_BGR2GRAY)
+                corners_left = cv2.cornerSubPix(gray_left_full, corners_left, (11, 11), (-1, -1), criteria)
+                corners_right = cv2.cornerSubPix(gray_right_full, corners_right, (11, 11), (-1, -1), criteria)
+
+                imgpoints_left.append(corners_left)
+                imgpoints_right.append(corners_right)
+
+                # ✅ Print progress every 10% of the video
+                if frame_count % (total_frames // 10) == 0:
+                    print(f"[INFO] Processed {frame_count}/{total_frames} frames... {detected_frames} valid detections.")
+
+                # Show detections
+                cv2.drawChessboardCorners(left_img_full, checkerboard_size, corners_left, ret_left)
+                cv2.drawChessboardCorners(right_img_full, checkerboard_size, corners_right, ret_right)
+
+                stacked_images = np.hstack((left_img_full, right_img_full))
+                cv2.imshow("Checkerboard Detection", stacked_images)
+
+                # Press 'q' to stop early
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+
+
+    cap.release()
+
+    # ✅ Close specific OpenCV windows one by one
+    cv2.destroyWindow("Checkerboard Detection")
+
+    # ✅ Force window event update on macOS
+    cv2.waitKey(1)
+    cv2.waitKey(1)  # Some systems need a second call
+
+    print("[INFO] All OpenCV windows closed successfully.")
+
+
+    # ✅ If no checkerboards were detected, exit early
+    if len(objpoints) == 0:
+        print("[ERROR] No valid checkerboard frames detected! Exiting calibration.")
+        return None
+
+    # ✅ Final report
+    print(f"[INFO] Processed {frame_count} frames. Detected checkerboard in {detected_frames} frames.")
+
+    # Stereo calibration
+    print("[INFO] Performing stereo calibration...")
+    ret, mtxL, distL, mtxR, distR, R, T, E, F = cv2.stereoCalibrate(
+        objpoints, imgpoints_left, imgpoints_right,
+        None, None, None, None, gray_left_full.shape[::-1],
+        criteria=(cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 1e-5),
+        flags=cv2.CALIB_FIX_INTRINSIC
+    )
+
+    print("[INFO] Calibration complete. Saving results...")
+
+    np.savez(output_file, ret=ret, mtxL=mtxL, distL=distL, mtxR=mtxR, distR=distR, R=R, T=T, E=E, F=F)
+    print(f"[INFO] Stereo calibration saved to {output_file}")
+
+    return output_file
